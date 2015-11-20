@@ -6,22 +6,13 @@
         <title>Station Shop Template</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
-        <!-- templatemo 352 station shop -->
-        <!-- 
-        Station Shop Template 
-        http://www.templatemo.com/preview/templatemo_352_station_shop 
-        -->
+
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
 
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/ddsmoothmenu.js">
 
-            /***********************************************
-             * Smooth Navigational Menu- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
-             * This notice MUST stay intact for legal use
-             * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
-             ***********************************************/
 
         </script>
 
@@ -83,7 +74,7 @@
                 </div>
 
                 <div id="header_right">
-                    <a href="#">My Account</a> | <a href="#">My Cart</a> | <a href="#">My Recard</a> | <a href="#">Checkout</a> | <a href="#">Log In</a>
+                    <a href="#">My Account</a> | <a href="#">My Cart</a> | <a href="#">My Recard</a> | <a href="#">Checkout</a> | <a href="login.jsp">Log In</a>
                 </div>
 
                 <div class="cleaner"></div>
