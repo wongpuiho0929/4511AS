@@ -276,7 +276,7 @@
                 Copyright © 2048 <a href="#">Your Company Name</a>
             </div> <!-- END of templatemo_footer -->
 
-        </div> <!-- END of templatemo_wrapper -->
+        </div> <!-- END of templatemo_wrapper Text -->
 
     </body>
 </html>
