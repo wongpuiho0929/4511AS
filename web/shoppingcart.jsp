@@ -1,9 +1,3 @@
-<%-- 
-    Document   : shoppingcart
-    Created on : 2015年11月20日, 上午02:55:46
-    Author     : wongp
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -12,25 +6,12 @@
         <title>Station Shop - Shopping Cart</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
-        <!-- templatemo 352 station shop -->
-        <!-- 
-        Station Shop Template 
-        http://www.templatemo.com/preview/templatemo_352_station_shop 
-        -->
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
 
         <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
 
         <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/ddsmoothmenu.js">
-
-            /***********************************************
-             * Smooth Navigational Menu- (c) Dynamic Drive DHTML code library (www.dynamicdrive.com)
-             * This notice MUST stay intact for legal use
-             * Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
-             ***********************************************/
-
-        </script>
+        <script type="text/javascript" src="js/ddsmoothmenu.js"></script>
 
         <script language="javascript" type="text/javascript">
             function clearText(field)
@@ -63,7 +44,7 @@
     </head>
 
     <body>
-
+        <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
         <div id="templatemo_wrapper">
             <div id="templatemo_header">
 
@@ -71,8 +52,16 @@
                     <h1><a href="#">Station Shop</a></h1>
                 </div>
 
-                <div id="header_right">
-                    <a href="#">My Account</a> | <a href="#">My Cart</a> | <a href="#">My Recard</a> | <a href="#">Checkout</a> | <a href="#">Log In</a>
+              <div id="header_right">
+                    <a href="#">My Account</a> | <a href="#">My Cart</a> | <a href="#">My Recard</a> | <a href="#">Checkout</a> |
+
+                    <%
+                        if( userName.getUsername() ==null) {
+                           out.print("<a href='login.jsp'>Log In</a>");
+                        }else{
+                            out.print("<font size=5>"+userName.getUsername() +",</font>" +" <a href='login?action=logout'> Logout</a>");
+                        }
+                    %>
                 </div>
 
                 <div class="cleaner"></div>

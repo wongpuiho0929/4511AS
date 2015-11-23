@@ -1,9 +1,3 @@
-<%-- 
-    Document   : checkout
-    Created on : 2015年11月20日, 上午02:54:38
-    Author     : wongp
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -63,7 +57,7 @@
     </head>
 
     <body>
-
+        <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
         <div id="templatemo_wrapper">
             <div id="templatemo_header">
 
@@ -72,7 +66,15 @@
                 </div>
 
                 <div id="header_right">
-                    <a href="#">My Account</a> | <a href="#">My Cart</a> | <a href="#">My Recard</a> | <a href="#">Checkout</a> | <a href="#">Log In</a>
+                    <a href="#">My Account</a> | <a href="#">My Cart</a> | <a href="#">My Recard</a> | <a href="#">Checkout</a> |
+
+                    <%
+                        if( userName.getUsername() ==null) {
+                           out.print("<a href='login.jsp'>Log In</a>");
+                        }else{
+                            out.print("<font size=5>"+userName.getUsername() +",</font>" +" <a href='login?action=logout'> Logout</a>");
+                        }
+                    %>
                 </div>
 
                 <div class="cleaner"></div>

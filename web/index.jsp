@@ -9,13 +9,8 @@
 
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
-
         <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/ddsmoothmenu.js">
-
-
-        </script>
-
+        <script type="text/javascript" src="js/ddsmoothmenu.js"></script>
         <script language="javascript" type="text/javascript">
             function clearText(field)
             {
@@ -24,6 +19,7 @@
                 else if (field.value == '')
                     field.value = field.defaultValue;
             }
+
         </script>
 
         <script type="text/javascript">
@@ -56,15 +52,15 @@
                     easingDetails: "easeOutBack",
                     durationCarousel: 1000,
                     durationDetails: 600
+
                 });
 
             });
-
         </script>
-
     </head>
 
     <body>
+        <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
 
         <div id="templatemo_wrapper">
             <div id="templatemo_header">
@@ -74,7 +70,15 @@
                 </div>
 
                 <div id="header_right">
-                    <a href="#">My Account</a> | <a href="#">My Cart</a> | <a href="#">My Recard</a> | <a href="#">Checkout</a> | <a href="login.jsp">Log In</a>
+                    <a href="#">My Account</a> | <a href="#">My Cart</a> | <a href="#">My Recard</a> | <a href="#">Checkout</a> |
+
+                    <%
+                        if( userName.getUsername() ==null) {
+                           out.print("<a href='login.jsp'>Log In</a>");
+                        }else{
+                            out.print("<font size=5>"+userName.getUsername() +",</font>" +" <a href='login?action=logout'> Logout</a>");
+                        }
+                    %>
                 </div>
 
                 <div class="cleaner"></div>
