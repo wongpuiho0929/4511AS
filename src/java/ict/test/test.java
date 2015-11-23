@@ -18,16 +18,15 @@ public class test extends HttpServlet {
 
     public static void main(String[] arg) throws SQLException, IOException {
         String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
-<<<<<<< HEAD
-        String username= "root";
-        String password = "";
+        String username = "root";
+        String password = "tommy985";
+        
         UserDB db = new UserDB(url, username, password);
         db.createUserInfoTable();
         db.addUserInfo("1","","","","xyz","123","Manager","N");
         System.out.print(db.isValidUser("xyz","123"));
-=======
-        String username = "root";
-        String password = "tommy985";
+
+      
         /*UserDB db = new UserDB(url, username, password);
         db.createUserInfoTable();
         db.addUserInfo("1", "xyz", "123","Manager","Y");
@@ -44,6 +43,6 @@ public class test extends HttpServlet {
         pdb.addProduct("P0008", "Suspendisse fermentum", 220.0, 20, "images/product/08.jpg");
         pdb.addProduct("P0009", "Donec laoreet velit", 65.0, 20, "images/product/09.jpg");
 
->>>>>>> origin/master
+
     }
 }
