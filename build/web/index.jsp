@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="ict.bean.ProductBean"%>
+<%@page import="ict.db.ProductDB"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -21,42 +24,9 @@
             }
 
         </script>
-
-        <script type="text/javascript">
-
-            ddsmoothmenu.init({
-                mainmenuid: "top_nav", //menu DIV id
-                orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
-                classname: 'ddsmoothmenu', //class added to menu's outer DIV
-                //customtheme: ["#1c5a80", "#18374a"],
-                contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
-            })
-
-        </script>
-
         <link rel="stylesheet" type="text/css" media="all" href="css/jquery.dualSlider.0.2.css" />
-
+        
         <script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>
-        <script src="js/jquery.easing.1.3.js" type="text/javascript"></script>
-        <script src="js/jquery.timers-1.2.js" type="text/javascript"></script>
-        <script src="js/jquery.dualSlider.0.3.min.js" type="text/javascript"></script>
-
-        <script type="text/javascript">
-
-            $(document).ready(function () {
-
-                $(".carousel").dualSlider({
-                    auto: true,
-                    autoDelay: 6000,
-                    easingCarousel: "swing",
-                    easingDetails: "easeOutBack",
-                    durationCarousel: 1000,
-                    durationDetails: 600
-
-                });
-
-            });
-        </script>
     </head>
 
     <body>
@@ -88,21 +58,15 @@
                 <div id="top_nav" class="ddsmoothmenu">
                     <ul>
                         <li><a href="index.jsp" class="selected">Home</a></li>
-                        <li><a href="products.jsp">Products</a>
-                            <ul>
-                                <li><a href="#submenu1">Sub menu 1</a></li>
-                                <li><a href="#submenu2">Sub menu 2</a></li>
-                                <li><a href="#submenu3">Sub menu 3</a></li>
-                            </ul>
-                        </li>
+                          <li><a href="products.jsp">Products</a></li>
                         <li><a href="about.jsp">About</a>
-                            <ul>
+                            <!--<ul>
                                 <li><a href="#submenu1">Sub menu 1</a></li>
                                 <li><a href="#submenu2">Sub menu 2</a></li>
                                 <li><a href="#submenu3">Sub menu 3</a></li>
                                 <li><a href="#submenu4">Sub menu 4</a></li>
                                 <li><a href="#submenu5">Sub menu 5</a></li>
-                            </ul>
+                            </ul>!-->
                         </li>
                         <li><a href="checkout.jsp">Checkout</a></li>
                         <li><a href="contact.jsp">Contact</a></li>
@@ -196,69 +160,29 @@
                 </div>
                 <div id="content" class="float_r">
                     <h1>New Products</h1>
-                    <div class="product_box">
-                        <a href="productdetail.jsp"><img src="images/product/01.jpg" alt="Image 01" /></a>
-                        <h3>Integer eleifend sed</h3>
-                        <p class="product_price">$ 100</p>
-                        <a href="shoppingcart.jsp" class="add_to_card">Add to Cart</a>
-                        <a href="productdetail.jsp" class="detail">Detail</a>
-                    </div>        	
-                    <div class="product_box">
-                        <a href="productdetail.jsp"><img src="images/product/02.jpg" alt="Image 02" /></a>
-                        <h3>Nam cursus facilisis</h3>
-                        <p class="product_price">$ 200</p>
-                        <a href="shoppingcart.jsp" class="add_to_card">Add to Cart</a>
-                        <a href="productdetail.jsp" class="detail">Detail</a>
-                    </div>        	
-                    <div class="product_box no_margin_right">
-                        <a href="productdetail.jsp"><img src="images/product/03.jpg" alt="Image 03" /></a>
-                        <h3>Mauris consectetur</h3>
-                        <p class="product_price">$ 120</p>
-                        <a href="shoppingcart.jsp" class="add_to_card">Add to Cart</a>
-                        <a href="productdetail.jsp" class="detail">Detail</a>
-                    </div>        	
-                    <div class="product_box">
-                        <a href="productdetail.jsp"><img src="images/product/04.jpg" alt="Image 04" /></a>
-                        <h3>Proin volutpat</h3>
-                        <p class="product_price">$ 260</p>
-                        <a href="shoppingcart.jsp" class="add_to_card">Add to Cart</a>
-                        <a href="productdetail.jsp" class="detail">Detail</a>
-                    </div>        	
-                    <div class="product_box">
-                        <a href="productdetail.jsp"><img src="images/product/05.jpg" alt="Image 05" /></a>
-                        <h3>Aenean tempus</h3>
-                        <p class="product_price">$ 80</p>
-                        <a href="shoppingcart.jsp" class="add_to_card">Add to Cart</a>
-                        <a href="productdetail.jsp" class="detail">Detail</a>
-                    </div>        	
-                    <div class="product_box no_margin_right">
-                        <a href="productdetail.jsp"><img src="images/product/06.jpg" alt="Image 06" /></a>
-                        <h3>Nulla, Validate <a href="http://validator.w3.org/check?uri=referer" rel="nofollow"><strong>XHTML</strong></a> &amp; <a href="http://jigsaw.w3.org/css-validator/check/referer" rel="nofollow"><strong>CSS</strong></a>.</h3>
-                        <p class="product_price">$ 193</p>
-                        <a href="shoppingcart.jsp" class="add_to_card">Add to Cart</a>
-                        <a href="productdetail.jsp" class="detail">Detail</a>
-                    </div>        	
-                    <div class="product_box">
-                        <a href="productdetail.jsp"><img src="images/product/07.jpg" alt="Image 07" /></a>
-                        <h3>Pellentesque egestas</h3>
-                        <p class="product_price">$ 30</p>
-                        <a href="shoppingcart.jsp" class="add_to_card">Add to Cart</a>
-                        <a href="productdetail.jsp" class="detail">Detail</a>
-                    </div>        	
-                    <div class="product_box">
-                        <a href="productdetail.jsp"><img src="images/product/08.jpg" alt="Image 08" /></a>
-                        <h3>Suspendisse fermentum</h3>
-                        <p class="product_price">$ 220</p>
-                        <a href="shoppingcart.jsp" class="add_to_card">Add to Cart</a>
-                        <a href="productdetail.jsp" class="detail">Detail</a>
-                    </div>        	
-                    <div class="product_box no_margin_right">
-                        <a href="productdetail.jsp"><img src="images/product/09.jpg" alt="Image 09" /></a>
-                        <h3>Donec laoreet velit</h3>
-                        <p class="product_price">$ 65</p>
-                        <a href="shoppingcart.jsp" class="add_to_card">Add to Cart</a>
-                        <a href="productdetail.jsp" class="detail">Detail</a>
-                    </div>  
+                 <%
+                        String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
+                        String username = "root";
+                        String password = "tommy985";
+                        ProductDB pb = new ProductDB(url, username, password);
+                        ArrayList<ProductBean> productList = pb.showProduct();
+                        int count = 1;
+                        for (int i = 0; i < productList.size(); i++) {
+                            if (count != 3) {
+                                out.print("<div class='product_box'>");
+                            } else {
+                                out.print("<div class='product_box no_margin_right'>");
+                                count = 0;
+                            }
+                            out.print("<a href='productdetail.jsp'><img src='" + productList.get(i).getPhoto() + "' alt='Image " + i + "' /></a>");
+                            out.print("<h3>" + productList.get(i).getName() + "</h3>");
+                            out.print("<p class='product_price'>$ " + productList.get(i).getPrice() + "</p>");
+                            out.print("<a href='shoppingcart.jsp' class='add_to_card'>Add to Cart</a>");
+                            out.print("<a href='productdetail.jsp' class='detail'>Detail</a>");
+                            out.print("</div>");
+                            count++;
+                        }
+                    %>   
                 </div> 
                 <div class="cleaner"></div>
             </div> <!-- END of templatemo_main -->
