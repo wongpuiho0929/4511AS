@@ -15,10 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author a1
- */
+
 @WebServlet(name = "LoginController", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
         
@@ -100,11 +97,12 @@ public class LoginController extends HttpServlet {
     }
 
     private void doLogin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-         PrintWriter out = response.getWriter();
+         
         /*String targetURL = "login.jsp";
         RequestDispatcher rd;
         rd = getServletContext().getRequestDispatcher("/" + targetURL);
         rd.forward(request, response);*/
+        PrintWriter out = response.getWriter();
         out.print("<script type='text/javascript'>");
         out.print("location.href='index.jsp'");
         out.print("</script>");

@@ -6,11 +6,7 @@
         <title>Station Shop, About Us</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
-        <!-- templatemo 352 station shop -->
-        <!-- 
-        Station Shop Template 
-        http://www.templatemo.com/preview/templatemo_352_station_shop 
-        -->
+
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
 
         <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
@@ -43,8 +39,6 @@
         <link rel="stylesheet" type="text/css" media="all" href="css/jquery.dualSlider.0.2.css" />
 
         <script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>
-        <script src="js/jquery.easing.1.3.js" type="text/javascript"></script>
-        <script src="js/jquery.timers-1.2.js" type="text/javascript"></script>
 
     </head>
 
@@ -75,21 +69,15 @@
                 <div id="top_nav" class="ddsmoothmenu">
                     <ul>
                         <li><a href="index.jsp">Home</a></li>
-                        <li><a href="products.jsp">Products</a>
-                            <ul>
-                                <li><a href="#submenu1">Sub menu 1</a></li>
-                                <li><a href="#submenu2">Sub menu 2</a></li>
-                                <li><a href="#submenu3">Sub menu 3</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="products.jsp">Products</a></li>
                         <li><a href="about.jsp" class="selected">About</a>
-                            <ul>
+                            <!--<ul>
                                 <li><a href="#submenu1">Sub menu 1</a></li>
                                 <li><a href="#submenu2">Sub menu 2</a></li>
                                 <li><a href="#submenu3">Sub menu 3</a></li>
                                 <li><a href="#submenu4">Sub menu 4</a></li>
                                 <li><a href="#submenu5">Sub menu 5</a></li>
-                            </ul>
+                            </ul>!-->
                         </li>
                         <li><a href="checkout.jsp">Checkout</a></li>
                         <li><a href="contact.jsp">Contact</a></li>
