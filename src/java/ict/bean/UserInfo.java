@@ -4,10 +4,57 @@ import java.io.Serializable;
 
 public class UserInfo implements Serializable {
     
-    private String username;
-    private String password;
+    private String id, name, tel, address, username, password, position, isfreeze;
 
     public UserInfo() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getIsfreeze() {
+        return isfreeze;
+    }
+
+    public void setIsfreeze(String isfreeze) {
+        this.isfreeze = isfreeze;
     }
 
     public String getUsername() {
