@@ -5,6 +5,7 @@ import ict.db.ProductDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,15 +31,24 @@ public class ProductController extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
+        String id = request.getParameter("pid");
         if (action.equals("show")) {
-            ShowProduct(request,response);
+            ShowProduct(request, response);
+        } else if (action.equals("detail")) {
+            ProductBean pb =db.productdetail(id);
+            HttpSession session = request.getSession(true);
+            session.setAttribute("productDetail", pb);
+            String targetURL = "productdetail.jsp";
+            RequestDispatcher rd;
+            rd = getServletContext().getRequestDispatcher("/" + targetURL);
+            rd.forward(request, response);
         }
     }
-    
+
     private void ShowProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ArrayList<ProductBean> pb= db.showProduct();
+        ArrayList<ProductBean> pb = db.showProduct();
         HttpSession session = request.getSession(true);
-        session.setAttribute("productList",pb);
+        session.setAttribute("productList", pb);
         PrintWriter out = response.getWriter();
         out.print("<script type='text/javascript'>");
         out.print("location.href='product.jsp'");

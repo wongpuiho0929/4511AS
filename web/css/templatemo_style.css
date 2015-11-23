@@ -10,10 +10,12 @@ body {
 	color: #999;
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
-	line-height: 1.4em; 
+	line-height: 1.4em;
 	background-color: #2e2e2e;
 	background-repeat: repeat;
 	background-image: url(../images/templatemo_body.jpg)
+
+
 }
 
 a, a:link, a:visited { 

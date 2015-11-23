@@ -144,11 +144,11 @@
                                 out.print("<div class='product_box no_margin_right'>");
                                 count = 0;
                             }
-                            out.print("<a href='productdetail.jsp'><img src='" + productList.get(i).getPhoto() + "' alt='Image " + i + "' /></a>");
+                            out.print("<a href='product?action=detail&pid="+productList.get(i).getPid()+"'><img src='" + productList.get(i).getPhoto() + "' alt='Image " + i + "' /></a>");
                             out.print("<h3>" + productList.get(i).getName() + "</h3>");
                             out.print("<p class='product_price'>$ " + productList.get(i).getPrice() + "</p>");
                             out.print("<a href='shoppingcart.jsp' class='add_to_card'>Add to Cart</a>");
-                            out.print("<a href='productdetail.jsp' class='detail'>Detail</a>");
+                            out.print("<a href='product?action=detail&pid="+productList.get(i).getPid()+"' class='detail'>Detail</a>");
                             out.print("</div>");
                             count++;
                         }

@@ -25,7 +25,7 @@
 
         </script>
         <link rel="stylesheet" type="text/css" media="all" href="css/jquery.dualSlider.0.2.css" />
-        
+
         <script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>
     </head>
 
@@ -43,10 +43,10 @@
                     <a href="#">My Account</a> | <a href="#">My Cart</a> | <a href="#">My Recard</a> | <a href="#">Checkout</a> |
 
                     <%
-                        if( userName.getUsername() ==null) {
-                           out.print("<a href='login.jsp'>Log In</a>");
-                        }else{
-                            out.print("<font size=5>"+userName.getUsername() +",</font>" +" <a href='login?action=logout'> Logout</a>");
+                        if (userName.getUsername() == null) {
+                            out.print("<a href='login.jsp'>Log In</a>");
+                        } else {
+                            out.print("<font size=5>" + userName.getUsername() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
                         }
                     %>
                 </div>
@@ -58,7 +58,7 @@
                 <div id="top_nav" class="ddsmoothmenu">
                     <ul>
                         <li><a href="index.jsp" class="selected">Home</a></li>
-                          <li><a href="products.jsp">Products</a></li>
+                        <li><a href="products.jsp">Products</a></li>
                         <li><a href="about.jsp">About</a>
                             <!--<ul>
                                 <li><a href="#submenu1">Sub menu 1</a></li>
@@ -160,7 +160,7 @@
                 </div>
                 <div id="content" class="float_r">
                     <h1>New Products</h1>
-                 <%
+                    <%
                         String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
                         String username = "root";
                         String password = "tommy985";
@@ -174,11 +174,11 @@
                                 out.print("<div class='product_box no_margin_right'>");
                                 count = 0;
                             }
-                            out.print("<a href='productdetail.jsp'><img src='" + productList.get(i).getPhoto() + "' alt='Image " + i + "' /></a>");
+                            out.print("<a href='product?action=detail&pid=" + productList.get(i).getPid() + "'><img src='" + productList.get(i).getPhoto() + "' alt='Image " + i + "' /></a>");
                             out.print("<h3>" + productList.get(i).getName() + "</h3>");
                             out.print("<p class='product_price'>$ " + productList.get(i).getPrice() + "</p>");
                             out.print("<a href='shoppingcart.jsp' class='add_to_card'>Add to Cart</a>");
-                            out.print("<a href='productdetail.jsp' class='detail'>Detail</a>");
+                            out.print("<a href='product?action=detail&pid=" + productList.get(i).getPid() + "' class='detail'>Detail</a>");
                             out.print("</div>");
                             count++;
                         }

@@ -104,5 +104,38 @@ public class ProductDB {
         }
         return a;
     }
+    
+    public ProductBean productdetail(String id){
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        ProductBean pb = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM PRODUCT WHERE PID =?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1, id);
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
+            if (rs.next()) {
+                pb = new ProductBean();
+                pb.setPid(rs.getString("pid"));
+                pb.setName(rs.getString("pname"));
+                pb.setPrice(rs.getDouble("price"));
+                pb.setQty(rs.getInt("qty"));
+                pb.setPhoto(rs.getString("photo"));
+             
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return pb;
+    }
 
 }

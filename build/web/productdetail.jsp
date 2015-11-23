@@ -6,7 +6,7 @@
         <title>Station Shop - Product Detail</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
-      
+
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
 
         <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
@@ -31,6 +31,7 @@
 
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
+        <jsp:useBean class="ict.bean.ProductBean" id="productDetail" scope="session"/>
         <div id="templatemo_wrapper">
             <div id="templatemo_header">
 
@@ -42,10 +43,10 @@
                     <a href="#">My Account</a> | <a href="#">My Cart</a> | <a href="#">My Recard</a> | <a href="#">Checkout</a> |
 
                     <%
-                        if( userName.getUsername() ==null) {
-                           out.print("<a href='login.jsp'>Log In</a>");
-                        }else{
-                            out.print("<font size=5>"+userName.getUsername() +",</font>" +" <a href='login?action=logout'> Logout</a>");
+                        if (userName.getUsername() == null) {
+                            out.print("<a href='login.jsp'>Log In</a>");
+                        } else {
+                            out.print("<font size=5>" + userName.getUsername() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
                         }
                     %>
                 </div>
@@ -57,7 +58,7 @@
                 <div id="top_nav" class="ddsmoothmenu">
                     <ul>
                         <li><a href="index.jsp">Home</a></li>
-                          <li><a href="products.jsp">Products</a></li>
+                        <li><a href="products.jsp">Products</a></li>
                         <li><a href="about.jsp">About</a>
                             <!--<ul>
                                 <li><a href="#submenu1">Sub menu 1</a></li>
@@ -113,23 +114,30 @@
                 </div>
                 <div id="content" class="float_r">
 
-                    <h1>Etiam In Tellus</h1>
+                    <h1><%=productDetail.getName()%></h1>
                     <div class="content_half float_l">
-                        <a  rel="lightbox[portfolio]" href="images/product/10_l.jpg"><img src="images/product/10.jpg" alt="Image 01" /></a>
+                        <a  rel="lightbox[portfolio]" href="<%=productDetail.getPhoto()%>"><img src="<%=productDetail.getPhoto()%>" alt="Image 01" /></a>
                     </div>
                     <div class="content_half float_r">
                         <table>
                             <tr>
                                 <td height="30" width="160">Price:</td>
-                                <td>$100</td>
+                                <td><%=productDetail.getPrice()%></td>
                             </tr>
                             <tr>
                                 <td height="30">Availability:</td>
-                                <td>In Stock</td>
+                                <%
+                                    if(productDetail.getQty()>0){
+                                        out.print("<td>In Stock</td>");
+                                    }else{
+                                        out.print("<td>Sold</td>");
+                                    }
+                                %>
+                                
                             </tr>
                             <tr>
                                 <td height="30">Model:</td>
-                                <td>Product 14</td>
+                                <td><%=productDetail.getPid()%></td>
                             </tr>
                             <tr>
                                 <td height="30">Manufacturer:</td>
