@@ -44,7 +44,7 @@ public class UserDB {
             String sql = "Create table if not EXISTS userInfo("
                     +"Id varchar(5) not null,"+"username varchar(25) not null,"
                     +"password varchar(25) not null,"+"position varchar(25) not null,"
-                    +"isfreeze(1) not null)";
+                    +"isfreeze varchar(1) not null)";
             stmmt.execute(sql);
             stmmt.close();
             cnnct.close();
@@ -80,7 +80,7 @@ public class UserDB {
         PreparedStatement pstmmt = null;
         boolean isValid = false;
             cnnct = getConnection();
-            String preQueryStatement = "INSERT INTO USERINFO (ID, USERNAME, PASSWORD,POSITION)VALUES (?,?,?,?,?)";
+            String preQueryStatement = "INSERT INTO USERINFO (ID, USERNAME, PASSWORD,POSITION,ISFREEZE)VALUES (?,?,?,?,?)";
             pstmmt = cnnct.prepareStatement(preQueryStatement);
             pstmmt.setString(1, id);
             pstmmt.setString(2, user);
