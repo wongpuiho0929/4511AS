@@ -22,7 +22,7 @@ public class test extends HttpServlet{
         String password = "tommy985";
         UserDB db = new UserDB(url, username, password);
         db.createUserInfoTable();
-        db.addUserInfo("1", "xyz", "123","Manager");
+        db.addUserInfo("1", "xyz", "123","Manager","Y");
         System.out.print(db.isValidUser("xyz","123"));
     }
 }

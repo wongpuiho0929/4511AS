@@ -43,7 +43,8 @@ public class UserDB {
             stmmt = cnnct.createStatement();
             String sql = "Create table if not EXISTS userInfo("
                     +"Id varchar(5) not null,"+"username varchar(25) not null,"
-                    +"password varchar(25) not null,"+"position varchar(25) not null)";
+                    +"password varchar(25) not null,"+"position varchar(25) not null,"
+                    +"isfreeze(1) not null)";
             stmmt.execute(sql);
             stmmt.close();
             cnnct.close();
@@ -74,17 +75,18 @@ public class UserDB {
         
     }
     
-    public boolean addUserInfo(String id,String user,String pwd,String position) throws SQLException, IOException{
+    public boolean addUserInfo(String id,String user,String pwd,String position,String isfreeze) throws SQLException, IOException{
         Connection cnnct =null; 
         PreparedStatement pstmmt = null;
         boolean isValid = false;
             cnnct = getConnection();
-            String preQueryStatement = "INSERT INTO USERINFO (ID, USERNAME, PASSWORD,POSITION)VALUES (?,?,?,?)";
+            String preQueryStatement = "INSERT INTO USERINFO (ID, USERNAME, PASSWORD,POSITION)VALUES (?,?,?,?,?)";
             pstmmt = cnnct.prepareStatement(preQueryStatement);
             pstmmt.setString(1, id);
             pstmmt.setString(2, user);
             pstmmt.setString(3, pwd);
             pstmmt.setString(4, position);
+            pstmmt.setString(5, isfreeze);
             int rowCount = pstmmt.executeUpdate();
             if(rowCount>1){
                 isValid =true;
