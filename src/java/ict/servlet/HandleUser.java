@@ -8,6 +8,7 @@ package ict.servlet;
 import ict.bean.UserInfo;
 import ict.db.UserDB;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.servlet.RequestDispatcher;
@@ -70,23 +71,17 @@ public class HandleUser extends HttpServlet {
         } else if ("getNewPassword".equalsIgnoreCase(action)) {
             String id = request.getParameter("id");
             if (id != null) {
-                if (db.freeze(id)) {
-                    UserInfo user = db.queryCustByID(id);
-                    Random r = new Random();
-                    String password = "";
-                    char[] temp = new char[8];
-                    for (int i = 0; i < temp.length; i++) {
-                        temp[i] = (char) (r.nextInt(74) + 48);
-                        password += temp[i];
-                    }
-                    user.setPassword(password);
-                    if (db.editRecord(user))
-                        JOptionPane.showMessageDialog(null, "New Password: " + password);
-                    request.setAttribute("users", user);
-                    RequestDispatcher rd;
-                    rd = getServletContext().getRequestDispatcher("/listMember.jsp");
-                    rd.forward(request, response);
-                }
+                String password = db.getNewPassword(id);
+                ArrayList<UserInfo> users = db.queryUser();
+                UserInfo user = new UserInfo();
+                user.setId(id);
+                user.setPassword(password);
+                request.setAttribute("users", users);
+                request.setAttribute("password", password);
+                request.setAttribute("id", id);
+                RequestDispatcher rd;
+                rd = getServletContext().getRequestDispatcher("/listMember.jsp");
+                rd.forward(request, response);
             }
         }
     }
