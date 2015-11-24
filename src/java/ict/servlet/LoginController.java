@@ -68,13 +68,11 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String targetURL;
-        boolean isValid = db.isValidUser(username, password);
-        if (isValid) {
+        UserInfo isValid = db.isValidUser(username, password);
+        if (isValid!=null) {
             HttpSession session = request.getSession(true);
             UserInfo bean = new UserInfo();
-            bean.setUsername(username);
-            bean.setPassword(password);
-            session.setAttribute("userName", bean);
+            session.setAttribute("userName", isValid);
             doLogin(request,response);
             return;
         } else {

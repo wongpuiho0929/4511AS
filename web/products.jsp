@@ -62,7 +62,7 @@
                         if (userName.getUsername() == null) {
                             out.print("<a href='login.jsp'>Log In</a>");
                         } else {
-                            out.print("<font size=5>" + userName.getUsername() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
+                            out.print("<font size=5>" + userName.getUsername()+userName.getId() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
                         }
                     %>
                 </div>
@@ -147,7 +147,7 @@
                             out.print("<a href='product?action=detail&pid="+productList.get(i).getPid()+"'><img src='" + productList.get(i).getPhoto() + "' alt='Image " + i + "' /></a>");
                             out.print("<h3>" + productList.get(i).getName() + "</h3>");
                             out.print("<p class='product_price'>$ " + productList.get(i).getPrice() + "</p>");
-                            out.print("<a href='shoppingcart.jsp' class='add_to_card'>Add to Cart</a>");
+                            out.print("<a href='cart?action=add&pid="+productList.get(i).getPid()+"&uid="+userName.getId()+"' class='add_to_card'>Add to Cart</a>");
                             out.print("<a href='product?action=detail&pid="+productList.get(i).getPid()+"' class='detail'>Detail</a>");
                             out.print("</div>");
                             count++;

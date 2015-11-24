@@ -1,3 +1,7 @@
+<%@page import="ict.bean.ProductBean"%>
+<%@page import="ict.db.ProductDB"%>
+<%@page import="ict.bean.ShoppingCartBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -38,12 +42,13 @@
         <link rel="stylesheet" type="text/css" media="all" href="css/jquery.dualSlider.0.2.css" />
 
         <script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>
-      
+
 
     </head>
 
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
+        <jsp:useBean class="ArrayList<ShoppingCartBean>" id="shoppingCart" scope="session"/>
         <div id="templatemo_wrapper">
             <div id="templatemo_header">
 
@@ -51,14 +56,14 @@
                     <h1><a href="#">Station Shop</a></h1>
                 </div>
 
-              <div id="header_right">
+                <div id="header_right">
                     <a href="#">My Account</a> | <a href="#">My Cart</a> | <a href="#">My Recard</a> | <a href="#">Checkout</a> |
 
                     <%
-                        if( userName.getUsername() ==null) {
-                           out.print("<a href='login.jsp'>Log In</a>");
-                        }else{
-                            out.print("<font size=5>"+userName.getUsername() +",</font>" +" <a href='login?action=logout'> Logout</a>");
+                        if (userName.getUsername() == null) {
+                            out.print("<a href='login.jsp'>Log In</a>");
+                        } else {
+                            out.print("<font size=5>" + userName.getUsername() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
                         }
                     %>
                 </div>
@@ -121,37 +126,34 @@
                     <table width="680px" cellspacing="0" cellpadding="5">
                         <tr bgcolor="#ddd">
                             <th width="220" align="left">Image </th> 
-                            <th width="180" align="left">Description </th> 
+                            <th width="180" align="left">Name </th> 
                             <th width="100" align="center">Quantity </th> 
                             <th width="60" align="right">Price </th> 
                             <th width="60" align="right">Total </th> 
-                            <th width="90"> </th>
+                            <th width="90"></th>
+
                         </tr>
+                        <%
+                            for (int i = 0; i < shoppingCart.size(); i++) {
+                                ProductDB p = new ProductDB();
+                                ProductBean bean =p.productdetail(shoppingCart.get(i).getPid());
+                                out.print("<tr>");
+                                out.print("<td>"+"<img src='"+bean.getPhoto()+"'></td>");
+                                out.print("<td>"+bean.getName()+"</td>");
+                                out.print("<td align='center'><input id='qty' type='text' value='1' style='width: 20px; text-align: right' /> </td>");
+                                out.print("<td align='right'>"+bean.getPrice()+"</td>");
+                                out.print("<td align='right'>"+bean.getPrice()+"</td>");
+                                out.print("<td align='center'> <a href='#'>Remove</a> </td>");
+                            }
+                        %>
                         <tr>
-                            <td><img src="images/product/01.jpg" alt="Image 01" /></td> 
-                            <td>Etiam in tellus</td> 
-                            <td align="center"><input type="text" value="1" style="width: 20px; text-align: right" /> </td>
-                            <td align="right">$100 </td> 
-                            <td align="right">$100 </td>
-                            <td align="center"> <a href="#">Remove</a> </td>
-                        </tr>
-                        <tr>
-                            <td><img src="images/product/02.jpg" alt="Image 02" /> </td>
-                            <td>Hendrerit justo</td> 
-                            <td align="center"><input type="text" value="1" style="width: 20px; text-align: right" />  </td>
-                            <td align="right">$40  </td>
-                            <td align="right">$40 </td>
-                            <td align="center"> <a href="#">Remove</a>  </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" align="right"  height="30px">Have you modified your basket? Please click here to <a href="shoppingcart.jsp"><strong>Update</strong></a>&nbsp;&nbsp; <br /> Validate <a href="http://validator.w3.org/check?uri=referer" rel="nofollow"><strong>XHTML</strong></a> &amp; <a href="http://jigsaw.w3.org/css-validator/check/referer" rel="nofollow"><strong>CSS</strong></a>&nbsp;&nbsp; </td>
+                            <td colspan="3"></td>
                             <td align="right" style="background:#ddd; font-weight:bold"> Total </td>
                             <td align="right" style="background:#ddd; font-weight:bold">$140 </td>
                             <td style="background:#ddd; font-weight:bold"> </td>
                         </tr>
                     </table>
                     <div style="float:right; width: 215px; margin-top: 20px;">
-
                         <p><a href="checkout.jsp">Proceed to checkout</a></p>
                         <p><a href="javascript:history.back()">Continue shopping</a></p>
 

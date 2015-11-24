@@ -57,10 +57,11 @@ public class UserDB {
 
     }
 
-    public boolean isValidUser(String user, String pwd) throws SQLException, IOException {
+    public UserInfo isValidUser(String user, String pwd) throws SQLException, IOException {
         Connection cnnct = null;
         PreparedStatement pstmmt = null;
         boolean isValid = false;
+        UserInfo bean= null;
         cnnct = getConnection();
         String preQueryStatement = "SELECT * FROM USERINFO WHERE username=? and password=?";
         pstmmt = cnnct.prepareStatement(preQueryStatement);
@@ -69,11 +70,20 @@ public class UserDB {
         ResultSet rowCount = pstmmt.executeQuery();
         if (rowCount.next()) {
             isValid = true;
+            bean = new UserInfo();
+            bean.setId(rowCount.getString("id"));
+            bean.setName(rowCount.getString("name"));
+            bean.setTel(rowCount.getString("tel"));
+            bean.setUsername(rowCount.getString("username"));
+            bean.setPassword(rowCount.getString("password"));
+            bean.setPosition(rowCount.getString("position"));
+            bean.setIsfreeze(rowCount.getString("isfreeze"));
+            
         }
 
         pstmmt.close();
         cnnct.close();
-        return isValid;
+        return bean;
 
     }
 
