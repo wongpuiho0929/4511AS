@@ -36,7 +36,7 @@ public class ProductDB {
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(UserDB.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
         }
         return DriverManager.getConnection(url, username, password);
     }

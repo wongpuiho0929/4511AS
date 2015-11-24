@@ -176,8 +176,12 @@
                                             out.println("<td>" + u.getUsername() + "</td>");
                                             out.println("<td>" + u.getPosition() + "</td>");
                                             out.println("<td>" + u.getIsfreeze() + "</td>");
-                                            out.println("<td><a href=\"handleCustomer?action=delete&id=" + u.getId() + "\">delete ");
-                                            out.println("<a href=\"handleCustomer?action=getEditCustomer&id=" + u.getId() + "\">edit</td>");
+                                            if("Y".equals(u.getIsfreeze()))
+                                                out.println("<td><a href=\"handleUser?action=unfreeze&id=" + u.getId() + "\">unfreeze ");
+                                            else
+                                                out.println("<td><a href=\"handleUser?action=freeze&id=" + u.getId() + "\">freeze ");
+                                            out.println("<a href=\"handleUser?action=getEditUser&id=" + u.getId() + "\">edit ");
+                                            out.println("<a href=\"handleUser?action=getNewPassword&id=" + u.getId() + "\">getNewPassword</td>");
                                             out.println("</tr>");
                                         }
                                     %>

@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -153,5 +154,161 @@ public class UserDB {
         }
         return users;
     }
+    
+    public boolean addRecord (String id, String name, String tel, String address, String position){
+        String username = "7";
+        String password = "";
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        boolean isSuccess = false;
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "INSERT INTO USERINFO (ID, NAME, TEL, ADDRESS, USERNAME, PASSWORD,POSITION,ISFREEZE)VALUES (?,?,?,?,?,?,?,?)";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, id);
+            pStnmt.setString(2, name);
+            pStnmt.setString(3, tel);
+            pStnmt.setString(4, address);
+            pStnmt.setString(7, position);
+            pStnmt.setString(8, "Y");
+            Random r = new Random();
+            char[] temp = new char[8];
+            for(int i = 0 ; i < temp.length - 1; i++){
+                temp[i] = (char)(r.nextInt(9) + 48);
+                username += temp[i];
+            }
+            pStnmt.setString(5, username);
+            
+            for(int i = 0 ; i < temp.length; i++){
+                temp[i] = (char)(r.nextInt(74) + 48);
+                password += temp[i];
+            }
+            pStnmt.setString(6, password);
+            
+            int rowCount = pStnmt.executeUpdate();
+            if (rowCount >=1 ){
+                isSuccess = true;
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isSuccess;
+    }
 
+    public boolean editRecord(UserInfo u) {
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        boolean isSuccess = false;
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "update userinfo set name = ?,tel = ?, address = ?, position = ? where id = ?";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, u.getName());
+            pStnmt.setString(2, u.getTel());
+            pStnmt.setString(3, u.getAddress());
+            pStnmt.setString(4, u.getPosition());
+            pStnmt.setString(5, u.getId());
+            int rowCount = pStnmt.executeUpdate();
+            if (rowCount >=1 ){
+                isSuccess = true;
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isSuccess;
+    }
+
+    public UserInfo queryCustByID(String id) {
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        UserInfo u = null;
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "select * from userinfo where id = ?";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, id);
+            ResultSet rs = null;
+            rs = pStnmt.executeQuery();
+            if (rs.next()){
+                u = new UserInfo();
+                String userId = rs.getString("id");
+                String name = rs.getString("name");
+                String tel = rs.getString("tel");
+                String address = rs.getString("address");
+                String position = rs.getString("position");
+                
+                u.setId(userId);
+                u.setName(name);
+                u.setTel(tel);
+                u.setAddress(tel);
+                u.setPosition(position);
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return u;
+    }
+    
+     public boolean unfreeze(String id) {
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        boolean isSuccess = false;
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "update userinfo set isfreeze = 'N' where id = ?";;
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, id);
+            int rowCount = pStnmt.executeUpdate();
+            if (rowCount >=1 ){
+                isSuccess = true;
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isSuccess;
+    }
+     
+     public boolean freeze(String id) {
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        boolean isSuccess = false;
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "update userinfo set isfreeze = 'Y' where id = ?";;
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, id);
+            int rowCount = pStnmt.executeUpdate();
+            if (rowCount >=1 ){
+                isSuccess = true;
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isSuccess;
+    }
 }

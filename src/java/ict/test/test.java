@@ -10,7 +10,7 @@ public class test extends HttpServlet {
     public static void main(String[] arg) throws SQLException, IOException {
         String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
         String username = "root";
-        String password = "tommy985";
+        String password = "";
         
         /*UserDB db = new UserDB(url, username, password);
         db.createUserInfoTable();
@@ -18,6 +18,7 @@ public class test extends HttpServlet {
         System.out.print(db.isValidUser("xyz","123"));*/
 
         /*ProductDB pdb = new ProductDB(url, username, password);
+
         pdb.createProductTable();
         pdb.addProduct("P0001", "Integer eleifend sed", 100.0, 20, "images/product/01.jpg");
         pdb.addProduct("P0002", "Nam cursus facilisis", 200.0, 20, "images/product/02.jpg");
@@ -27,10 +28,12 @@ public class test extends HttpServlet {
         pdb.addProduct("P0006", "Nulla luctus urna", 193.0, 20, "images/product/06.jpg");
         pdb.addProduct("P0007", "Pellentesque, Validate", 30.0, 20, "images/product/07.jpg");
         pdb.addProduct("P0008", "Suspendisse fermentum", 220.0, 20, "images/product/08.jpg");
+
         pdb.addProduct("P0009", "Donec laoreet velit", 65.0, 20, "images/product/09.jpg");*/
         
         ShoppingCartDB scdb = new ShoppingCartDB(url,username,password);
         scdb.createShoppingCartTable();
+
 
     }
 }
