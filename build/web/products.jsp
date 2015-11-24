@@ -133,7 +133,7 @@
                     <%
                         String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
                         String username = "root";
-                        String password = "tommy985";
+                        String password = "";
                         ProductDB pb = new ProductDB(url, username, password);
                         ArrayList<ProductBean> productList = pb.showProduct();
                         int count = 1;

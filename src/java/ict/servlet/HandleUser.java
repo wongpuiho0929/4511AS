@@ -9,12 +9,14 @@ import ict.bean.UserInfo;
 import ict.db.UserDB;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,6 +36,58 @@ public class HandleUser extends HttpServlet {
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/listMember.jsp");
             rd.forward(request, response);
+        } else if ("getEditUser".equalsIgnoreCase(action)) {
+            String id = request.getParameter("id");
+            if (id != null) {
+                UserInfo users = db.queryCustByID(id);
+                request.setAttribute("u", users);
+                RequestDispatcher rd;
+                rd = getServletContext().getRequestDispatcher("/editMember.jsp");
+                rd.forward(request, response);
+            }
+        } else if ("unfreeze".equalsIgnoreCase(action)) {
+            String id = request.getParameter("id");
+            if (id != null) {
+                if (db.unfreeze(id)) {
+                    ArrayList<UserInfo> users = db.queryUser();
+                    request.setAttribute("users", users);
+                    RequestDispatcher rd;
+                    rd = getServletContext().getRequestDispatcher("/listMember.jsp");
+                    rd.forward(request, response);
+                }
+            }
+        } else if ("freeze".equalsIgnoreCase(action)) {
+            String id = request.getParameter("id");
+            if (id != null) {
+                if (db.freeze(id)) {
+                    ArrayList<UserInfo> users = db.queryUser();
+                    request.setAttribute("users", users);
+                    RequestDispatcher rd;
+                    rd = getServletContext().getRequestDispatcher("/listMember.jsp");
+                    rd.forward(request, response);
+                }
+            }
+        } else if ("getNewPassword".equalsIgnoreCase(action)) {
+            String id = request.getParameter("id");
+            if (id != null) {
+                if (db.freeze(id)) {
+                    UserInfo user = db.queryCustByID(id);
+                    Random r = new Random();
+                    String password = "";
+                    char[] temp = new char[8];
+                    for (int i = 0; i < temp.length; i++) {
+                        temp[i] = (char) (r.nextInt(74) + 48);
+                        password += temp[i];
+                    }
+                    user.setPassword(password);
+                    if (db.editRecord(user))
+                        JOptionPane.showMessageDialog(null, "New Password: " + password);
+                    request.setAttribute("users", user);
+                    RequestDispatcher rd;
+                    rd = getServletContext().getRequestDispatcher("/listMember.jsp");
+                    rd.forward(request, response);
+                }
+            }
         }
     }
 

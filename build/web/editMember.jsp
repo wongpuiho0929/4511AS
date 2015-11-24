@@ -150,17 +150,18 @@
                     </div>
                 </div>
                 <div id="content" class="float_r">
-                    <jsp:useBean id="c" scope="request" class="ict.bean.UserInfo" />
+                    <jsp:useBean id="u" scope="request" class="ict.bean.UserInfo" />
                     <%
-                        String type = c.getId()!= null ? "Edit User" : "Add User";
-                        String id = c.getId() != null ? c.getId() : "";
-                        String name = c.getId() != null ? c.getName(): "";
-                        String tel = c.getId() != null ? c.getTel() : "";
-                        String address = c.getId() != null ? c.getAddress(): "";
-                        String position = c.getId() != null ? c.getPosition(): "";
+                        String state = u.getId()!= null ? "Edit User" : "Add User";
+                        String type = u.getId()!= null ? "edit" : "add";
+                        String id = u.getId() != null ? u.getId() : "";
+                        String name = u.getId() != null ? u.getName(): "";
+                        String tel = u.getId() != null ? u.getTel() : "";
+                        String address = u.getId() != null ? u.getAddress(): "";
+                        String position = u.getId() != null ? u.getPosition(): "";
                     %>
-                    <h1><%=type%></h1>
-                    <form method="post" action="handleEdit">
+                    <h1><%=state%></h1>
+                    <form method="POST" action="editUserController">
                         <input type="hidden" name="action" value="<%=type%>"/>
                         <table border="0">
                             <tr>
@@ -180,9 +181,9 @@
                                 <td><p /><input type="text" name="address" maxlength="10" size="15" value="<%=address%>"></td>
                             </tr>
                             <tr>
-                                <td><p align="right" /><b>position</b></td>
-                                <td><p /><input type="radio" name="position" maxlength="10" size="15" value="manager" <%if(position.equals("Manager"))out.print("checked");%> /> manager
-                                        <input type="radio" name="position" maxlength="10" size="15" value="client"  <%if(position.equals("client"))out.print("checked");%> /> client</td>
+                                <td><p align="right" /><b>position <%="client".equals(position)%></b></td>
+                                <td><p /><input type="radio" name="position" maxlength="10" size="15" value="Manager" <%if("Manager".equals(position)){out.print("checked");}%> /> manager
+                                        <input type="radio" name="position" maxlength="10" size="15" value="Client" <%if("Client".equals(position)){out.print("checked");}%> /> client</td>
                             </tr>
                             <tr>
                                 <td colspan="2"><p align="center" /><input type="submit" value="submit"</td>

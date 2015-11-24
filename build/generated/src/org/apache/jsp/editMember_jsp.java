@@ -207,29 +207,30 @@ public final class editMember_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                </div>\r\n");
       out.write("                <div id=\"content\" class=\"float_r\">\r\n");
       out.write("                    ");
-      ict.bean.UserInfo c = null;
+      ict.bean.UserInfo u = null;
       synchronized (request) {
-        c = (ict.bean.UserInfo) _jspx_page_context.getAttribute("c", PageContext.REQUEST_SCOPE);
-        if (c == null){
-          c = new ict.bean.UserInfo();
-          _jspx_page_context.setAttribute("c", c, PageContext.REQUEST_SCOPE);
+        u = (ict.bean.UserInfo) _jspx_page_context.getAttribute("u", PageContext.REQUEST_SCOPE);
+        if (u == null){
+          u = new ict.bean.UserInfo();
+          _jspx_page_context.setAttribute("u", u, PageContext.REQUEST_SCOPE);
         }
       }
       out.write("\r\n");
       out.write("                    ");
 
-                        String type = c.getId()!= null ? "edit" : "add";
-                        String id = c.getId() != null ? c.getId() : "";
-                        String name = c.getId() != null ? c.getName(): "";
-                        String tel = c.getId() != null ? c.getTel() : "";
-                        String address = c.getId() != null ? c.getAddress(): "";
-                        String position = c.getId() != null ? c.getPosition(): "";
+                        String state = u.getId()!= null ? "Edit User" : "Add User";
+                        String type = u.getId()!= null ? "edit" : "add";
+                        String id = u.getId() != null ? u.getId() : "";
+                        String name = u.getId() != null ? u.getName(): "";
+                        String tel = u.getId() != null ? u.getTel() : "";
+                        String address = u.getId() != null ? u.getAddress(): "";
+                        String position = u.getId() != null ? u.getPosition(): "";
                     
       out.write("\r\n");
       out.write("                    <h1>");
-      out.print(type);
+      out.print(state);
       out.write("</h1>\r\n");
-      out.write("                    <form method=\"post\" action=\"handleEdit\">\r\n");
+      out.write("                    <form method=\"POST\" action=\"editUserController\">\r\n");
       out.write("                        <input type=\"hidden\" name=\"action\" value=\"");
       out.print(type);
       out.write("\"/>\r\n");
@@ -259,10 +260,15 @@ public final class editMember_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\"></td>\r\n");
       out.write("                            </tr>\r\n");
       out.write("                            <tr>\r\n");
-      out.write("                                <td><p align=\"right\" /><b>age </b></td>\r\n");
-      out.write("                                <td><p /><input type=\"radio\" name=\"age\" maxlength=\"10\" size=\"15\" value=\"");
-      out.print(address);
-      out.write("\"></td>\r\n");
+      out.write("                                <td><p align=\"right\" /><b>position ");
+      out.print("client".equals(position));
+      out.write("</b></td>\r\n");
+      out.write("                                <td><p /><input type=\"radio\" name=\"position\" maxlength=\"10\" size=\"15\" value=\"Manager\" ");
+if("Manager".equals(position)){out.print("checked");}
+      out.write(" /> manager\r\n");
+      out.write("                                        <input type=\"radio\" name=\"position\" maxlength=\"10\" size=\"15\" value=\"Client\" ");
+if("Client".equals(position)){out.print("checked");}
+      out.write(" /> client</td>\r\n");
       out.write("                            </tr>\r\n");
       out.write("                            <tr>\r\n");
       out.write("                                <td colspan=\"2\"><p align=\"center\" /><input type=\"submit\" value=\"submit\"</td>\r\n");

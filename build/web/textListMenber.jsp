@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="handleUser" method="GET">
+        <form action="handleUser" method="POST">
             <input type="hidden" name="action" value="list" />
             <input type="submit" value="see user account" />
         </form>
