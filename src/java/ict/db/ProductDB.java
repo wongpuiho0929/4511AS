@@ -18,6 +18,14 @@ public class ProductDB {
     private String username = "";
     private String password = "";
 
+    public ProductDB() {
+        url="jdbc:mysql://localhost:3306/ITP4511_ASDB";
+        username = "root";
+        password ="tommy985";
+    }
+
+    
+    
     public ProductDB(String url, String username, String password) {
         this.url = url;
         this.username = username;
