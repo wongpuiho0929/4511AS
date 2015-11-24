@@ -66,7 +66,7 @@
                         if (userName.getUsername() == null) {
                             out.print("<a href='login.jsp'>Log In</a>");
                         } else {
-                            out.print("<font size=5>" + userName.getUsername() + userName.getId() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
+                            out.print("<font size=5>" + userName.getUsername()+ ",</font>" + " <a href='login?action=logout'> Logout</a>");
                         }
                     %>
                 </div>
