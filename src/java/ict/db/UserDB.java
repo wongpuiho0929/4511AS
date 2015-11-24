@@ -154,14 +154,14 @@ public class UserDB {
         }
         return users;
     }
-    
-    public boolean addRecord (String id, String name, String tel, String address, String position){
+
+    public boolean addRecord(String id, String name, String tel, String address, String position) {
         String username = "7";
         String password = "";
         Connection cnnct = null;
         PreparedStatement pStnmt = null;
         boolean isSuccess = false;
-        try{
+        try {
             cnnct = getConnection();
             String preQueryStatment = "INSERT INTO USERINFO (ID, NAME, TEL, ADDRESS, USERNAME, PASSWORD,POSITION,ISFREEZE)VALUES (?,?,?,?,?,?,?,?)";
             pStnmt = cnnct.prepareStatement(preQueryStatment);
@@ -173,20 +173,20 @@ public class UserDB {
             pStnmt.setString(8, "Y");
             Random r = new Random();
             char[] temp = new char[8];
-            for(int i = 0 ; i < temp.length - 1; i++){
-                temp[i] = (char)(r.nextInt(9) + 48);
+            for (int i = 0; i < temp.length - 1; i++) {
+                temp[i] = (char) (r.nextInt(9) + 48);
                 username += temp[i];
             }
             pStnmt.setString(5, username);
-            
-            for(int i = 0 ; i < temp.length; i++){
-                temp[i] = (char)(r.nextInt(74) + 48);
+
+            for (int i = 0; i < temp.length; i++) {
+                temp[i] = (char) (r.nextInt(74) + 48);
                 password += temp[i];
             }
             pStnmt.setString(6, password);
-            
+
             int rowCount = pStnmt.executeUpdate();
-            if (rowCount >=1 ){
+            if (rowCount >= 1) {
                 isSuccess = true;
             }
             pStnmt.close();
@@ -204,7 +204,7 @@ public class UserDB {
         Connection cnnct = null;
         PreparedStatement pStnmt = null;
         boolean isSuccess = false;
-        try{
+        try {
             cnnct = getConnection();
             String preQueryStatment = "update userinfo set name = ?,tel = ?, address = ?, position = ? where id = ?";
             pStnmt = cnnct.prepareStatement(preQueryStatment);
@@ -214,7 +214,7 @@ public class UserDB {
             pStnmt.setString(4, u.getPosition());
             pStnmt.setString(5, u.getId());
             int rowCount = pStnmt.executeUpdate();
-            if (rowCount >=1 ){
+            if (rowCount >= 1) {
                 isSuccess = true;
             }
             pStnmt.close();
@@ -232,21 +232,21 @@ public class UserDB {
         Connection cnnct = null;
         PreparedStatement pStnmt = null;
         UserInfo u = null;
-        try{
+        try {
             cnnct = getConnection();
             String preQueryStatment = "select * from userinfo where id = ?";
             pStnmt = cnnct.prepareStatement(preQueryStatment);
             pStnmt.setString(1, id);
             ResultSet rs = null;
             rs = pStnmt.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 u = new UserInfo();
                 String userId = rs.getString("id");
                 String name = rs.getString("name");
                 String tel = rs.getString("tel");
                 String address = rs.getString("address");
                 String position = rs.getString("position");
-                
+
                 u.setId(userId);
                 u.setName(name);
                 u.setTel(tel);
@@ -263,18 +263,18 @@ public class UserDB {
         }
         return u;
     }
-    
-     public boolean unfreeze(String id) {
+
+    public boolean unfreeze(String id) {
         Connection cnnct = null;
         PreparedStatement pStnmt = null;
         boolean isSuccess = false;
-        try{
+        try {
             cnnct = getConnection();
             String preQueryStatment = "update userinfo set isfreeze = 'N' where id = ?";;
             pStnmt = cnnct.prepareStatement(preQueryStatment);
             pStnmt.setString(1, id);
             int rowCount = pStnmt.executeUpdate();
-            if (rowCount >=1 ){
+            if (rowCount >= 1) {
                 isSuccess = true;
             }
             pStnmt.close();
@@ -287,18 +287,18 @@ public class UserDB {
         }
         return isSuccess;
     }
-     
-     public boolean freeze(String id) {
+
+    public boolean freeze(String id) {
         Connection cnnct = null;
         PreparedStatement pStnmt = null;
         boolean isSuccess = false;
-        try{
+        try {
             cnnct = getConnection();
             String preQueryStatment = "update userinfo set isfreeze = 'Y' where id = ?";;
             pStnmt = cnnct.prepareStatement(preQueryStatment);
             pStnmt.setString(1, id);
             int rowCount = pStnmt.executeUpdate();
-            if (rowCount >=1 ){
+            if (rowCount >= 1) {
                 isSuccess = true;
             }
             pStnmt.close();
@@ -310,5 +310,37 @@ public class UserDB {
             ex.printStackTrace();
         }
         return isSuccess;
+    }
+
+    public String getNewPassword(String id) {
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        boolean isSuccess = false;
+        Random r = new Random();
+        String password = "";
+        try {
+            cnnct = getConnection();
+            String preQueryStatment = "update userinfo set password = ? where id = ?";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            char[] temp = new char[8];
+            for (int i = 0; i < temp.length; i++) {
+                temp[i] = (char) (r.nextInt(74) + 48);
+                password += temp[i];
+            }
+            pStnmt.setString(1, password);
+            pStnmt.setString(2, id);
+            int rowCount = pStnmt.executeUpdate();
+            if (rowCount >= 1) {
+                return password;
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }

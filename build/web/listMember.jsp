@@ -166,6 +166,9 @@
                             <tr>
                                 <th>ID</th><th>Name</th><th>Tel no.</th><th>Address</th><th>User Name</th><th>position</th><th>Is freezed</th><th>Action</th>
                                     <%
+                                        UserInfo upw =  new UserInfo();
+                                        String password = (String) request.getAttribute("password");
+                                        String id = (String) request.getAttribute("id");
                                         ArrayList<UserInfo> users
                                                 = (ArrayList<UserInfo>) request.getAttribute("users");
                                         for (int i = 0; i < users.size(); i++) {
@@ -179,13 +182,17 @@
                                             out.println("<td>" + u.getPosition() + "</td>");
                                             out.println("<td>" + u.getIsfreeze() + "</td>");
                                             if ("Y".equals(u.getIsfreeze())) {
-                                                out.println("<td><a href=\"handleUser?action=unfreeze&id=" + u.getId() + "\">unfreeze ");
+                                                out.println("<td><a href=\"handleUser?action=unfreeze&id=" + u.getId() + "\">unfreeze </a>");
                                             } else {
-                                                out.println("<td><a href=\"handleUser?action=freeze&id=" + u.getId() + "\">freeze ");
+                                                out.println("<td><a href=\"handleUser?action=freeze&id=" + u.getId() + "\">freeze </a>");
                                             }
-                                            out.println("<a href=\"handleUser?action=getEditUser&id=" + u.getId() + "\">edit ");
-                                            out.println("<a href=\"handleUser?action=getNewPassword&id=" + u.getId() + "\">getNewPassword</td>");
-                                            out.println("</tr>");
+                                            out.println("<a href=\"handleUser?action=getEditUser&id=" + u.getId() + "\">edit </a>");
+                                            out.println("<a href=\"handleUser?action=getNewPassword&id=" + u.getId() + "\">getNewPassword </a>");
+                                            if (password != null && id.equals(u.getId())) {
+                                                out.println("NewPassword = " + password);
+                                            }
+                                            out.println("</td></tr>");
+
                                         }
                                     %>
                             </tr>
