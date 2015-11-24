@@ -31,12 +31,14 @@
 
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
-
+        <% String s = userName.getId();
+            pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
+        %>
         <div id="templatemo_wrapper">
             <div id="templatemo_header">
 
                 <div id="site_title">
-                    <h1><a href="#">Station Shop</a></h1>
+                    <h1><a href="index.jsp">Station Shop</a></h1>
                 </div>
 
                 <div id="header_right">
@@ -163,7 +165,7 @@
                     <%
                         String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
                         String username = "root";
-                        String password = "";
+                        String password = "tommy985";
                         ProductDB pb = new ProductDB(url, username, password);
                         ArrayList<ProductBean> productList = pb.showProduct();
                         int count = 1;
@@ -177,7 +179,7 @@
                             out.print("<a href='product?action=detail&pid=" + productList.get(i).getPid() + "'><img src='" + productList.get(i).getPhoto() + "' alt='Image " + i + "' /></a>");
                             out.print("<h3>" + productList.get(i).getName() + "</h3>");
                             out.print("<p class='product_price'>$ " + productList.get(i).getPrice() + "</p>");
-                            out.print("<a href='shoppingcart.jsp' class='add_to_card'>Add to Cart</a>");
+                            out.print("<a href='cart?action=add&pid=" + productList.get(i).getPid() + "' class='add_to_card'>Add to Cart</a>");
                             out.print("<a href='product?action=detail&pid=" + productList.get(i).getPid() + "' class='detail'>Detail</a>");
                             out.print("</div>");
                             count++;

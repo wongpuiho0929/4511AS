@@ -10,7 +10,7 @@ public class test extends HttpServlet {
     public static void main(String[] arg) throws SQLException, IOException {
         String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
         String username = "root";
-        String password = "";
+        String password = "tommy985";
         
         /*UserDB db = new UserDB(url, username, password);
         db.createUserInfoTable();

@@ -6,14 +6,14 @@
         <title>Station Shop - Contact</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
-       
+
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
 
         <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
 
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/ddsmoothmenu.js"></script>
-        
+
         <script type="text/javascript">
 
             ddsmoothmenu.init({
@@ -33,22 +33,25 @@
     </head>
 
     <body>
-       <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
+        <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
+        <% String s = userName.getId();
+            pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
+        %>
         <div id="templatemo_wrapper">
             <div id="templatemo_header">
 
                 <div id="site_title">
-                    <h1><a href="#">Station Shop</a></h1>
+                    <h1><a href="index.jsp">Station Shop</a></h1>
                 </div>
 
                 <div id="header_right">
                     <a href="#">My Account</a> | <a href="#">My Cart</a> | <a href="#">My Recard</a> | <a href="#">Checkout</a> |
 
                     <%
-                        if( userName.getUsername() ==null) {
-                           out.print("<a href='login.jsp'>Log In</a>");
-                        }else{
-                            out.print("<font size=5>"+userName.getUsername() +",</font>" +" <a href='login?action=logout'> Logout</a>");
+                        if (userName.getUsername() == null) {
+                            out.print("<a href='login.jsp'>Log In</a>");
+                        } else {
+                            out.print("<font size=5>" + userName.getUsername() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
                         }
                     %>
                 </div>
@@ -59,7 +62,7 @@
                 <div id="top_nav" class="ddsmoothmenu">
                     <ul>
                         <li><a href="index.jsp">Home</a></li>
-                         <li><a href="products.jsp">Products</a></li>
+                        <li><a href="products.jsp">Products</a></li>
                         <li><a href="about.jsp">About</a>
                             <!--<ul>
                                 <li><a href="#submenu1">Sub menu 1</a></li>

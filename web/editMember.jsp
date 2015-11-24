@@ -62,12 +62,15 @@
     </head>
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
+        <% String s = userName.getId();
+            pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
+        %>
 
         <div id="templatemo_wrapper">
             <div id="templatemo_header">
 
                 <div id="site_title">
-                    <h1><a href="#">Station Shop</a></h1>
+                    <h1><a href="index.jsp">Station Shop</a></h1>
                 </div>
 
                 <div id="header_right">
@@ -152,13 +155,13 @@
                 <div id="content" class="float_r">
                     <jsp:useBean id="u" scope="request" class="ict.bean.UserInfo" />
                     <%
-                        String state = u.getId()!= null ? "Edit User" : "Add User";
-                        String type = u.getId()!= null ? "edit" : "add";
+                        String state = u.getId() != null ? "Edit User" : "Add User";
+                        String type = u.getId() != null ? "edit" : "add";
                         String id = u.getId() != null ? u.getId() : "";
-                        String name = u.getId() != null ? u.getName(): "";
+                        String name = u.getId() != null ? u.getName() : "";
                         String tel = u.getId() != null ? u.getTel() : "";
-                        String address = u.getId() != null ? u.getAddress(): "";
-                        String position = u.getId() != null ? u.getPosition(): "";
+                        String address = u.getId() != null ? u.getAddress() : "";
+                        String position = u.getId() != null ? u.getPosition() : "";
                     %>
                     <h1><%=state%></h1>
                     <form method="POST" action="editUserController">
@@ -182,8 +185,12 @@
                             </tr>
                             <tr>
                                 <td><p align="right" /><b>position <%="client".equals(position)%></b></td>
-                                <td><p /><input type="radio" name="position" maxlength="10" size="15" value="Manager" <%if("Manager".equals(position)){out.print("checked");}%> /> manager
-                                        <input type="radio" name="position" maxlength="10" size="15" value="Client" <%if("Client".equals(position)){out.print("checked");}%> /> client</td>
+                                <td><p /><input type="radio" name="position" maxlength="10" size="15" value="Manager" <%if ("Manager".equals(position)) {
+                                        out.print("checked");
+                                    }%> /> manager
+                                    <input type="radio" name="position" maxlength="10" size="15" value="Client" <%if ("Client".equals(position)) {
+                                                out.print("checked");
+                                            }%> /> client</td>
                             </tr>
                             <tr>
                                 <td colspan="2"><p align="center" /><input type="submit" value="submit"</td>

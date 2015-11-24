@@ -32,11 +32,14 @@
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
         <jsp:useBean class="ict.bean.ProductBean" id="productDetail" scope="session"/>
+        <% String s = userName.getId();
+            pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
+        %>
         <div id="templatemo_wrapper">
             <div id="templatemo_header">
 
                 <div id="site_title">
-                    <h1><a href="#">Station Shop</a></h1>
+                    <h1><a href="index.jsp">Station Shop</a></h1>
                 </div>
 
                 <div id="header_right">
@@ -127,13 +130,13 @@
                             <tr>
                                 <td height="30">Availability:</td>
                                 <%
-                                    if(productDetail.getQty()>0){
+                                    if (productDetail.getQty() > 0) {
                                         out.print("<td>In Stock</td>");
-                                    }else{
+                                    } else {
                                         out.print("<td>Sold</td>");
                                     }
                                 %>
-                                
+
                             </tr>
                             <tr>
                                 <td height="30">Model:</td>

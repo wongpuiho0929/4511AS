@@ -62,12 +62,14 @@
     </head>
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
-
+        <% String s = userName.getId();
+            pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
+        %>
         <div id="templatemo_wrapper">
             <div id="templatemo_header">
 
                 <div id="site_title">
-                    <h1><a href="#">Station Shop</a></h1>
+                    <h1><a href="index.jsp">Station Shop</a></h1>
                 </div>
 
                 <div id="header_right">
@@ -162,7 +164,7 @@
                         <br />
                         <table border="1">
                             <tr>
-                                 <th>ID</th><th>Name</th><th>Tel no.</th><th>Address</th><th>User Name</th><th>position</th><th>Is freezed</th><th>Action</th>
+                                <th>ID</th><th>Name</th><th>Tel no.</th><th>Address</th><th>User Name</th><th>position</th><th>Is freezed</th><th>Action</th>
                                     <%
                                         ArrayList<UserInfo> users
                                                 = (ArrayList<UserInfo>) request.getAttribute("users");
@@ -170,16 +172,17 @@
                                             UserInfo u = users.get(i);
                                             out.println("<tr>");
                                             out.println("<td>" + u.getId() + "</td>");
-                                            out.println("<td>" + u.getName()+ "</td>");
-                                            out.println("<td>" + u.getTel()+ "</td>");
-                                            out.println("<td>" + u.getAddress()+ "</td>");
+                                            out.println("<td>" + u.getName() + "</td>");
+                                            out.println("<td>" + u.getTel() + "</td>");
+                                            out.println("<td>" + u.getAddress() + "</td>");
                                             out.println("<td>" + u.getUsername() + "</td>");
                                             out.println("<td>" + u.getPosition() + "</td>");
                                             out.println("<td>" + u.getIsfreeze() + "</td>");
-                                            if("Y".equals(u.getIsfreeze()))
+                                            if ("Y".equals(u.getIsfreeze())) {
                                                 out.println("<td><a href=\"handleUser?action=unfreeze&id=" + u.getId() + "\">unfreeze ");
-                                            else
+                                            } else {
                                                 out.println("<td><a href=\"handleUser?action=freeze&id=" + u.getId() + "\">freeze ");
+                                            }
                                             out.println("<a href=\"handleUser?action=getEditUser&id=" + u.getId() + "\">edit ");
                                             out.println("<a href=\"handleUser?action=getNewPassword&id=" + u.getId() + "\">getNewPassword</td>");
                                             out.println("</tr>");

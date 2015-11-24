@@ -135,15 +135,15 @@ public class ShoppingCartDB {
             while (rs.next()) {
                 id = rs.getString("sid");
             }
-            if (id==null||id=="") {
+            if (id == null || id == "") {
                 id = "S0001";
                 return id;
             }
-            id = id.substring(id.indexOf("S")+1);
+            id = id.substring(id.indexOf("S") + 1);
             int i = Integer.parseInt(id);
             i++;
-            id= "S";
-            id +=String.format("%04d", i);
+            id = "S";
+            id += String.format("%04d", i);
             pStnmt.close();
             cnnct.close();
         } catch (SQLException ex) {
@@ -153,5 +153,23 @@ public class ShoppingCartDB {
             ex.printStackTrace();
         }
         return id;
+    }
+
+    public void remove(String sid) {
+       Connection cnnct = null;
+       PreparedStatement pStnmt = null;
+        try {
+            cnnct = getConnection();
+            String sql = "Delete from shoppingcart where sid=?";
+            pStnmt = cnnct.prepareStatement(sql);
+            pStnmt.setString(1, sid);
+             int rowCount = pStnmt.executeUpdate();
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ShoppingCartDB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ShoppingCartDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

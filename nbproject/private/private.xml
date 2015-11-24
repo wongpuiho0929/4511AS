@@ -2,15 +2,10 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
-        <group/>
-=======
         <group>
-            <file>file:/C:/Users/user/Documents/GitHub/4511AS/src/java/ict/db/UserDB.java</file>
-            <file>file:/C:/Users/user/Documents/GitHub/4511AS/web/listMember.jsp</file>
-            <file>file:/C:/Users/user/Documents/GitHub/4511AS/src/java/ict/servlet/EditUserController.java</file>
-            <file>file:/C:/Users/user/Documents/GitHub/4511AS/src/java/ict/servlet/HandleUser.java</file>
+            <file>file:/C:/Users/wongp/Documents/NetBeansProjects/4511AS/src/java/ict/servlet/ShoppingcartController.java</file>
+            <file>file:/C:/Users/wongp/Documents/NetBeansProjects/4511AS/web/index.jsp</file>
+            <file>file:/C:/Users/wongp/Documents/NetBeansProjects/4511AS/web/products.jsp</file>
         </group>
->>>>>>> origin/master
     </open-files>
 </project-private>

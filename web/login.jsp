@@ -17,7 +17,7 @@
             <div id="templatemo_header">
 
                 <div id="site_title">
-                    <h1><a href="#">Station Shop</a></h1>
+                    <h1><a href="index.jsp">Station Shop</a></h1>
                 </div >
                 <div class="cleaner"></div>
             </div>

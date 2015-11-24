@@ -49,11 +49,14 @@
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
         <jsp:useBean class="ArrayList<ShoppingCartBean>" id="shoppingCart" scope="session"/>
+        <% String s = userName.getId();
+            pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
+        %>
         <div id="templatemo_wrapper">
             <div id="templatemo_header">
 
                 <div id="site_title">
-                    <h1><a href="#">Station Shop</a></h1>
+                    <h1><a href="index.jsp">Station Shop</a></h1>
                 </div>
 
                 <div id="header_right">
@@ -136,14 +139,14 @@
                         <%
                             for (int i = 0; i < shoppingCart.size(); i++) {
                                 ProductDB p = new ProductDB();
-                                ProductBean bean =p.productdetail(shoppingCart.get(i).getPid());
+                                ProductBean bean = p.productdetail(shoppingCart.get(i).getPid());
                                 out.print("<tr>");
-                                out.print("<td>"+"<img src='"+bean.getPhoto()+"'></td>");
-                                out.print("<td>"+bean.getName()+"</td>");
+                                out.print("<td>" + "<img src='" + bean.getPhoto() + "'></td>");
+                                out.print("<td>" + bean.getName() + "</td>");
                                 out.print("<td align='center'><input id='qty' type='text' value='1' style='width: 20px; text-align: right' /> </td>");
-                                out.print("<td align='right'>"+bean.getPrice()+"</td>");
-                                out.print("<td align='right'>"+bean.getPrice()+"</td>");
-                                out.print("<td align='center'> <a href='#'>Remove</a> </td>");
+                                out.print("<td align='right'>" + bean.getPrice() + "</td>");
+                                out.print("<td align='right'>" + bean.getPrice() + "</td>");
+                                out.print("<td align='center'> <a href='cart?action=remove&sid=" + shoppingCart.get(i).getSid()+"'>Remove</a> </td>");
                             }
                         %>
                         <tr>
