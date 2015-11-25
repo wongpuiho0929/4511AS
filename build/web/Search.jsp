@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Station Shop - Products Page</title>
+        <title>Stationery Station - Search Page</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
 
@@ -16,16 +16,6 @@
 
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/ddsmoothmenu.js"></script>
-
-        <script language="javascript" type="text/javascript">
-            function clearText(field)
-            {
-                if (field.defaultValue == field.value)
-                    field.value = '';
-                else if (field.value == '')
-                    field.value = field.defaultValue;
-            }
-        </script>
 
         <script type="text/javascript">
 
@@ -50,6 +40,7 @@
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
         <jsp:useBean class="java.util.ArrayList" id='shoppingCart' scope='session'/>
         <jsp:useBean class="java.util.ArrayList" id="search" scope="request"/>
+        <jsp:useBean class="java.util.ArrayList" id="chicked" scope="request"/>
         <% String s = userName.getId();
             pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
         %>
@@ -100,12 +91,6 @@
                     <div id="top_shopping_cart">
                         Shopping Cart: <strong><%=shoppingCart.size()%></strong> ( <a href="cart?action=show">Show Cart</a> )
                     </div>
-                    <div id="templatemo_search">
-                        <form action="#" method="get">
-                            <input type="text" value="Search" name="keyword" id="keyword" title="keyword" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
-                            <input type="submit" name="Search" value=" Search " alt="Search" id="searchbutton" title="Search" class="sub_btn"  />
-                        </form>
-                    </div>
                     <div class="cleaner"></div>
                 </div>
             </div> <!-- END of templatemo_menu -->
@@ -145,18 +130,29 @@
                                 <tr><td colspan="2"><center><input type="submit" value="Search" class="submit_btn"/></center></td></tr>
                             </table>
                     </form>
-                    <%  
+                    <%
+
                         out.print("<hr/>");
                         out.print("<table>");
-                        out.print("<tr><td></td><td width=200><b>Name</b></td><td width=200><b>Brand</b></td><td width=200><b>Type</b></td><td width=200><b>Price</b></td></tr>");
-                        for(int i=0;i<search.size();i++){
-                             out.print("<tr><td width=200>");
-                             out.print("<img src='"+((ProductBean)search.get(i)).getPhoto()+"'></td>");
-                             out.print("<td width=200>"+((ProductBean)search.get(i)).getName()+"</td>");
-                             out.print("<td width=200>"+ ((ProductBean)search.get(i)).getBrand()+"</td>");
-                             out.print("<td width=200>"+ ((ProductBean)search.get(i)).getCategory()+"</td>");
-                             out.print("<td width=200>"+((ProductBean)search.get(i)).getPrice()+"</td>");
-                             out.print("</tr>");
+                        try {
+                            if (chicked.get(0).toString().equals("true") && search.size() == 0) {
+                                out.print("<h1>Sorry, No record was found.</h1>");
+                            }
+                        } catch (Exception ex) {
+                            
+                        }
+
+                        for (int i = 0; i < search.size(); i++) {
+                            if (i == 0) {
+                                out.print("<tr><td></td><td width=200><b>Name</b></td><td width=200><b>Brand</b></td><td width=200><b>Type</b></td><td width=200><b>Price</b></td></tr>");
+                            }
+                            out.print("<tr><td width=200>");
+                            out.print("<img src='" + ((ProductBean) search.get(i)).getPhoto() + "'></td>");
+                            out.print("<td width=200>" + ((ProductBean) search.get(i)).getName() + "</td>");
+                            out.print("<td width=200>" + ((ProductBean) search.get(i)).getBrand() + "</td>");
+                            out.print("<td width=200>" + ((ProductBean) search.get(i)).getCategory() + "</td>");
+                            out.print("<td width=200>" + ((ProductBean) search.get(i)).getPrice() + "</td>");
+                            out.print("</tr>");
                         }
                         out.print("</table>");
                     %>
@@ -174,7 +170,7 @@
                     <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> | <a href="about.jsp">About</a> | <a href="faqs.jsp">FAQs</a> | <a href="checkout.jsp">Checkout</a> | <a href="contact.jsp">Contact</a>
                 </p>
 
-                Copyright © 2048 <a href="#">Your Company Name</a>
+               Copyright © 2015 <a href="index.jsp">Stationery Station</a>
             </div> <!-- END of templatemo_footer -->
 
         </div> <!-- END of templatemo_wrapper -->

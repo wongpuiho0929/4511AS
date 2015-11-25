@@ -29,6 +29,16 @@
 
         </script>
 
+        <script type="text/javascript">
+            function validateForm() {
+                var x = document.forms["addList"]["pName"].value;
+                if (x == null || x == "") {
+                    alert("Name must be filled out");
+                    return false;
+                }
+            }
+        </script>
+
         <link rel="stylesheet" type="text/css" media="all" href="css/jquery.dualSlider.0.2.css" />
 
         <script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>
@@ -39,8 +49,6 @@
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
         <jsp:useBean class="java.util.ArrayList" id='shoppingCart' scope='session'/>
-        <jsp:useBean class="java.util.ArrayList" id="search" scope="request"/>
-        <jsp:useBean class="java.util.ArrayList" id="chicked" scope="request"/>
         <% String s = userName.getId();
             pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
         %>
@@ -121,59 +129,34 @@
                     </div>
                 </div>
                 <div id="content" class="float_r">
-                    <h1>Search Products:</h1>
-                    <form method="get" action="product">
-                        <input type="hidden" name="action" value="search">
-                            <table>
-                                <tr><td><font size="5" color="black">Product Name</font></td><td><font size="5" color="black">:</font><input type="text" name="pName"/></td></tr>
-                                <tr><td><font size="5" color="black">Brank Name </font></td><td><font size="5" color="black">:</font><input type="text" name="bName" /></td></tr>
-                                <tr><td colspan="2"><center><input type="submit" value="Search" class="submit_btn"/></center></td></tr>
-                            </table>
-                    </form>
-                    <%
+                    <h1>add Products:</h1>
+                    <form method="get" action="product" name='addList' onsubmit="return validateForm()">
+                        <input type="hidden" name="action" value="add">
+                            <table cellpadding="15">
+                                <tr><td><font size="5" color="black">Product ID</font><td><font size="5" color="black">:</font>             <input type="text" name="pId"/></td>
+                                        <tr><td><font size="5" color="black">Product Name</font></td><td><font size="5" color="black">:</font>       <input type="text" name="pName"/></td></tr>
+                                        <tr><td><font size="5" color="black">Price</font></td><td><font size="5" color="black">:</font>             <input type="number" name="price" value=0 min='0' max='1000' step='0.1' style="width: 50px;"/></td></tr>
+                                        <tr><td><font size="5" color="black">QTY</font></td><td><font size="5" color="black">:</font>               <input type="number" name="qty" value="0" min='0' max='50' step='1' style="width: 50px"/></td></tr>
+                                        <tr><td><font size="5" color="black">Brank Name </font></td><td><font size="5" color="black">:</font>        <input type="text" name="bName" /></td></tr>
+                                        <tr><td><font size="5" color="black">Product Description</font></td><td><font size="5" color="black">:</font> <input type="textarea" name="description"/></td></tr>
+                                        <tr><td><font size="5" color="black">Category</font></td><td><font size="5" color="black">:</font>           <input type="text" name="category"/></td></tr>
+                                        <tr><td><font size="5" color="black">Product photo</font></td><td><font size="5" color="black">:</font>       <input type="file" name="photo"/></td></tr>
+                                        <tr><td colspan="2"><center><input type="submit" value="Search" class="submit_btn"/></center></td></tr>
+                                        </table>
+                                        </form>
+                                        </div> 
+                                        <div class="cleaner"></div>
+                                        </div> <!-- END of templatemo_main -->
 
-                        out.print("<hr/>");
-                        out.print("<table>");
-                        try {
-                            if (chicked.get(0).toString().equals("true") && search.size() == 0) {
-                                out.print("<h1>Sorry, No record was found.</h1>");
-                            }
-                        } catch (Exception ex) {
-                            
-                        }
+                                        <div id="templatemo_footer">
+                                            <p>
+                                                <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> | <a href="about.jsp">About</a> | <a href="faqs.jsp">FAQs</a> | <a href="checkout.jsp">Checkout</a> | <a href="contact.jsp">Contact</a>
+                                            </p>
 
-                        for (int i = 0; i < search.size(); i++) {
-                            if (i == 0) {
-                                out.print("<tr><td></td><td width=200><b>Name</b></td><td width=200><b>Brand</b></td><td width=200><b>Type</b></td><td width=200><b>Price</b></td></tr>");
-                            }
-                            out.print("<tr><td width=200>");
-                            out.print("<img src='" + ((ProductBean) search.get(i)).getPhoto() + "'></td>");
-                            out.print("<td width=200>" + ((ProductBean) search.get(i)).getName() + "</td>");
-                            out.print("<td width=200>" + ((ProductBean) search.get(i)).getBrand() + "</td>");
-                            out.print("<td width=200>" + ((ProductBean) search.get(i)).getCategory() + "</td>");
-                            out.print("<td width=200>" + ((ProductBean) search.get(i)).getPrice() + "</td>");
-                            out.print("</tr>");
-                        }
-                        out.print("</table>");
-                    %>
+                                            Copyright © 2015 <a href="index.jsp">Stationery Station</a>
+                                        </div> <!-- END of templatemo_footer -->
 
+                                        </div> <!-- END of templatemo_wrapper -->
 
-
-
-
-                </div> 
-                <div class="cleaner"></div>
-            </div> <!-- END of templatemo_main -->
-
-            <div id="templatemo_footer">
-                <p>
-                    <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> | <a href="about.jsp">About</a> | <a href="faqs.jsp">FAQs</a> | <a href="checkout.jsp">Checkout</a> | <a href="contact.jsp">Contact</a>
-                </p>
-
-               Copyright © 2015 <a href="index.jsp">Stationery Station</a>
-            </div> <!-- END of templatemo_footer -->
-
-        </div> <!-- END of templatemo_wrapper -->
-
-    </body>
-</html>
+                                        </body>
+                                        </html>

@@ -8,7 +8,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Station Shop Template</title>
+        <title>Stationery Station</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
 
@@ -16,16 +16,6 @@
         <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/ddsmoothmenu.js"></script>
-        <script language="javascript" type="text/javascript">
-            function clearText(field)
-            {
-                if (field.defaultValue == field.value)
-                    field.value = '';
-                else if (field.value == '')
-                    field.value = field.defaultValue;
-            }
-
-        </script>
         <link rel="stylesheet" type="text/css" media="all" href="css/jquery.dualSlider.0.2.css" />
 
         <script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>
@@ -37,7 +27,7 @@
         <% String s = userName.getId();
             pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
         %>
-        
+
         <div id="templatemo_wrapper">
             <div id="templatemo_header">
 
@@ -52,7 +42,10 @@
                         if (userName.getUsername() == null) {
                             out.print("<a href='login.jsp'>Log In</a>");
                         } else {
-                            out.print("<font size=5>" + userName.getUsername() + ",</font>" + " <a href='login?action=logout'> Logout</a>"); 
+                            if (userName.getPosition().equals("Manager")) {
+                                out.print("<a href='addProduct.jsp'>Add Product</a> |");
+                            }
+                            out.print("<font size=5>" + userName.getUsername() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
                         }
                     %>
                 </div>
@@ -81,14 +74,8 @@
                     <br style="clear: left" />
                 </div> <!-- end of ddsmoothmenu -->
                 <div id="menu_second_bar">
-                     <div id="top_shopping_cart">
+                    <div id="top_shopping_cart">
                         Shopping Cart: <strong><%=shoppingCart.size()%></strong> ( <a href="cart?action=show">Show Cart</a> )
-                    </div>
-                    <div id="templatemo_search">
-                        <form action="#" method="get">
-                            <input type="text" value="Search" name="keyword" id="keyword" title="keyword" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
-                            <input type="submit" name="Search" value=" Search " alt="Search" id="searchbutton" title="Search" class="sub_btn"  />
-                        </form>
                     </div>
                     <div class="cleaner"></div>
                 </div>
@@ -199,7 +186,7 @@
                     <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> | <a href="about.jsp">About</a> | <a href="faqs.jsp">FAQs</a> | <a href="checkout.jsp">Checkout</a> | <a href="contact.jsp">Contact</a>
                 </p>
 
-                Copyright © 2048 <a href="#">Your Company Name</a>
+                Copyright © 2015 <a href="index.jsp">Stationery Station</a>
             </div> <!-- END of templatemo_footer -->
 
         </div> <!-- END of templatemo_wrapper Text -->

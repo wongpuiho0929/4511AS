@@ -48,6 +48,9 @@ public class ProductController extends HttpServlet {
             ArrayList<ProductBean> pb = db.searchProduct(pName, bName);
             response.setContentType("text/html");
             request.setAttribute("search", pb);
+            ArrayList<String> a = new ArrayList<String>();
+            a.add("true");
+            request.setAttribute("chicked", a);
             String targetURL = "Search.jsp";
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/" + targetURL);

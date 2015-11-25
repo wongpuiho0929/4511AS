@@ -3,7 +3,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login</title>
+        <title>Stationery Station - Login</title>
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
         <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -41,40 +41,41 @@
                     </ul>
                     <br style="clear: left" />
                 </div> <!-- end of ddsmoothmenu -->
-                <div id="menu_second_bar">
-                    <div id="top_shopping_cart">
-                        Shopping Cart: <strong>X Products</strong> ( <a href="#">Show Cart</a> )
-                    </div>
-                    <div id="templatemo_search">
-                        <form action="#" method="get">
-                            <input type="text" value="Search" name="keyword" id="keyword" title="keyword" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
-                            <input type="submit" name="Search" value=" Search " alt="Search" id="searchbutton" title="Search" class="sub_btn"  />
-                        </form>
-                    </div>
+                <div id="menu_second_bar" style="height: auto">
+                    <h1><font color="white">Login</font></h1>
+
                     <div class="cleaner"></div>
                 </div>
             </div> <!-- END of templatemo_menu -->
 
             <div id="templatemo_middle" class="carousel">
                 <br><br>
-                      <h1>Login</h1>
+                <center>
                     <form method="post" action="login">
                         <input type="hidden" name="action" value="authenticate"/>
                         <table border ="0">
-                            <tr><td><p align="right"><b>Login:</b></td>
+                            <tr><td><p align="right"><b><font size='5'>User Name:</font></b></td>
                                 <td><p><input type="text" name="username" maxlength="10" size="15"></td>
                             </tr>
                             <tr>
-                                <td><p align="right"><b>Password:</b></td>
+                                <td><p align="right"><b><font size='5'>Password:</font></b></td>
                                 <td><p><input type="password" name="password" maxlength="10" size="15"></td>
                             </tr>
                             <tr>
-                                <td colspan="2"><p align="center"><input type="submit" value="Login" id="searchbutton" class="sub_btn"></p></td>
+                                <td colspan="2"><p align="center"><input type="submit" value="Login" id="searchbutton" class="submit_btn"></p></td>
                             </tr>
                         </table>
-                    </form>  
+                    </form>
+                </center>
             </div>
 
+            <div id="templatemo_footer">
+                <p>
+                    <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> | <a href="about.jsp">About</a> | <a href="faqs.jsp">FAQs</a> | <a href="checkout.jsp">Checkout</a> | <a href="contact.jsp">Contact</a>
+                </p>
+
+                Copyright © 2015 <a href="index.jsp">Stationery Station</a>
+            </div> 
         </div>
     </body>
 </html>
