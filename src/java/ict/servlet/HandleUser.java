@@ -83,6 +83,24 @@ public class HandleUser extends HttpServlet {
                 rd = getServletContext().getRequestDispatcher("/listMember.jsp");
                 rd.forward(request, response);
             }
+        } else if ("showClientDateil".equalsIgnoreCase(action)) {
+            String id = (String) request.getServletContext().getAttribute("uid");
+            if (id != null) {
+                UserInfo user = db.queryCustByID(id);
+                request.setAttribute("u", user);
+                RequestDispatcher rd;
+                rd = getServletContext().getRequestDispatcher("/showClientAccount.jsp");
+                rd.forward(request, response);
+            }
+        } else if ("getEditAccount".equalsIgnoreCase(action)) {
+            String id = (String) request.getServletContext().getAttribute("uid");
+            if (id != null) {
+                UserInfo users = db.queryCustByID(id);
+                request.setAttribute("u", users);
+                RequestDispatcher rd;
+                rd = getServletContext().getRequestDispatcher("/editClientAccout.jsp");
+                rd.forward(request, response);
+            }
         }
     }
 

@@ -1,22 +1,18 @@
 <%@page import="java.util.ArrayList"%>
-<%@page import="ict.bean.ProductBean"%>
-<%@page import="ict.db.ProductDB"%>
+<%@page import="ict.bean.UserInfo"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Station Shop - Products Page</title>
+        <title>Station Shop Template</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
 
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
-
         <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
-
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/ddsmoothmenu.js"></script>
-
         <script language="javascript" type="text/javascript">
             function clearText(field)
             {
@@ -25,6 +21,7 @@
                 else if (field.value == '')
                     field.value = field.defaultValue;
             }
+
         </script>
 
         <script type="text/javascript">
@@ -42,17 +39,33 @@
         <link rel="stylesheet" type="text/css" media="all" href="css/jquery.dualSlider.0.2.css" />
 
         <script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>
+        <script src="js/jquery.easing.1.3.js" type="text/javascript"></script>
+        <script src="js/jquery.timers-1.2.js" type="text/javascript"></script>
+        <script src="js/jquery.dualSlider.0.3.min.js" type="text/javascript"></script>
 
+        <script type="text/javascript">
 
+            $(document).ready(function () {
+
+                $(".carousel").dualSlider({
+                    auto: true,
+                    autoDelay: 6000,
+                    easingCarousel: "swing",
+                    easingDetails: "easeOutBack",
+                    durationCarousel: 1000,
+                    durationDetails: 600
+
+                });
+
+            });
+        </script>
     </head>
-
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
-        <jsp:useBean class="java.util.ArrayList" id='shoppingCart' scope='session'/>
         <% String s = userName.getId();
             pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
         %>
-        
+
         <div id="templatemo_wrapper">
             <div id="templatemo_header">
 
@@ -67,7 +80,7 @@
                         if (userName.getUsername() == null) {
                             out.print("<a href='login.jsp'>Log In</a>");
                         } else {
-                            out.print("<font size=5>" + userName.getUsername()+ ",</font>" + " <a href='login?action=logout'> Logout</a>");
+                            out.print("<font size=5>" + userName.getUsername() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
                         }
                     %>
                 </div>
@@ -78,16 +91,22 @@
             <div id="templatemo_menu">
                 <div id="top_nav" class="ddsmoothmenu">
                     <ul>
-                        <li><a href="index.jsp">Home</a></li>
-                        <li><a href="products.jsp" class="selected">Products</a></li>
+                        <li><a href="index.jsp" class="selected">Home</a></li>
+                        <li><a href="products.jsp">Products</a>
+                            <ul>
+                                <li><a href="#submenu1">Sub menu 1</a></li>
+                                <li><a href="#submenu2">Sub menu 2</a></li>
+                                <li><a href="#submenu3">Sub menu 3</a></li>
+                            </ul>
+                        </li>
                         <li><a href="about.jsp">About</a>
-                            <!--<ul>
+                            <ul>
                                 <li><a href="#submenu1">Sub menu 1</a></li>
                                 <li><a href="#submenu2">Sub menu 2</a></li>
                                 <li><a href="#submenu3">Sub menu 3</a></li>
                                 <li><a href="#submenu4">Sub menu 4</a></li>
                                 <li><a href="#submenu5">Sub menu 5</a></li>
-                            </ul>!-->
+                            </ul>
                         </li>
                         <li><a href="checkout.jsp">Checkout</a></li>
                         <li><a href="contact.jsp">Contact</a></li>
@@ -96,7 +115,7 @@
                 </div> <!-- end of ddsmoothmenu -->
                 <div id="menu_second_bar">
                     <div id="top_shopping_cart">
-                        Shopping Cart: <strong><%=shoppingCart.size()%></strong> ( <a href="cart?action=show">Show Cart</a> )
+                        Shopping Cart: <strong>X Products</strong> ( <a href="#">Show Cart</a> )
                     </div>
                     <div id="templatemo_search">
                         <form action="#" method="get">
@@ -134,30 +153,38 @@
                     </div>
                 </div>
                 <div id="content" class="float_r">
-                    <h1>New Products</h1>
+                    <jsp:useBean id="u" scope="request" class="ict.bean.UserInfo" />
                     <%
-                        String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
-                        String username = "root";
-                        String password = "";
-                        ProductDB pb = new ProductDB(url, username, password);
-                        ArrayList<ProductBean> productList = pb.showProduct();
-                        int count = 1;
-                        for (int i = 0; i < productList.size(); i++) {
-                            if (count != 3) {
-                                out.print("<div class='product_box'>");
-                            } else {
-                                out.print("<div class='product_box no_margin_right'>");
-                                count = 0;
-                            }
-                            out.print("<a href='product?action=detail&pid=" + productList.get(i).getPid() + "'><img src='" + productList.get(i).getPhoto() + "' alt='Image " + i + "' /></a>");
-                            out.print("<h3>" + productList.get(i).getName() + "</h3>");
-                            out.print("<p class='product_price'>$ " + productList.get(i).getPrice() + "</p>");
-                            out.print("<a href='cart?action=add&pid=" + productList.get(i).getPid() + "' class='add_to_card'>Add to Cart</a>");
-                            out.print("<a href='product?action=detail&pid=" + productList.get(i).getPid() + "' class='detail'>Detail</a>");
-                            out.print("</div>");
-                            count++;
-                        }
+                        String username = u.getId() != null ? u.getUsername(): "";
+                        String name = u.getId() != null ? u.getName() : "";
+                        String tel = u.getId() != null ? u.getTel() : "";
+                        String address = u.getId() != null ? u.getAddress() : "";
+                        
                     %>
+                    <h1>Edit Account</h1>
+                    <form method="POST" action="editAccountController">
+                        <table border="0">
+                            <tr>
+                                <td><p align="right" /><b>username </b></td>
+                                <td><p /><input type="text" name="username" maxlength="10" size="15" value="<%=username%>"></td>
+                            </tr>
+                            <tr>
+                                <td><p align="right" /><b>name </b></td>
+                                <td><p /><input type="text" name="name" maxlength="10" size="15" value="<%=name%>"></td>
+                            </tr>
+                            <tr>
+                                <td><p align="right" /><b>tel </b></td>
+                                <td><p /><input type="text" name="tel" maxlength="10" size="15" value="<%=tel%>"></td>
+                            </tr>
+                            <tr>
+                                <td><p align="right" /><b>address </b></td>
+                                <td><p /><input type="text" name="address" maxlength="10" size="15" value="<%=address%>"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><p align="center" /><input type="submit" value="submit"</td>
+                            </tr>
+                        </table>
+                    </form>
                 </div> 
                 <div class="cleaner"></div>
             </div> <!-- END of templatemo_main -->
@@ -170,7 +197,7 @@
                 Copyright © 2048 <a href="#">Your Company Name</a>
             </div> <!-- END of templatemo_footer -->
 
-        </div> <!-- END of templatemo_wrapper -->
+        </div> <!-- END of templatemo_wrapper Text -->
 
     </body>
 </html>

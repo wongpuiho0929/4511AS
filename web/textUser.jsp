@@ -16,5 +16,9 @@
             <input type="hidden" name="action" value="list" />
             <input type="submit" value="see user account" />
         </form>
+        <form action="handleUser" method="POST">
+            <input type="hidden" name="action" value="showClientDateil" />
+            <input type="submit" value="Client Datail" />
+        </form>
     </body>
 </html>

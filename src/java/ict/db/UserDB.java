@@ -248,8 +248,12 @@ public class UserDB {
                 String tel = rs.getString("tel");
                 String address = rs.getString("address");
                 String position = rs.getString("position");
+                String username = rs.getString("username");
+                String password = rs.getString("password");
 
                 u.setId(userId);
+                u.setUsername(username);
+                u.setPassword(password);
                 u.setName(name);
                 u.setTel(tel);
                 u.setAddress(tel);
@@ -344,5 +348,33 @@ public class UserDB {
             ex.printStackTrace();
         }
         return null;
+    }
+
+    public boolean editClientRecord(UserInfo u) {
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        boolean isSuccess = false;
+        try {
+            cnnct = getConnection();
+            String preQueryStatment = "update userinfo set name = ?,tel = ?, address = ?, username = ? where id = ?";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, u.getName());
+            pStnmt.setString(2, u.getTel());
+            pStnmt.setString(3, u.getAddress());
+            pStnmt.setString(4, u.getUsername());
+            pStnmt.setString(5, u.getId());
+            int rowCount = pStnmt.executeUpdate();
+            if (rowCount >= 1) {
+                isSuccess = true;
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isSuccess;
     }
 }
