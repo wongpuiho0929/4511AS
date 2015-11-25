@@ -19,13 +19,11 @@ public class ProductDB {
     private String password = "";
 
     public ProductDB() {
-        url="jdbc:mysql://localhost:3306/ITP4511_ASDB";
+        url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
         username = "root";
-        password ="tommy985";
+        password = "tommy985";
     }
 
-    
-    
     public ProductDB(String url, String username, String password) {
         this.url = url;
         this.username = username;
@@ -50,8 +48,8 @@ public class ProductDB {
             String sql = "Create table if not EXISTS Product("
                     + "PId varchar(5) not null," + "pName varchar(25) not null,"
                     + "price double not null," + "qty int(20) not null,"
-                    + "description varchar(20) not null,"+ "category varchar(20) not null,"
-                    + "photo varchar(25))";
+                    + "brand varchar(20) not null," + "description varchar(20) not null,"
+                    + "category varchar(20) not null," + "photo varchar(25))";
             stmmt.execute(sql);
             stmmt.close();
             cnnct.close();
@@ -60,20 +58,21 @@ public class ProductDB {
         }
     }
 
-    public boolean addProduct(String pid, String pName, double price, int qty,String description,String category,String photo) throws SQLException, IOException {
+    public boolean addProduct(String pid, String pName, double price, int qty, String brand, String description, String category, String photo) throws SQLException, IOException {
         Connection cnnct = null;
         PreparedStatement pstmmt = null;
         boolean isValid = false;
         cnnct = getConnection();
-        String preQueryStatement = "INSERT INTO Product VALUES (?,?,?,?,?,?,?)";
+        String preQueryStatement = "INSERT INTO Product VALUES (?,?,?,?,?,?,?,?)";
         pstmmt = cnnct.prepareStatement(preQueryStatement);
         pstmmt.setString(1, pid);
         pstmmt.setString(2, pName);
         pstmmt.setDouble(3, price);
         pstmmt.setInt(4, qty);
-        pstmmt.setString(5, description);
-        pstmmt.setString(6, category);
-        pstmmt.setString(7, photo);
+        pstmmt.setString(5, brand);
+        pstmmt.setString(6, description);
+        pstmmt.setString(7, category);
+        pstmmt.setString(8, photo);
         int rowCount = pstmmt.executeUpdate();
         if (rowCount > 1) {
             isValid = true;
@@ -115,8 +114,8 @@ public class ProductDB {
         }
         return a;
     }
-    
-    public ProductBean productdetail(String id){
+
+    public ProductBean productdetail(String id) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         ProductBean pb = null;
@@ -134,7 +133,7 @@ public class ProductDB {
                 pb.setPrice(rs.getDouble("price"));
                 pb.setQty(rs.getInt("qty"));
                 pb.setPhoto(rs.getString("photo"));
-             
+
             }
             pStmnt.close();
             cnnct.close();
@@ -149,4 +148,41 @@ public class ProductDB {
         return pb;
     }
 
+    public ArrayList<ProductBean> searchProduct(String pName, String bName) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        ProductBean pb = null;
+        ArrayList<ProductBean> a = new ArrayList();
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM PRODUCT where pName Like ? and brand like ?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1, "%"+pName+"%");
+            pStmnt.setString(2, "%"+bName+"%");
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
+            while (rs.next()) {
+                pb = new ProductBean();
+                pb.setPid(rs.getString("pid"));
+                pb.setName(rs.getString("pname"));
+                pb.setPrice(rs.getDouble("price"));
+                pb.setBrand(rs.getString("brand"));
+                pb.setDescription(rs.getString("description"));
+                pb.setCategory(rs.getString("category"));
+                pb.setQty(rs.getInt("qty"));
+                pb.setPhoto(rs.getString("photo"));
+                a.add(pb);
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return a;
+    }
 }

@@ -32,13 +32,23 @@ public class ProductController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         String id = request.getParameter("pid");
+        String pName = request.getParameter("pName");
+        String bName = request.getParameter("bName");
         if (action.equals("show")) {
             ShowProduct(request, response);
         } else if (action.equals("detail")) {
-            ProductBean pb =db.productdetail(id);
+            ProductBean pb = db.productdetail(id);
             HttpSession session = request.getSession(true);
             session.setAttribute("productDetail", pb);
             String targetURL = "productdetail.jsp";
+            RequestDispatcher rd;
+            rd = getServletContext().getRequestDispatcher("/" + targetURL);
+            rd.forward(request, response);
+        } else if (action.equals("search")) {
+            ArrayList<ProductBean> pb = db.searchProduct(pName, bName);
+            response.setContentType("text/html");
+            request.setAttribute("search", pb);
+            String targetURL = "Search.jsp";
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/" + targetURL);
             rd.forward(request, response);

@@ -80,6 +80,7 @@
                     <ul>
                         <li><a href="index.jsp">Home</a></li>
                         <li><a href="products.jsp" class="selected">Products</a></li>
+                        <li><a href="Search.jsp">Search</a></li>
                         <li><a href="about.jsp">About</a>
                             <!--<ul>
                                 <li><a href="#submenu1">Sub menu 1</a></li>

@@ -79,6 +79,7 @@
                     <ul>
                         <li><a href="index.jsp">Home</a></li>
                         <li><a href="products.jsp">Products</a></li>
+                        <li><a href="Search.jsp">Search</a></li>
                         <li><a href="about.jsp">About</a></li>
                         <li><a href="checkout.jsp">Checkout</a></li>
                         <li><a href="contact.jsp">Contact</a></li>
