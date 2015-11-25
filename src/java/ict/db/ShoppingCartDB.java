@@ -44,7 +44,7 @@ public class ShoppingCartDB {
             stmmt = cnnct.createStatement();
             String sql = "Create table if not EXISTS shoppingcart("
                     + "sId varchar(5) not null," + "uId varchar(5) not null," + "oId varchar(5),"
-                    + "pId varchar(5) not null," + "qty int(20) not null"
+                    + "pId varchar(5) not null," + "qty int(20) not null,"+"status varchar(10) not null"
                     + ")";
             stmmt.execute(sql);
             stmmt.close();
@@ -62,7 +62,7 @@ public class ShoppingCartDB {
         boolean chk = false;
         try {
             cnnct = getConnection();
-            String sql = "INSERT INTO SHOPPINGCART (SID,UID,PID,QTY) VALUES(?,?,?,?)";
+            String sql = "INSERT INTO SHOPPINGCART (SID,UID,PID,QTY,STATUS) VALUES(?,?,?,?,'NotConfirm')";
             stmmt = cnnct.prepareStatement(sql);
             stmmt.setString(1, sId);
             stmmt.setString(2, uId);

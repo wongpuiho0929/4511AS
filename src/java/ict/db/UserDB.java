@@ -47,7 +47,9 @@ public class UserDB {
                     + "Id varchar(5) not null," + "name varchar(25) not null,"
                     + "tel varchar(10) not null," + "address varchar(50) not null,"
                     + "username varchar(25) not null," + "password varchar(25) not null,"
-                    + "position varchar(25) not null," + "isfreeze varchar(1) not null)";
+                    + "position varchar(25) not null," + "isfreeze varchar(1) not null,"
+                    + "balance double not null,"+"bonus int(20) not null"
+                    +")";
             stmmt.execute(sql);
             stmmt.close();
             cnnct.close();
@@ -92,7 +94,7 @@ public class UserDB {
         PreparedStatement pstmmt = null;
         boolean isValid = false;
         cnnct = getConnection();
-        String preQueryStatement = "INSERT INTO USERINFO (ID, NAME, TEL, ADDRESS, USERNAME, PASSWORD,POSITION,ISFREEZE)VALUES (?,?,?,?,?,?,?,?)";
+        String preQueryStatement = "INSERT INTO USERINFO (ID, NAME, TEL, ADDRESS, USERNAME, PASSWORD,POSITION,ISFREEZE,balance,bonus)VALUES (?,?,?,?,?,?,?,?,0,0)";
         pstmmt = cnnct.prepareStatement(preQueryStatement);
         pstmmt.setString(1, id);
         pstmmt.setString(2, name);

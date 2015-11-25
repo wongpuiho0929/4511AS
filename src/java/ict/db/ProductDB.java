@@ -50,6 +50,7 @@ public class ProductDB {
             String sql = "Create table if not EXISTS Product("
                     + "PId varchar(5) not null," + "pName varchar(25) not null,"
                     + "price double not null," + "qty int(20) not null,"
+                    + "description varchar(20) not null,"+ "category varchar(20) not null,"
                     + "photo varchar(25))";
             stmmt.execute(sql);
             stmmt.close();
@@ -59,18 +60,20 @@ public class ProductDB {
         }
     }
 
-    public boolean addProduct(String pid, String pName, double price, int qty, String photo) throws SQLException, IOException {
+    public boolean addProduct(String pid, String pName, double price, int qty,String description,String category,String photo) throws SQLException, IOException {
         Connection cnnct = null;
         PreparedStatement pstmmt = null;
         boolean isValid = false;
         cnnct = getConnection();
-        String preQueryStatement = "INSERT INTO Product VALUES (?,?,?,?,?)";
+        String preQueryStatement = "INSERT INTO Product VALUES (?,?,?,?,?,?,?)";
         pstmmt = cnnct.prepareStatement(preQueryStatement);
         pstmmt.setString(1, pid);
         pstmmt.setString(2, pName);
         pstmmt.setDouble(3, price);
         pstmmt.setInt(4, qty);
-        pstmmt.setString(5, photo);
+        pstmmt.setString(5, description);
+        pstmmt.setString(6, category);
+        pstmmt.setString(7, photo);
         int rowCount = pstmmt.executeUpdate();
         if (rowCount > 1) {
             isValid = true;
