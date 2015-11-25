@@ -15,19 +15,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 @WebServlet(name = "LoginController", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
-        
+
     private UserDB db;
-    
-    public  void init(){
+
+    public void init() {
         String username = this.getServletContext().getInitParameter("username");
         String password = this.getServletContext().getInitParameter("password");
         String targetURL = this.getServletContext().getInitParameter("url");
         db = new UserDB(targetURL, username, password);
     }
-    
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
@@ -36,8 +35,7 @@ public class LoginController extends HttpServlet {
         String action = request.getParameter("action");
         if (!isAuthenticated(request)
                 && !("authenticate".equals(action))
-                && !("logout".equals(action))
-                ) {
+                && !("logout".equals(action))) {
             doLogin(request, response);
             return;
         }
@@ -62,18 +60,20 @@ public class LoginController extends HttpServlet {
         }
         return result;
     }
-    
-    
+
     private void doAuthenticate(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException, SQLException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String targetURL;
         UserInfo isValid = db.isValidUser(username, password);
-        if (isValid!=null) {
+        if (isValid != null) {
             HttpSession session = request.getSession(true);
-            UserInfo bean = new UserInfo();
             session.setAttribute("userName", isValid);
-            doLogin(request,response);
+            targetURL = "cart?action=login&uid="+isValid.getId();
+            RequestDispatcher rd;
+            rd = getServletContext().getRequestDispatcher("/" + targetURL);
+            rd.forward(request, response);
+            doLogin(request, response);
             return;
         } else {
             targetURL = "/loginError.jsp";
@@ -86,16 +86,17 @@ public class LoginController extends HttpServlet {
 
     private void doLogout(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(false);
-      
+
         if (session != null) {
             session.removeAttribute("userInfo");
+            session.removeAttribute("shoppingcart");
             session.invalidate();
         }
-        doLogin(request,response);
+        doLogin(request, response);
     }
 
     private void doLogin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-         
+
         /*String targetURL = "login.jsp";
         RequestDispatcher rd;
         rd = getServletContext().getRequestDispatcher("/" + targetURL);
@@ -105,6 +106,5 @@ public class LoginController extends HttpServlet {
         out.print("location.href='index.jsp'");
         out.print("</script>");
     }
-    
 
 }

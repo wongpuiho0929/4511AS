@@ -32,6 +32,7 @@
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
         <jsp:useBean class="ict.bean.ProductBean" id="productDetail" scope="session"/>
+        <jsp:useBean class="java.util.ArrayList" id='shoppingCart' scope='session'/>
         <% String s = userName.getId();
             pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
         %>
@@ -78,7 +79,7 @@
                 </div> <!-- end of ddsmoothmenu -->
                 <div id="menu_second_bar">
                     <div id="top_shopping_cart">
-                        Shopping Cart: <strong>3 Products</strong> ( <a href="#">Show Cart</a> )
+                        Shopping Cart: <strong><%=shoppingCart.size()%></strong> ( <a href="cart?action=show">Show Cart</a> )
                     </div>
                     <div id="templatemo_search">
                         <form action="#" method="get">

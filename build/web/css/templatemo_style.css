@@ -1,9 +1,4 @@
 
-/* 
-Station Shop Template 
-http://www.templatemo.com/preview/templatemo_352_station_shop 
-*/
-
 body {
 	margin: 0;
 	padding: 0;
@@ -11,9 +6,10 @@ body {
 	font-family: Tahoma, Geneva, sans-serif;
 	font-size: 12px;
 	line-height: 1.4em;
-	background-color: #2e2e2e;
+	background-color: #2E2E2E;
 	background-repeat: repeat;
 	background-image: url(../images/templatemo_body.jpg)
+
 
 
 }
@@ -208,7 +204,7 @@ h6 {
 	text-indent: -10000px; 
 	color: #999; 
 	text-align: left; 
-	background: url(../images/templatemo_logo.png) no-repeat top left; 
+	background: url(../images/logo.png) no-repeat top left; 
 }
 
 #header_right { 

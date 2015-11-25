@@ -33,9 +33,19 @@ public class ShoppingcartController extends HttpServlet {
         String action = request.getParameter("action");
         String pid = request.getParameter("pid");
         String uid = (String) request.getServletContext().getAttribute("uid");
+        if(uid==null||uid==""){
+            uid = request.getParameter("uid");
+        }
         String removesid = request.getParameter("sid");
         PrintWriter out = response.getWriter();
-        if (action.equals("show")) {
+        if(action.equals("login")){
+            ArrayList<ShoppingCartBean> pb = db.showCart(uid);
+            HttpSession session = request.getSession(true);
+            session.setAttribute("shoppingCart", pb);
+            out.print("<script type='text/javascript'>");
+            out.print("location.href='index.jsp'");
+            out.print("</script>");
+        }else if (action.equals("show")) {
             ArrayList<ShoppingCartBean> pb = db.showCart(uid);
             HttpSession session = request.getSession(true);
             session.setAttribute("shoppingCart", pb);

@@ -1,3 +1,5 @@
+<%@page import="ict.db.ShoppingCartDB"%>
+<%@page import="ict.bean.ShoppingCartBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="ict.bean.ProductBean"%>
 <%@page import="ict.db.ProductDB"%>
@@ -31,14 +33,16 @@
 
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
+        <jsp:useBean class="java.util.ArrayList" id='shoppingCart' scope='session'/>
         <% String s = userName.getId();
             pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
         %>
+        
         <div id="templatemo_wrapper">
             <div id="templatemo_header">
 
                 <div id="site_title">
-                    <h1><a href="index.jsp">Station Shop</a></h1>
+                    <h1><a href="index.jsp">Stationery Station</a></h1>
                 </div>
 
                 <div id="header_right">
@@ -48,7 +52,7 @@
                         if (userName.getUsername() == null) {
                             out.print("<a href='login.jsp'>Log In</a>");
                         } else {
-                            out.print("<font size=5>" + userName.getUsername() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
+                            out.print("<font size=5>" + userName.getUsername() + ",</font>" + " <a href='login?action=logout'> Logout</a>"); 
                         }
                     %>
                 </div>
@@ -76,8 +80,8 @@
                     <br style="clear: left" />
                 </div> <!-- end of ddsmoothmenu -->
                 <div id="menu_second_bar">
-                    <div id="top_shopping_cart">
-                        Shopping Cart: <strong>X Products</strong> ( <a href="#">Show Cart</a> )
+                     <div id="top_shopping_cart">
+                        Shopping Cart: <strong><%=shoppingCart.size()%></strong> ( <a href="cart?action=show">Show Cart</a> )
                     </div>
                     <div id="templatemo_search">
                         <form action="#" method="get">

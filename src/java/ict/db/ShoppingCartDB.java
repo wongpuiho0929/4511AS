@@ -24,7 +24,7 @@ public class ShoppingCartDB {
         this.username = username;
         this.password = password;
     }
-
+    
     public Connection getConnection() throws SQLException, IOException {
 
         //System.setProperty("jdbc.drivers","com.mysql.jdbc.Driver");
