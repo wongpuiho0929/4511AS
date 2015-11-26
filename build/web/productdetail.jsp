@@ -1,3 +1,4 @@
+<%@page import="ict.bean.ProductBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -18,8 +19,10 @@
 
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
+        <jsp:useBean class="java.util.ArrayList" id="productList" scope="session"/>
         <jsp:useBean class="ict.bean.ProductBean" id="productDetail" scope="session"/>
         <jsp:useBean class="java.util.ArrayList" id='shoppingCart' scope='session'/>
+
         <% String s = userName.getId();
             pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
         %>
@@ -69,21 +72,12 @@
                         <h3>Categories</h3>   
                         <div class="content"> 
                             <ul class="sidebar_list">
-                                <li class="first"><a href="#">Aenean varius nulla</a></li>
-                                <li><a href="#">Cras mattis arcu</a></li>
-                                <li><a href="#">Donec turpis ipsum</a></li>
-                                <li><a href="#">Fusce sodales mattis</a></li>
-                                <li><a href="#">Maecenas et mauris</a></li>
-                                <li><a href="#">Mauris nulla tortor</a></li>
-                                <li><a href="#">Nulla odio ipsum</a></li>
-                                <li><a href="#">Nunc ac viverra nibh</a></li>
-                                <li><a href="#">Praesent id venenatis</a></li>
-                                <li><a href="#">Quisque odio velit</a></li>
-                                <li><a href="#">Suspendisse posuere</a></li>
-                                <li><a href="#">Tempus lacus risus</a></li>
-                                <li><a href="#">Ut tincidunt imperdiet</a></li>
-                                <li><a href="#">Vestibulum eleifend</a></li>
-                                <li class="last"><a href="#">Velit mi rutrum diam</a></li>
+                                <li class="first"><a href="#">File & Filing Accessories</a></li>
+                                <li><a href="#">Office Equipment</a></li>
+                                <li><a href="#">Electrical</a></li>
+                                <li><a href="#">Newspaper</a></li>
+                                <li><a href="#">Magazine</a></li>
+                                <li class="last"><a href="#">Stationery</a></li>
                             </ul>
                         </div>
                     </div>
@@ -98,21 +92,21 @@
                         <table>
                             <tr>
                                 <td height="30" width="160">Price:</td>
-                                <td><%=productDetail.getPrice()%></td>
+                                <td><p class="product_price">$<%=productDetail.getPrice()%></td>
                             </tr>
                             <tr>
                                 <td height="30">Availability:</td>
                                 <%
                                     if (productDetail.getQty() > 0) {
-                                        out.print("<td>In Stock</td>");
+                                        out.print("<td class='product_availabilityT'>In Stock</td>");
                                     } else {
-                                        out.print("<td>Sold</td>");
+                                        out.print("<td class='product_availabilityF'>Sold</td>");
                                     }
                                 %>
 
                             </tr>
                             <tr>
-                                <td height="30">Model:</td>
+                                <td height="30">Product ID:</td>
                                 <td><%=productDetail.getPid()%></td>
                             </tr>
                             <tr>
@@ -122,7 +116,7 @@
                             <tr><td height="30">Quantity</td><td><input type="text" value="1" style="width: 20px; text-align: right" /></td></tr>
                         </table>
                         <div class="cleaner h20"></div>
-                        <a href="shoppingcart.jsp" class="add_to_card">Add to Cart</a>
+                        <%out.print("<a href='cart?action=add&pid="+productDetail.getPid()+"'class='add_to_card'>Add to Cart</a>");%>
                     </div>
                     <div class="cleaner h30"></div>
 
@@ -131,36 +125,43 @@
 
                     <div class="cleaner h50"></div>
 
-                    <h4>Etiam In Tellus</h4>
-                    <div class="product_box">
-                        <a href="productdetail.jsp"><img src="images/product/01.jpg" alt="Image 01" /></a>
-                        <h3>Ut eu feugiat</h3>
-                        <p class="product_price">$ 100</p>
-                        <a href="shoppingcart.jsp" class="add_to_card">Add to Cart</a>
-                        <a href="productdetail.jsp" class="detail">Detail</a>
-                    </div>        	
-                    <div class="product_box">
-                        <a href="productdetail.jsp"><img src="images/product/02.jpg" alt="Image 02" /></a>
-                        <h3>Curabitur et turpis</h3>
-                        <p class="product_price">$ 200</p>
-                        <a href="shoppingcart.jsp" class="add_to_card">Add to Cart</a>
-                        <a href="productdetail.jsp" class="detail">Detail</a>
-                    </div>        	
-                    <div class="product_box no_margin_right">
-                        <a href="productdetail.jsp"><img src="images/product/03.jpg" alt="Image 03" /></a>
-                        <h3>Mauris consectetur</h3>
-                        <p class="product_price">$ 120</p>
-                        <a href="shoppingcart.jsp" class="add_to_card">Add to Cart</a>
-                        <a href="productdetail.jsp" class="detail">Detail</a>
-                    </div>     
+                    <h4>Other</h4>
+                    <%
+                        long[] temp = new long[3];
+                        boolean chk = true;
+                        while (chk) {
+                            for (int i = 0; i < 3; i++) {
+                                temp[i] = (long) Math.floor(Math.random() * productList.size());
+                                if (i == 2) {
+                                    if ((temp[0] != temp[1]) && (temp[0] != temp[2]) && (temp[1] != temp[2])) {
+                                        chk = false;
+                                    }
+                                }
+                            }
+                        }
 
+                        for (int i = 2; i >= 0; i--) {
+                            if (i != 0) {
+                                out.print("<div class='product_box'>");
+                            } else {
+                                out.print("<div class='product_box no_margin_right'>");
+                            }
+                            out.print("<a href='product?action=detail&pid=" + ((ProductBean) productList.get((int) temp[i])).getPid() + "'>" + "<img src='" + ((ProductBean) productList.get((int) temp[i])).getPhoto() + "' height='150' width='200'></a>");
+                            out.print(((ProductBean) productList.get((int) temp[i])).getName());
+                            out.print("<p class='product_price'>" + ((ProductBean) productList.get((int) temp[i])).getPrice() + "</p>");
+                            out.print("<a href='cart?action=add&pid=" + ((ProductBean) productList.get((int) temp[i])).getPid() + "' class='add_to_card'>Add to Cart</a>");
+                            out.print("<a href='product?action=detail&pid=" + ((ProductBean) productList.get((int) temp[i])).getPid() + "' class='detail'>Detail</a>");
+                            out.print("</div>");
+                        }
+
+                    %>
                 </div> 
                 <div class="cleaner"></div>
             </div> <!-- END of templatemo_main -->
 
             <div id="templatemo_footer">
                 <p>
-                  <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> |  <a href="checkout.jsp">Checkout</a>
+                    <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> |  <a href="checkout.jsp">Checkout</a>
                 </p>
 
                 Copyright © 2015 <a href="index.jsp">Stationery Station</a>

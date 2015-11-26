@@ -117,6 +117,35 @@ public class ProductDB {
         }
         return a;
     }
+    
+    public ArrayList<ProductBean> groupBy() {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        ProductBean pb = null;
+        ArrayList<ProductBean> a = new ArrayList();
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT DISTINCT BRAND FROM PRODUCT";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
+            while (rs.next()) {
+                pb = new ProductBean();
+                pb.setBrand(rs.getString("brand"));
+                a.add(pb);
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return a;
+    }
 
     public ProductBean productdetail(String id) {
         Connection cnnct = null;

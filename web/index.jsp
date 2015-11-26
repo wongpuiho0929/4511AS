@@ -11,19 +11,19 @@
         <title>Stationery Station</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
-
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/ddsmoothmenu.js"></script>
         <link rel="stylesheet" type="text/css" media="all" href="css/jquery.dualSlider.0.2.css" />
-
         <script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>
     </head>
 
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
         <jsp:useBean class="java.util.ArrayList" id='shoppingCart' scope='session'/>
+        <jsp:useBean class="java.util.ArrayList" id="productList" scope='session'/>
+        <jsp:useBean class="java.util.ArrayList" id="groupBy" scope='session'/>
         <% String s = userName.getId();
             pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
         %>
@@ -49,7 +49,7 @@
                                 out.print("<a href='handleOrder?action=list'>Handle Orders</a> | ");
                                 out.print("<a href='handleUser?action=list'>Handle Accounts</a> | ");
                             }
-                            out.print("<font size=5>" + userName.getName()+ ",</font>" + " <a href='login?action=logout'> Logout</a>");
+                            out.print("<font size=5>" + userName.getName() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
                         }
                     %>
                 </div>
@@ -88,18 +88,6 @@
                                 <a href="#" title="Read more" class="more">Read more</a>
                             </div><!-- /detail -->
 
-                            <div class="detail">
-                                <h2><a href="#">Fusce hendrerit</a></h2>
-                                <p>Duis dignissim tincidunt turpis eget pellentesque. Nulla consectetur accumsan facilisis. Suspendisse et est lectus, at consectetur sem.</p>
-                                <a href="#" title="Read more" class="more">Read more</a>
-                            </div><!-- /detail -->
-
-                            <div class="detail">
-                                <h2><a href="#">Aenean massa cum</a></h2>
-                                <p>Sed vel interdum sapien. Aliquam consequat, diam sit amet iaculis ultrices, diam erat faucibus dolor, quis auctor metus libero vel mi.</p>
-                                <a href="#" title="Read more" class="more">Read more</a>
-                            </div><!-- /detail -->
-
                         </div><!-- /details -->
 
                     </div><!-- /details_wrapper --><!-- /paging --></div><!-- /panel -->
@@ -108,14 +96,6 @@
 
                     <div class="item item_1">
                         <img src="images/slider/02.jpg" alt="Slider 01" />
-                    </div><!-- /item -->
-
-                    <div class="item item_2">
-                        <img src="images/slider/03.jpg" alt="Slider 02" />
-                    </div><!-- /item -->
-
-                    <div class="item item_3">
-                        <img src="images/slider/01.jpg" alt="Slider 03" />
                     </div><!-- /item -->
 
                 </div><!-- /backgrounds -->
@@ -127,21 +107,30 @@
                         <h3>Categories</h3>   
                         <div class="content"> 
                             <ul class="sidebar_list">
-                                <li class="first"><a href="#">Aenean varius nulla</a></li>
-                                <li><a href="#">Cras mattis arcu</a></li>
-                                <li><a href="#">Donec turpis ipsum</a></li>
-                                <li><a href="#">Fusce sodales mattis</a></li>
-                                <li><a href="#">Maecenas et mauris</a></li>
-                                <li><a href="#">Mauris nulla tortor</a></li>
-                                <li><a href="#">Nulla odio ipsum</a></li>
-                                <li><a href="#">Nunc ac viverra nibh</a></li>
-                                <li><a href="#">Praesent id venenatis</a></li>
-                                <li><a href="#">Quisque odio velit</a></li>
-                                <li><a href="#">Suspendisse posuere</a></li>
-                                <li><a href="#">Tempus lacus risus</a></li>
-                                <li><a href="#">Ut tincidunt imperdiet</a></li>
-                                <li><a href="#">Vestibulum eleifend</a></li>
-                                <li class="last"><a href="#">Velit mi rutrum diam</a></li>
+                                <li class="first"><a href="#">File & Filing Accessories</a></li>
+                                <li><a href="#">Office Equipment</a></li>
+                                <li><a href="#">Electrical</a></li>
+                                <li><a href="#">Newspaper</a></li>
+                                <li><a href="#">Magazine</a></li>
+                                <li class="last"><a href="#">Stationery</a></li>
+                            </ul>
+                        </div>
+                       <br>
+                        <h3>Brand</h3>
+                        <div class="content"> 
+                            <ul class="sidebar_list">
+                                <%
+                                    for(int i=0;i<groupBy.size();i++){
+                                        if(i==0){
+                                            out.print("<li class='first'><a href=#>"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                                        }else if(i==groupBy.size()-1){
+                                            out.print("<li class='last'><a href=#>"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                                        }else{
+                                            out.print("<li><a href=#>"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                                        }
+                                    }
+                                   
+                                %>
                             </ul>
                         </div>
                     </div>
@@ -149,11 +138,6 @@
                 <div id="content" class="float_r">
                     <h1>New Products</h1>
                     <%
-                        String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
-                        String username = "root";
-                        String password = "tommy985";
-                        ProductDB pb = new ProductDB(url, username, password);
-                        ArrayList<ProductBean> productList = pb.showProduct();
                         int count = 1;
                         for (int i = 0; i < productList.size(); i++) {
                             if (count != 3) {
@@ -162,11 +146,11 @@
                                 out.print("<div class='product_box no_margin_right'>");
                                 count = 0;
                             }
-                            out.print("<a href='product?action=detail&pid=" + productList.get(i).getPid() + "'><img src='" + productList.get(i).getPhoto() + "' alt='Image " + i + "' height='150' width='200'/></a>");
-                            out.print("<h3>" + productList.get(i).getName() + "</h3>");
-                            out.print("<p class='product_price'>$ " + productList.get(i).getPrice() + "</p>");
-                            out.print("<a href='cart?action=add&pid=" + productList.get(i).getPid() + "' class='add_to_card'>Add to Cart</a>");
-                            out.print("<a href='product?action=detail&pid=" + productList.get(i).getPid() + "' class='detail'>Detail</a>");
+                            out.print("<a href='product?action=detail&pid=" + ((ProductBean)(productList.get(i))).getPid() + "'><img src='" +  ((ProductBean)(productList.get(i))).getPhoto() + "' alt='Image " + i + "' height='150' width='200'/></a>");
+                            out.print("<h3>" +  ((ProductBean)(productList.get(i))).getName() + "</h3>");
+                            out.print("<p class='product_price'>$ " +  ((ProductBean)(productList.get(i))).getPrice() + "</p>");
+                            out.print("<a href='cart?action=add&pid=" +  ((ProductBean)(productList.get(i))).getPid() + "' class='add_to_card'>Add to Cart</a>");
+                            out.print("<a href='product?action=detail&pid=" +  ((ProductBean)(productList.get(i))).getPid() + "' class='detail'>Detail</a>");
                             out.print("</div>");
                             count++;
                         }
@@ -177,7 +161,7 @@
 
             <div id="templatemo_footer">
                 <p>
-                      <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> |  <a href="checkout.jsp">Checkout</a>
+                    <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> |  <a href="checkout.jsp">Checkout</a>
                 </p>
 
                 Copyright © 2015 <a href="index.jsp">Stationery Station</a>
