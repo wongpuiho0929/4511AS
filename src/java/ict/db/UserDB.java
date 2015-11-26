@@ -165,7 +165,7 @@ public class UserDB {
         boolean isSuccess = false;
         try {
             cnnct = getConnection();
-            String preQueryStatment = "INSERT INTO USERINFO (ID, NAME, TEL, ADDRESS, USERNAME, PASSWORD,POSITION,ISFREEZE)VALUES (?,?,?,?,?,?,?,?)";
+            String preQueryStatment = "INSERT INTO USERINFO (ID, NAME, TEL, ADDRESS, USERNAME, PASSWORD,POSITION,ISFREEZE,balance,bonus)VALUES (?,?,?,?,?,?,?,?,0,0)";
             pStnmt = cnnct.prepareStatement(preQueryStatment);
             pStnmt.setString(1, id);
             pStnmt.setString(2, name);
