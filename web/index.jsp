@@ -44,6 +44,7 @@
                         } else {
                             if (userName.getPosition().equals("Manager")) {
                                 out.print("<a href='addProduct.jsp'>Add Product</a> |");
+                                out.print("<a href='handleOrder?action=list'>Handle Orders</a> |");
                             }
                             out.print("<font size=5>" + userName.getUsername() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
                         }

@@ -17,7 +17,7 @@ public class test extends HttpServlet {
         db.addUserInfo("1","","","","xyz","123","Manager","N");*/
 
 
-        ProductDB pdb = new ProductDB(url, username, password);
+        /*ProductDB pdb = new ProductDB(url, username, password);
 
         pdb.createProductTable();
         pdb.addProduct("P0001", "Integer eleifend sed", 100.0, 20,"Apple","IS a Pen","pen","images/product/01.jpg");
@@ -28,16 +28,19 @@ public class test extends HttpServlet {
         pdb.addProduct("P0006", "Nulla luctus urna", 193.0, 20,"Apple","IS a Pen","pen", "images/product/06.jpg");
         pdb.addProduct("P0007", "Pellentesque, Validate", 30.0, 20,"Apple","IS a Pen","pen", "images/product/07.jpg");
         pdb.addProduct("P0008", "Suspendisse fermentum", 220.0, 20,"Apple","IS a Pen","pen", "images/product/08.jpg");
-        pdb.addProduct("P0009", "Donec laoreet velit", 65.0, 20,"Apple","IS a Pen","pen", "images/product/09.jpg");
+        pdb.addProduct("P0009", "Donec laoreet velit", 65.0, 20,"Apple","IS a Pen","pen", "images/product/09.jpg");*/
         
-        /*ShoppingCartDB scdb = new ShoppingCartDB(url,username,password);
-        scdb.createShoppingCartTable();
+        ShoppingCartDB scdb = new ShoppingCartDB(url,username,password);
+        /*scdb.createShoppingCartTable();
         GiftDB gdb = new GiftDB(url,username,password);
         gdb.createGiftTable();
         gdb.addGift("G0001", "Pen", 100, 20, "very good");
         gdb.addGift("G0002", "Pencil", 100, 20, "very good");
         gdb.addGift("G0003", "Pencase", 200, 20, "very good");*/
-
-
+        
+        OrderDB odb = new OrderDB(url,username,password);
+        odb.createOrderTable();
+        odb.addOrder("O0001", "1", 200, "process");
+        scdb.addShoppingCart("S0001", "1", "P0001", 3);
     }
 }

@@ -20,8 +20,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 /**
  *
  * @author pet10_000
@@ -56,17 +54,21 @@ public class GiftController extends HttpServlet {
         } else if ("add".equalsIgnoreCase(action)) {
             String[] giftId = request.getParameterValues("id");
             String userId = request.getParameter("userId");
-            for (int i = 0; i < giftId.length; i++) {
-                try {
-                    GiftBean gb = gdb.listGiftByID(giftId[i]);
-                    ugdb.addUserGift(giftId[i], userId, gb.getBonusPoint());
-                    gdb.UpdateGiftQty(gb);
-                } catch (SQLException ex) {
-                    PrintWriter out = response.getWriter();
-                    out.println(ex);
+            int bonus = Integer.parseInt(request.getParameter("bonus"));
+            if(userId != null) {
+                for (int i = 0; i < giftId.length; i++) {
+                    try {
+                        GiftBean gb = gdb.listGiftByID(giftId[i]);
+                        ugdb.addUserGift(giftId[i], userId, gb.getBonusPoint());
+                        gdb.UpdateGiftQty(gb);
+                    } catch (SQLException ex) {
+                        PrintWriter out = response.getWriter();
+                        out.println(ex);
+                    }
                 }
-            }
-            response.sendRedirect("gift?action=list");
+                response.sendRedirect("gift?action=list");
+            } else
+                response.sendRedirect("login.jsp");
         } else {
             PrintWriter out = response.getWriter();
             out.println("No such action!!!");
