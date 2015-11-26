@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Station Shop - Checkout Page</title>
+        <title>Stationery Station - Checkout Page</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
 
@@ -83,12 +83,6 @@
                 <div id="menu_second_bar">
                     <div id="top_shopping_cart">
                         Shopping Cart: <strong><%=shoppingCart.size()%></strong> ( <a href="cart?action=show">Show Cart</a> )
-                    </div>
-                    <div id="templatemo_search">
-                        <form action="#" method="get">
-                            <input type="text" value="Search" name="keyword" id="keyword" title="keyword" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
-                            <input type="submit" name="Search" value=" Search " alt="Search" id="searchbutton" title="Search" class="sub_btn"  />
-                        </form>
                     </div>
                     <div class="cleaner"></div>
                 </div>
@@ -170,7 +164,7 @@
                     <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> | <a href="about.jsp">About</a> | <a href="faqs.jsp">FAQs</a> | <a href="checkout.jsp">Checkout</a> | <a href="contact.jsp">Contact</a>
                 </p>
 
-                Copyright © 2048 <a href="#">Your Company Name</a>
+               Copyright © 2015 <a href="index.jsp">Stationery Station</a>
             </div> <!-- END of templatemo_footer -->
 
         </div> <!-- END of templatemo_wrapper -->

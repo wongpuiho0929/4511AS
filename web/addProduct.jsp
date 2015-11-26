@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Stationery Station - Products Page</title>
+        <title>Stationery Station - Search Page</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
 
@@ -27,6 +27,16 @@
                 contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
             })
 
+        </script>
+
+        <script type="text/javascript">
+            function validateForm() {
+                var x = document.forms["addList"]["pName"].value;
+                if (x == null || x == "") {
+                    alert("Name must be filled out");
+                    return false;
+                }
+            }
         </script>
 
         <link rel="stylesheet" type="text/css" media="all" href="css/jquery.dualSlider.0.2.css" />
@@ -69,8 +79,8 @@
                 <div id="top_nav" class="ddsmoothmenu">
                     <ul>
                         <li><a href="index.jsp">Home</a></li>
-                        <li><a href="products.jsp" class="selected">Products</a></li>
-                        <li><a href="Search.jsp">Search</a></li>
+                        <li><a href="products.jsp">Products</a></li>
+                        <li><a href="Search.jsp" class="selected">Search</a></li>
                         <li><a href="about.jsp">About</a>
                             <!--<ul>
                                 <li><a href="#submenu1">Sub menu 1</a></li>
@@ -119,43 +129,34 @@
                     </div>
                 </div>
                 <div id="content" class="float_r">
-                    <h1>New Products</h1>
-                    <%
-                        String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
-                        String username = "root";
-                        String password = "";
-                        ProductDB pb = new ProductDB(url, username, password);
-                        ArrayList<ProductBean> productList = pb.showProduct();
-                        int count = 1;
-                        for (int i = 0; i < productList.size(); i++) {
-                            if (count != 3) {
-                                out.print("<div class='product_box'>");
-                            } else {
-                                out.print("<div class='product_box no_margin_right'>");
-                                count = 0;
-                            }
-                            out.print("<a href='product?action=detail&pid=" + productList.get(i).getPid() + "'><img src='" + productList.get(i).getPhoto() + "' alt='Image " + i + "' /></a>");
-                            out.print("<h3>" + productList.get(i).getName() + "</h3>");
-                            out.print("<p class='product_price'>$ " + productList.get(i).getPrice() + "</p>");
-                            out.print("<a href='cart?action=add&pid=" + productList.get(i).getPid() + "' class='add_to_card'>Add to Cart</a>");
-                            out.print("<a href='product?action=detail&pid=" + productList.get(i).getPid() + "' class='detail'>Detail</a>");
-                            out.print("</div>");
-                            count++;
-                        }
-                    %>
-                </div> 
-                <div class="cleaner"></div>
-            </div> <!-- END of templatemo_main -->
+                    <h1>add Products:</h1>
+                    <form method="get" action="product" name='addList' onsubmit="return validateForm()">
+                        <input type="hidden" name="action" value="add">
+                            <table cellpadding="15">
+                                <tr><td><font size="5" color="black">Product ID</font><td><font size="5" color="black">:</font>             <input type="text" name="pId"/></td>
+                                        <tr><td><font size="5" color="black">Product Name</font></td><td><font size="5" color="black">:</font>       <input type="text" name="pName"/></td></tr>
+                                        <tr><td><font size="5" color="black">Price</font></td><td><font size="5" color="black">:</font>             <input type="number" name="price" value=0 min='0' max='1000' step='0.1' style="width: 50px;"/></td></tr>
+                                        <tr><td><font size="5" color="black">QTY</font></td><td><font size="5" color="black">:</font>               <input type="number" name="qty" value="0" min='0' max='50' step='1' style="width: 50px"/></td></tr>
+                                        <tr><td><font size="5" color="black">Brank Name </font></td><td><font size="5" color="black">:</font>        <input type="text" name="bName" /></td></tr>
+                                        <tr><td><font size="5" color="black">Product Description</font></td><td><font size="5" color="black">:</font> <input type="textarea" name="description"/></td></tr>
+                                        <tr><td><font size="5" color="black">Category</font></td><td><font size="5" color="black">:</font>           <input type="text" name="category"/></td></tr>
+                                        <tr><td><font size="5" color="black">Product photo</font></td><td><font size="5" color="black">:</font>       <input type="file" name="photo"/></td></tr>
+                                        <tr><td colspan="2"><center><input type="submit" value="Search" class="submit_btn"/></center></td></tr>
+                                        </table>
+                                        </form>
+                                        </div> 
+                                        <div class="cleaner"></div>
+                                        </div> <!-- END of templatemo_main -->
 
-            <div id="templatemo_footer">
-                <p>
-                    <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> | <a href="about.jsp">About</a> | <a href="faqs.jsp">FAQs</a> | <a href="checkout.jsp">Checkout</a> | <a href="contact.jsp">Contact</a>
-                </p>
+                                        <div id="templatemo_footer">
+                                            <p>
+                                                <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> | <a href="about.jsp">About</a> | <a href="faqs.jsp">FAQs</a> | <a href="checkout.jsp">Checkout</a> | <a href="contact.jsp">Contact</a>
+                                            </p>
 
-                Copyright © 2015 <a href="index.jsp">Stationery Station</a>
-            </div> <!-- END of templatemo_footer -->
+                                            Copyright © 2015 <a href="index.jsp">Stationery Station</a>
+                                        </div> <!-- END of templatemo_footer -->
 
-        </div> <!-- END of templatemo_wrapper -->
+                                        </div> <!-- END of templatemo_wrapper -->
 
-    </body>
-</html>
+                                        </body>
+                                        </html>

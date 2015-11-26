@@ -98,6 +98,9 @@ public class ProductDB {
                 pb.setPid(rs.getString("pid"));
                 pb.setName(rs.getString("pname"));
                 pb.setPrice(rs.getDouble("price"));
+                pb.setBrand(rs.getString("brand"));
+                pb.setDescription(rs.getString("description"));
+                pb.setCategory(rs.getString("category"));
                 pb.setQty(rs.getInt("qty"));
                 pb.setPhoto(rs.getString("photo"));
                 a.add(pb);
@@ -131,6 +134,9 @@ public class ProductDB {
                 pb.setPid(rs.getString("pid"));
                 pb.setName(rs.getString("pname"));
                 pb.setPrice(rs.getDouble("price"));
+                pb.setBrand(rs.getString("brand"));
+                pb.setDescription(rs.getString("description"));
+                pb.setCategory(rs.getString("category"));
                 pb.setQty(rs.getInt("qty"));
                 pb.setPhoto(rs.getString("photo"));
 
@@ -157,8 +163,8 @@ public class ProductDB {
             cnnct = getConnection();
             String preQueryStatement = "SELECT * FROM PRODUCT where pName Like ? and brand like ?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
-            pStmnt.setString(1, "%"+pName+"%");
-            pStmnt.setString(2, "%"+bName+"%");
+            pStmnt.setString(1, "%" + pName + "%");
+            pStmnt.setString(2, "%" + bName + "%");
             ResultSet rs = null;
             rs = pStmnt.executeQuery();
             while (rs.next()) {

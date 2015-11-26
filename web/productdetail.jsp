@@ -3,26 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Station Shop - Product Detail</title>
+        <title>Stationery Station - Product Detail</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
 
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
-
         <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
-
         <script type="text/javascript" src="js/jquery.min.js"></script></script>
-
-        <script language="javascript" type="text/javascript">
-            function clearText(field)
-            {
-                if (field.defaultValue == field.value)
-                    field.value = '';
-                else if (field.value == '')
-                    field.value = field.defaultValue;
-            }
-        </script>
-
         <link rel="stylesheet" type="text/css" media="all" href="css/jquery.dualSlider.0.2.css" />
 
         <script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>
@@ -82,12 +69,6 @@
                     <div id="top_shopping_cart">
                         Shopping Cart: <strong><%=shoppingCart.size()%></strong> ( <a href="cart?action=show">Show Cart</a> )
                     </div>
-                    <div id="templatemo_search">
-                        <form action="#" method="get">
-                            <input type="text" value="Search" name="keyword" id="keyword" title="keyword" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
-                            <input type="submit" name="Search" value=" Search " alt="Search" id="searchbutton" title="Search" class="sub_btn"  />
-                        </form>
-                    </div>
                     <div class="cleaner"></div>
                 </div>
             </div> <!-- END of templatemo_menu -->
@@ -146,7 +127,7 @@
                             </tr>
                             <tr>
                                 <td height="30">Manufacturer:</td>
-                                <td>Apple</td>
+                                <td><%=productDetail.getBrand()%></td>
                             </tr>
                             <tr><td height="30">Quantity</td><td><input type="text" value="1" style="width: 20px; text-align: right" /></td></tr>
                         </table>
@@ -156,7 +137,7 @@
                     <div class="cleaner h30"></div>
 
                     <h5>Product Description</h5>
-                    <p>Station Shop is free website template by templatemo for ecommerce websites or online stores. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec varius sapien fringilla velit sodales consectetur. Nam nibh lacus, tempor at ornare eu, condimentum a ligula. Mauris pellentesque tincidunt ipsum vitae eleifend. Sed condimentum nisl sed orci ullamcorper fermentum. Validate <a href="http://validator.w3.org/check?uri=referer" rel="nofollow"><strong>XHTML</strong></a> &amp; <a href="http://jigsaw.w3.org/css-validator/check/referer" rel="nofollow"><strong>CSS</strong></a>.</p>	
+                    <p><%=productDetail.getDescription()%></p>	
 
                     <div class="cleaner h50"></div>
 
@@ -192,7 +173,7 @@
                     <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> | <a href="about.jsp">About</a> | <a href="faqs.jsp">FAQs</a> | <a href="checkout.jsp">Checkout</a> | <a href="contact.jsp">Contact</a>
                 </p>
 
-                Copyright © 2048 <a href="#">Your Company Name</a>
+                Copyright © 2015 <a href="index.jsp">Stationery Station</a>
             </div> <!-- END of templatemo_footer -->
 
         </div> <!-- END of templatemo_wrapper -->
