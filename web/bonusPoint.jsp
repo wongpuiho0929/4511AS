@@ -4,6 +4,12 @@
     Author     : pet10_000
 --%>
 
+<%@page import="ict.bean.GiftBean"%>
+<%@page import="ict.bean.OrderBean"%>
+<%@page import="ict.bean.OrderBean"%>
+<%@page import="ict.bean.UserGiftBean"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -84,10 +90,50 @@
                     <p align="right">bonus point:<%=userName.getBonus()%></p>
                     <p align="right"><a href="gift?action=list">list gift</a></p>
                     <a href="listBonusCotroller?action=list">show bonus history</a>
-                    <%
-                        
-                        
-                    %>                 
+                    <center>
+                        <%
+                            ArrayList<UserGiftBean> ugb = (ArrayList<UserGiftBean>) request.getAttribute("ugb");
+                            ArrayList<OrderBean> ob = (ArrayList<OrderBean>) request.getAttribute("ob");
+                            ArrayList<GiftBean> gb = (ArrayList<GiftBean>) request.getAttribute("gb");
+                            if(ob != null) {
+                                out.println("<table border='0' width='90%'");
+                                out.println("<tr>");
+                                out.println("<th align='left'>Order ID</th> <th>Total Price</th><th>State</th><th>Bonus Point</th >");
+                                out.println("</tr>");
+                                for (int i = 0; i < ob.size(); i++) {
+                                    OrderBean o = ob.get(i);
+                                    out.println("<tr align='center'>");
+                                    out.println("<td align='left'>" + o.getoId() + "</td>");
+                                    out.println("<td>" + o.gettPrice() + "</td>");
+                                    out.println("<td>" + o.getStatus() + "</td>");
+                                    out.println("<td>+" + o.getBonus() + "</td>");
+                                    out.println("</tr>");
+                                }                      
+                                out.println("</table>"); 
+                            }
+                            if(ugb != null) {
+                                out.println("<table border='0' width='90%'");
+                                out.println("<tr>");
+                                out.println("<th align='left'>Gift ID</th> <th>Name</th><th>Descriptions</th ><th>Bonus Point</th >");
+                                out.println("</tr>");
+                                for (int i = 0; i < ugb.size(); i++) {
+                                    UserGiftBean ug = ugb.get(i);
+                                    for (int j = 0; j < gb.size(); j++) {
+                                        GiftBean g = gb.get(j);
+                                        if(ug.getGiftId().equalsIgnoreCase(g.getGiftId())) {
+                                            out.println("<tr align='center'>");
+                                            out.println("<td align='left'>" + ug.getGiftId() + "</td>");
+                                            out.println("<td>" + g.getGiftName() + "</td>");
+                                            out.println("<td>" + g.getDescriptions() + "</td>");
+                                            out.println("<td>-" + ug.getBonusPoint() + "</td>");
+                                            out.println("</tr>");
+                                        }
+                                    }
+                                }                     
+                                out.println("</table>"); 
+                            }
+                        %>
+                    </center>
                 </div> 
                 <div class="cleaner"></div>
             </div> <!-- END of templatemo_main -->

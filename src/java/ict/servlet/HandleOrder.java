@@ -53,6 +53,8 @@ public class HandleOrder extends HttpServlet {
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/listOrder.jsp");
             rd.forward(request, response);
+        }else if ("add".equalsIgnoreCase(action)) {
+            
         } else {
             PrintWriter out = response.getWriter();
             out.println("No such action!!!");

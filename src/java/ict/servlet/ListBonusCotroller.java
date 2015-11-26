@@ -5,6 +5,7 @@
  */
 package ict.servlet;
 
+import ict.bean.GiftBean;
 import ict.bean.OrderBean;
 import ict.bean.UserGiftBean;
 import ict.db.GiftDB;
@@ -47,8 +48,10 @@ public class ListBonusCotroller extends HttpServlet {
         String id = (String) request.getServletContext().getAttribute("uid");
         ArrayList<OrderBean> ob = odb.listOrderById(id);
         ArrayList<UserGiftBean> ugb = ugdb.listGiftById(id);
+        ArrayList<GiftBean> gb = gdb.listGift();
         request.setAttribute("ob", ob);
         request.setAttribute("ugb", ugb);
+        request.setAttribute("gb", gb);
         RequestDispatcher rd;
         rd = getServletContext().getRequestDispatcher("/bonusPoint.jsp");
         rd.forward(request, response);

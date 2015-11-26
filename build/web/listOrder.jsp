@@ -107,15 +107,14 @@
                         </div>
                     </div>
                 </div>
-                <div id="content" class="float_r">
-                    <center>
+                <div id="content" class="float_r">                   
                     <%
                         ArrayList<OrderBean> orders
                                 = (ArrayList<OrderBean>) request.getAttribute("ob");
                         out.println("<h1>Order List</h1>");
-                        out.println("<table border='1' >");
+                        out.println("<center><table border='0' width='90%'>");
                         out.println("<tr>");
-                        out.println("<th>OrderId</th> <th>UserId</th><th>Total Price</th><th>State</th ><th></th ><th></th >");
+                        out.println("<th>OrderId</th> <th>UserId</th><th>Total Price</th><th>State</th ><th>View/th ><th>Update</th >");
                         out.println("</tr>");
                         for (int i = 0; i < orders.size(); i++) {
                             OrderBean c = orders.get(i);
