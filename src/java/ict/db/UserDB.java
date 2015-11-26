@@ -166,7 +166,7 @@ public class UserDB {
         boolean isSuccess = false;
         try {
             cnnct = getConnection();
-            String preQueryStatment = "INSERT INTO USERINFO (ID, NAME, TEL, ADDRESS, USERNAME, PASSWORD,POSITION,ISFREEZE)VALUES (?,?,?,?,?,?,?,?)";
+            String preQueryStatment = "INSERT INTO USERINFO (ID, NAME, TEL, ADDRESS, USERNAME, PASSWORD,POSITION,ISFREEZE,balance,bonus)VALUES (?,?,?,?,?,?,?,?,0,0)";
             pStnmt = cnnct.prepareStatement(preQueryStatment);
             pStnmt.setString(1, id);
             pStnmt.setString(2, name);
@@ -251,7 +251,10 @@ public class UserDB {
                 String position = rs.getString("position");
                 String username = rs.getString("username");
                 String password = rs.getString("password");
+
+                double balance = rs.getDouble("balance");
                 int bonus = rs.getInt("bonus");
+                        
 
                 u.setId(userId);
                 u.setUsername(username);
@@ -260,6 +263,7 @@ public class UserDB {
                 u.setTel(tel);
                 u.setAddress(address);
                 u.setPosition(position);
+                u.setBalance(balance);
                 u.setBonus(bonus);
             }
             pStnmt.close();

@@ -140,7 +140,6 @@
                     <%
                         String state = u.getId() != null ? "Edit User" : "Add User";
                         String type = u.getId() != null ? "edit" : "add";
-                        String id = u.getId() != null ? u.getId() : "";
                         String name = u.getId() != null ? u.getName() : "";
                         String tel = u.getId() != null ? u.getTel() : "";
                         String address = u.getId() != null ? u.getAddress() : "";
@@ -150,10 +149,6 @@
                     <form method="POST" action="editUserController">
                         <input type="hidden" name="action" value="<%=type%>"/>
                         <table border="0">
-                            <tr>
-                                <td><p align="right" /><b>id </b></td>
-                                <td><p /><input type="text" name="id" maxlength="10" size="15" value="<%=id%>"></td>
-                            </tr>
                             <tr>
                                 <td><p align="right" /><b>name </b></td>
                                 <td><p /><input type="text" name="name" maxlength="10" size="15" value="<%=name%>"></td>
