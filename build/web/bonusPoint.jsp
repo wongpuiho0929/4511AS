@@ -106,8 +106,9 @@
                 </div>
                 <div id="content" class="float_r">
                     <center><h1>Bonus Point</h1></center>
-                    <p align="right">bonus point:</p>
-                    <a href="gift?action=list" >list gift</a>
+                    <p align="right">bonus point:<%=userName.getBonus()%></p>
+                    <p align="right"><a href="gift?action=list">list gift</a></p>
+                    <a href="listBonusCotroller?action=list">show bonus history</a>
                     <%
                         
                         

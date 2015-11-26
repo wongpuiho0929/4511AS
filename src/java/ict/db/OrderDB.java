@@ -54,6 +54,7 @@ public class OrderDB {
                     + "uId varchar(5) not null,"
                     + "tPrice double not null,"
                     + "state varchar(20) not null,"
+                    + "bonus int(20) not null,"
                     + "primary key (oId)"
                     + ")";
             stmmt.execute(sql);
@@ -101,17 +102,56 @@ public class OrderDB {
         return dbs;
     }
     
-    public boolean addOrder(String oid, String uid, double tprice, String status) throws SQLException, IOException {
+    public ArrayList <OrderBean> listOrderById(String id){
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        OrderBean db = null;
+        ArrayList <OrderBean> dbs = new ArrayList <OrderBean> ();
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "select * from order where id=?";            
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, id);
+            ResultSet rs = null;
+            rs = pStnmt.executeQuery();
+            while (rs.next()){
+                db = new OrderBean();
+                String oId = rs.getString("oId");
+                String uId = rs.getString("uId");
+                double tPrice = rs.getDouble("tPrice");
+                String status = rs.getString("status");
+                int bonus = rs.getInt("bonus");
+                
+                db.setoId(oId);
+                db.setuId(uId);
+                db.settPrice(tPrice);
+                db.setStatus(status);
+                db.setBonus(bonus);
+                dbs.add(db);
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return dbs;
+    }
+    
+    public boolean addOrder(String oid, String uid, double tprice, String status, int bonus) throws SQLException, IOException {
         Connection cnnct = null;
         PreparedStatement pstmmt = null;
         boolean isValid = false;
         cnnct = getConnection();
-        String preQueryStatement = "INSERT INTO ORDERS VALUES (?,?,?,?)";
+        String preQueryStatement = "INSERT INTO ORDERS VALUES (?,?,?,?,?)";
         pstmmt = cnnct.prepareStatement(preQueryStatement);
         pstmmt.setString(1, oid);
         pstmmt.setString(2, uid);
         pstmmt.setDouble(3, tprice);
         pstmmt.setString(4, status);
+        pstmmt.setInt(5, bonus);
         int rowCount = pstmmt.executeUpdate();
         if (rowCount > 1) {
             isValid = true;

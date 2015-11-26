@@ -92,74 +92,71 @@
                     <div class="cleaner"></div>
                 </div>
             </div> <!-- END of templatemo_menu -->
-                
+
             <div id="templatemo_main">
                 <div id="sidebar" class="float_l">
                     <div class="sidebar_box"><span class="bottom"></span>
-                        <h3>Categories</h3>   
+                        <h3>Manage</h3>   
                         <div class="content"> 
                             <ul class="sidebar_list">
-                                <li class="first"><a href="#">Aenean varius nulla</a></li>
-                                <li><a href="#">Cras mattis arcu</a></li>
-                                <li><a href="#">Donec turpis ipsum</a></li>
-                                <li><a href="#">Fusce sodales mattis</a></li>
-                                <li><a href="#">Maecenas et mauris</a></li>
-                                <li><a href="#">Mauris nulla tortor</a></li>
-                                <li><a href="#">Nulla odio ipsum</a></li>
-                                <li><a href="#">Nunc ac viverra nibh</a></li>
-                                <li><a href="#">Praesent id venenatis</a></li>
-                                <li><a href="#">Quisque odio velit</a></li>
-                                <li><a href="#">Suspendisse posuere</a></li>
-                                <li><a href="#">Tempus lacus risus</a></li>
-                                <li><a href="#">Ut tincidunt imperdiet</a></li>
-                                <li><a href="#">Vestibulum eleifend</a></li>
-                                <li class="last"><a href="#">Velit mi rutrum diam</a></li>
+                                <li class="first"><a href="handleUser?action=getEditAccount">Edit personal Information</a></li>
+                                <li class=""><a href="changeClientPassword.jsp">Change Password</a></li>
+                                <li class="last"><a href="bonusPoint.jsp">Check Bonus Point</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div id="content" class="float_r">
+                    <form method="get" action="gift">
+                        <input type="hidden" name="action" value="search">
+                            <table>
+                                <tr><td>Bonus Point</td><td><input type="text" name="bonus"/></td><td colspan="2"><input type="submit" name="search" value="Search" class="submit_btn"/></td><td colspan="2"><input type="submit" name="search" value="All" class="submit_btn"/></td></tr>
+                                <tr><td>Option</td><td><input type="radio" name="option" value="less"/>less</td></tr>
+                                <tr><td></td><td><input type="radio" name="option" value="equal"/>equal</td></tr>
+                                <tr><td></td><td><input type="radio" name="option" value="greater"/>greater</td></tr>
+                            </table>
+                    </form>
                     <form action="gift" method="POST" >
                         <input type="hidden" name="action" value="add" />
-                        <input type="hidden" name="userId" value="<%=userName.getId()%>"/>
+                        <input type="hidden" name="bonus" value="<%=userName.getBonus()%>"/>
                         <center><h1>Gift List</h1>
-                            <p align="right">bonus point:</p>
+                            <p align="right">bonus point:<%=userName.getBonus()%></p>                            
                             <%
                                 ArrayList<GiftBean> gifts
                                         = (ArrayList<GiftBean>) request.getAttribute("gb");
-                                out.println("<table border='1' >");
+                                out.println("<table border='0' width='90%'");
                                 out.println("<tr>");
-                                out.println("<th>Name</th> <th> Bonus Point</th><th>Qty</th><th>Description</th ><th></th >");
+                                out.println("<th align='left'>Name</th> <th> Bonus Point</th><th>Qty</th><th>Description</th ><th></th >");
                                 out.println("</tr>");
                                 for (int i = 0; i < gifts.size(); i++) {
                                     GiftBean gb = gifts.get(i);
-                                    out.println("<tr>");
-                                    out.println("<td>" + gb.getGiftName() + "</td>");
+                                    out.println("<tr align='center'>");
+                                    out.println("<td align='left'>" + gb.getGiftName() + "</td>");
                                     out.println("<td>" + gb.getBonusPoint() + "</td>");
                                     out.println("<td>" + gb.getQty() + "</td>");
                                     out.println("<td>" + gb.getDescriptions() + "</td>");
-                                    out.println("<td><input type=\"checkbox\" name=\"id\" value=\"" + gb.getGiftId() + "\"/></td>");
+                                    out.println("<td><input type=\"radio\" name=\"gid\" value=\"" + gb.getGiftId() + "\"/></td>");
                                     out.println("</tr>");
                                 }
+                                out.println("<tr></tr>");
                                 out.println("<tr><td colspan=\"5\" align=\"right\"><input type=\"submit\" value=\"select\"/></td></tr>");
                                 out.println("</table>");
                             %>
                         </center>
-                        <tr style=" "
-                </form>
-            </div> 
-            <div class="cleaner"></div>
-        </div> <!-- END of templatemo_main -->
+                    </form>
+                </div> 
+                <div class="cleaner"></div>
+            </div> <!-- END of templatemo_main -->
 
-        <div id="templatemo_footer">
-            <p>
-                <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> | <a href="about.jsp">About</a> | <a href="faqs.jsp">FAQs</a> | <a href="checkout.jsp">Checkout</a> | <a href="contact.jsp">Contact</a>
-            </p>
+            <div id="templatemo_footer">
+                <p>
+                    <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> | <a href="about.jsp">About</a> | <a href="faqs.jsp">FAQs</a> | <a href="checkout.jsp">Checkout</a> | <a href="contact.jsp">Contact</a>
+                </p>
 
-            Copyright © 2048 <a href="#">Your Company Name</a>
-        </div> <!-- END of templatemo_footer -->
+                Copyright © 2048 <a href="#">Your Company Name</a>
+            </div> <!-- END of templatemo_footer -->
 
-    </div> <!-- END of templatemo_wrapper Text -->
+        </div> <!-- END of templatemo_wrapper Text -->
 
-</body>
+    </body>
 </html>

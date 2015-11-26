@@ -15,6 +15,7 @@ public class OrderBean {
     private String uId;
     private double tPrice;
     private String status;
+    private int bonus;
 
     public OrderBean() {
     }
@@ -56,6 +57,14 @@ public class OrderBean {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public int getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(int bonus) {
+        this.bonus = bonus;
     }
     
 }

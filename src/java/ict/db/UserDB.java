@@ -44,7 +44,7 @@ public class UserDB {
             cnnct = getConnection();
             stmmt = cnnct.createStatement();
             String sql = "Create table if not EXISTS userInfo("
-                    + "Id varchar(5) not null," + "name varchar(25) not null,"
+                    + "id varchar(5) not null," + "name varchar(25) not null,"
                     + "tel varchar(10) not null," + "address varchar(50) not null,"
                     + "username varchar(25) not null," + "password varchar(25) not null,"
                     + "position varchar(25) not null," + "isfreeze varchar(1) not null,"
@@ -80,6 +80,7 @@ public class UserDB {
             bean.setPassword(rowCount.getString("password"));
             bean.setPosition(rowCount.getString("position"));
             bean.setIsfreeze(rowCount.getString("isfreeze"));
+            bean.setBonus(rowCount.getInt("bonus"));
             
         }
 
@@ -250,14 +251,16 @@ public class UserDB {
                 String position = rs.getString("position");
                 String username = rs.getString("username");
                 String password = rs.getString("password");
+                int bonus = rs.getInt("bonus");
 
                 u.setId(userId);
                 u.setUsername(username);
                 u.setPassword(password);
                 u.setName(name);
                 u.setTel(tel);
-                u.setAddress(tel);
+                u.setAddress(address);
                 u.setPosition(position);
+                u.setBonus(bonus);
             }
             pStnmt.close();
             cnnct.close();
@@ -389,6 +392,31 @@ public class UserDB {
             pStnmt = cnnct.prepareStatement(preQueryStatment);
             pStnmt.setString(1, newPassword);
             pStnmt.setString(2, id);
+            int rowCount = pStnmt.executeUpdate();
+            if (rowCount >= 1) {
+                return true;
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
+    public Boolean setNewBonus(UserInfo ui) {
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        boolean isSuccess = false;
+        try {
+            cnnct = getConnection();
+            String preQueryStatment = "update userinfo set bonus = ? where id = ?";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setInt(1, ui.getBonus());
+            pStnmt.setString(2, ui.getId());
             int rowCount = pStnmt.executeUpdate();
             if (rowCount >= 1) {
                 return true;
