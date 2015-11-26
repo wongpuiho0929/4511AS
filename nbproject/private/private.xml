@@ -2,6 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/user/Documents/GitHub/4511AS/web/editClientAccout.jsp</file>
+            <file>file:/C:/Users/user/Documents/GitHub/4511AS/src/java/ict/servlet/EditAccountController.java</file>
+            <file>file:/C:/Users/user/Documents/GitHub/4511AS/src/java/ict/servlet/EditUserController.java</file>
+            <file>file:/C:/Users/user/Documents/GitHub/4511AS/web/login.jsp</file>
+        </group>
     </open-files>
 </project-private>

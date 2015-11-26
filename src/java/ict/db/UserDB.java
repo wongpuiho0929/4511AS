@@ -250,7 +250,9 @@ public class UserDB {
                 String position = rs.getString("position");
                 String username = rs.getString("username");
                 String password = rs.getString("password");
-
+                double balance = rs.getDouble("balance");
+                int bonus = rs.getInt("bonus");
+                        
                 u.setId(userId);
                 u.setUsername(username);
                 u.setPassword(password);
@@ -258,6 +260,8 @@ public class UserDB {
                 u.setTel(tel);
                 u.setAddress(tel);
                 u.setPosition(position);
+                u.setBalance(balance);
+                u.setBonus(bonus);
             }
             pStnmt.close();
             cnnct.close();
