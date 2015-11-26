@@ -356,13 +356,12 @@ public class UserDB {
         boolean isSuccess = false;
         try {
             cnnct = getConnection();
-            String preQueryStatment = "update userinfo set name = ?,tel = ?, address = ?, username = ? where id = ?";
+            String preQueryStatment = "update userinfo set name = ?,tel = ?, address = ? where id = ?";
             pStnmt = cnnct.prepareStatement(preQueryStatment);
             pStnmt.setString(1, u.getName());
             pStnmt.setString(2, u.getTel());
             pStnmt.setString(3, u.getAddress());
-            pStnmt.setString(4, u.getUsername());
-            pStnmt.setString(5, u.getId());
+            pStnmt.setString(4, u.getId());
             int rowCount = pStnmt.executeUpdate();
             if (rowCount >= 1) {
                 isSuccess = true;

@@ -142,19 +142,13 @@
                 <div id="content" class="float_r">
                     <jsp:useBean id="u" scope="request" class="ict.bean.UserInfo" />
                     <%
-                        String username = u.getId() != null ? u.getUsername(): "";
                         String name = u.getId() != null ? u.getName() : "";
                         String tel = u.getId() != null ? u.getTel() : "";
                         String address = u.getId() != null ? u.getAddress() : "";
-                        
                     %>
                     <h1>Edit Account</h1>
                     <form method="POST" action="editAccountController">
                         <table border="0">
-                            <tr>
-                                <td><p align="right" /><b>username </b></td>
-                                <td><p /><input type="text" name="username" maxlength="10" size="15" value="<%=username%>"></td>
-                            </tr>
                             <tr>
                                 <td><p align="right" /><b>name </b></td>
                                 <td><p /><input type="text" name="name" maxlength="10" size="15" value="<%=name%>"></td>

@@ -101,6 +101,12 @@ public class HandleUser extends HttpServlet {
                 rd = getServletContext().getRequestDispatcher("/editClientAccout.jsp");
                 rd.forward(request, response);
             }
+        } else if ("showChangePasswordError".equalsIgnoreCase(action)) {
+            String error = request.getParameter("error");
+            request.setAttribute("error", error);
+            RequestDispatcher rd;
+            rd = getServletContext().getRequestDispatcher("/changeClientPassword.jsp");
+            rd.forward(request, response);
         }
     }
 

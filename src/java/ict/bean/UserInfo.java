@@ -5,6 +5,24 @@ import java.io.Serializable;
 public class UserInfo implements Serializable {
     
     private String id, name, tel, address, username, password, position, isfreeze;
+    private double balance;
+    private int bonus;
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public int getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(int bonus) {
+        this.bonus = bonus;
+    }
 
     public UserInfo() {
     }
