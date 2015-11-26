@@ -1,15 +1,15 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="ict.bean.ProductBean"%>
 <%@page import="ict.db.ProductDB"%>
-<%@page import="ict.bean.ShoppingCartBean"%>
-<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Station Shop - Shopping Cart</title>
+        <title>Station Shop - Products Page</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
+
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
 
         <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
@@ -49,9 +49,11 @@
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
         <jsp:useBean class="java.util.ArrayList" id='shoppingCart' scope='session'/>
+        <jsp:useBean class="java.util.ArrayList" id="search" scope="request"/>
         <% String s = userName.getId();
             pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
         %>
+
         <div id="templatemo_wrapper">
             <div id="templatemo_header">
 
@@ -79,8 +81,16 @@
                     <ul>
                         <li><a href="index.jsp">Home</a></li>
                         <li><a href="products.jsp">Products</a></li>
-                        <li><a href="Search.jsp">Search</a></li>
-                        <li><a href="about.jsp">About</a></li>
+                        <li><a href="Search.jsp" class="selected">Search</a></li>
+                        <li><a href="about.jsp">About</a>
+                            <!--<ul>
+                                <li><a href="#submenu1">Sub menu 1</a></li>
+                                <li><a href="#submenu2">Sub menu 2</a></li>
+                                <li><a href="#submenu3">Sub menu 3</a></li>
+                                <li><a href="#submenu4">Sub menu 4</a></li>
+                                <li><a href="#submenu5">Sub menu 5</a></li>
+                            </ul>!-->
+                        </li>
                         <li><a href="checkout.jsp">Checkout</a></li>
                         <li><a href="contact.jsp">Contact</a></li>
                     </ul>
@@ -88,7 +98,7 @@
                 </div> <!-- end of ddsmoothmenu -->
                 <div id="menu_second_bar">
                     <div id="top_shopping_cart">
-                       Shopping Cart: <strong><%=shoppingCart.size()%></strong> ( <a href="cart?action=show">Show Cart</a> )
+                        Shopping Cart: <strong><%=shoppingCart.size()%></strong> ( <a href="cart?action=show">Show Cart</a> )
                     </div>
                     <div id="templatemo_search">
                         <form action="#" method="get">
@@ -126,42 +136,34 @@
                     </div>
                 </div>
                 <div id="content" class="float_r">
-                    <h1>Shopping Cart</h1>
-                    <table width="680px" cellspacing="0" cellpadding="5">
-                        <tr bgcolor="#ddd">
-                            <th width="220" align="left">Image </th> 
-                            <th width="180" align="left">Name </th> 
-                            <th width="100" align="center">Quantity </th> 
-                            <th width="60" align="right">Price </th> 
-                            <th width="60" align="right">Total </th> 
-                            <th width="90"></th>
+                    <h1>Search Products:</h1>
+                    <form method="get" action="product">
+                        <input type="hidden" name="action" value="search">
+                            <table>
+                                <tr><td><font size="5" color="black">Product Name</font></td><td><font size="5" color="black">:</font><input type="text" name="pName"/></td></tr>
+                                <tr><td><font size="5" color="black">Brank Name </font></td><td><font size="5" color="black">:</font><input type="text" name="bName" /></td></tr>
+                                <tr><td colspan="2"><center><input type="submit" value="Search" class="submit_btn"/></center></td></tr>
+                            </table>
+                    </form>
+                    <%  
+                        out.print("<hr/>");
+                        out.print("<table>");
+                        out.print("<tr><td></td><td width=200><b>Name</b></td><td width=200><b>Brand</b></td><td width=200><b>Type</b></td><td width=200><b>Price</b></td></tr>");
+                        for(int i=0;i<search.size();i++){
+                             out.print("<tr><td width=200>");
+                             out.print("<img src='"+((ProductBean)search.get(i)).getPhoto()+"'></td>");
+                             out.print("<td width=200>"+((ProductBean)search.get(i)).getName()+"</td>");
+                             out.print("<td width=200>"+ ((ProductBean)search.get(i)).getBrand()+"</td>");
+                             out.print("<td width=200>"+ ((ProductBean)search.get(i)).getCategory()+"</td>");
+                             out.print("<td width=200>"+((ProductBean)search.get(i)).getPrice()+"</td>");
+                             out.print("</tr>");
+                        }
+                        out.print("</table>");
+                    %>
 
-                        </tr>
-                        <%
-                            for (int i = 0; i < shoppingCart.size(); i++) {
-                                ProductDB p = new ProductDB();
-                                ProductBean bean = p.productdetail(((ShoppingCartBean)(shoppingCart.get(i))).getPid());
-                                out.print("<tr>");
-                                out.print("<td>" + "<img src='" + bean.getPhoto() + "'></td>");
-                                out.print("<td>" + bean.getName() + "</td>");
-                                out.print("<td align='center'><input id='qty' type='text' value='1' style='width: 20px; text-align: right' /> </td>");
-                                out.print("<td align='right'>" + bean.getPrice() + "</td>");
-                                out.print("<td align='right'>" + bean.getPrice() + "</td>");
-                                out.print("<td align='center'> <a href='cart?action=remove&sid=" + ((ShoppingCartBean)(shoppingCart.get(i))).getSid() + "'>Remove</a> </td>");
-                            }
-                        %>
-                        <tr>
-                            <td colspan="3"></td>
-                            <td align="right" style="background:#ddd; font-weight:bold"> Total </td>
-                            <td align="right" style="background:#ddd; font-weight:bold">$140 </td>
-                            <td style="background:#ddd; font-weight:bold"> </td>
-                        </tr>
-                    </table>
-                    <div style="float:right; width: 215px; margin-top: 20px;">
-                        <p><a href="checkout.jsp">Proceed to checkout</a></p>
-                        <p><a href="javascript:history.back()">Continue shopping</a></p>
 
-                    </div>
+
+
 
                 </div> 
                 <div class="cleaner"></div>

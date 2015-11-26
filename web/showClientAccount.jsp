@@ -134,7 +134,7 @@
                         <div class="content"> 
                             <ul class="sidebar_list">
                                 <li class="first"><a href="handleUser?action=getEditAccount">Edit personal Information</a></li>
-                                <li class="last"><a href="#">Change Password</a></li>
+                                <li class="last"><a href="changeClientPassword.jsp">Change Password</a></li>
                             </ul>
                         </div>
                     </div>

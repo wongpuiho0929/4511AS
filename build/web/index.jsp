@@ -46,7 +46,7 @@
                 </div>
 
                 <div id="header_right">
-                    <a href="#">My Account</a> | <a href="#">My Cart</a> | <a href="#">My Recard</a> | <a href="#">Checkout</a> |
+                    <a href="handleUser?action=showClientDateil">My Account</a> | <a href="#">My Cart</a> | <a href="#">My Recard</a> | <a href="#">Checkout</a> |
 
                     <%
                         if (userName.getUsername() == null) {
@@ -65,6 +65,7 @@
                     <ul>
                         <li><a href="index.jsp" class="selected">Home</a></li>
                         <li><a href="products.jsp">Products</a></li>
+                        <li><a href="Search.jsp">Search</a></li>
                         <li><a href="about.jsp">About</a>
                             <!--<ul>
                                 <li><a href="#submenu1">Sub menu 1</a></li>

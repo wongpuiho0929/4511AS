@@ -377,4 +377,31 @@ public class UserDB {
         }
         return isSuccess;
     }
+    
+    public Boolean changeNewPassword(String id, String newPassword) {
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        boolean isSuccess = false;
+        Random r = new Random();
+        String password = "";
+        try {
+            cnnct = getConnection();
+            String preQueryStatment = "update userinfo set password = ? where id = ?";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, newPassword);
+            pStnmt.setString(2, id);
+            int rowCount = pStnmt.executeUpdate();
+            if (rowCount >= 1) {
+                return true;
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
 }
