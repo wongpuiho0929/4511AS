@@ -43,7 +43,6 @@ public class EditAccountController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String id = (String) request.getServletContext().getAttribute("uid");
-        String username = request.getParameter("username");
         String name = request.getParameter("name");
         String tel = request.getParameter("tel");
         String address = request.getParameter("address");
@@ -53,7 +52,6 @@ public class EditAccountController extends HttpServlet {
         u.setName(name);
         u.setTel(tel);
         u.setAddress(address);
-        u.setUsername(username);
         db.editClientRecord(u);
         response.sendRedirect("handleUser?action=showClientDateil");
     }

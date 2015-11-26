@@ -46,26 +46,32 @@ public class ChangePasswordController extends HttpServlet {
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
         String newPasswordCor = request.getParameter("newPasswordCor");
-        
+
         UserInfo u = db.queryCustByID(id);
-        if(u.getPassword().equals(oldPassword))
-            if(newPassword.equals(newPasswordCor))
-                if(db.changeNewPassword(id, newPassword))
-                    response.sendRedirect("handleUser?action=showClientDateil");
-        response.sendRedirect("changeClientPassword.jsp?error=-1");
+        if (u.getPassword().equals(oldPassword)) {
+            if (newPassword.equals(newPasswordCor)) {
+                if (db.changeNewPassword(id, newPassword)) {
+                    response.sendRedirect("handleUser?action=showChangePasswordError&error=noError");
+                }
+            } else {
+                response.sendRedirect("handleUser?action=showChangePasswordError&error=2");
+            }
+        } else {
+            response.sendRedirect("handleUser?action=showChangePasswordError&error=1");
+        }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+/**
+ * Handles the HTTP <code>GET</code> method.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException if a servlet-specific error occurs
+ * @throws IOException if an I/O error occurs
+ */
+@Override
+        protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -79,7 +85,7 @@ public class ChangePasswordController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -90,7 +96,7 @@ public class ChangePasswordController extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+        public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

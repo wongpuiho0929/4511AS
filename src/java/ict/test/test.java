@@ -12,9 +12,9 @@ public class test extends HttpServlet {
         String username = "root";
         String password = "";
         
-        /*UserDB db = new UserDB(url, username, password);
+        UserDB db = new UserDB(url, username, password);
         db.createUserInfoTable();
-        db.addUserInfo("1","","","","xyz","123","Manager","N");*/
+        db.addUserInfo("1","","","","xyz","123","Manager","N");
 
 
         ProductDB pdb = new ProductDB(url, username, password);
@@ -30,13 +30,13 @@ public class test extends HttpServlet {
         pdb.addProduct("P0008", "Suspendisse fermentum", 220.0, 20,"Apple","IS a Pen","pen", "images/product/08.jpg");
         pdb.addProduct("P0009", "Donec laoreet velit", 65.0, 20,"Apple","IS a Pen","pen", "images/product/09.jpg");
         
-        /*ShoppingCartDB scdb = new ShoppingCartDB(url,username,password);
+        ShoppingCartDB scdb = new ShoppingCartDB(url,username,password);
         scdb.createShoppingCartTable();
         GiftDB gdb = new GiftDB(url,username,password);
         gdb.createGiftTable();
         gdb.addGift("G0001", "Pen", 100, 20, "very good");
         gdb.addGift("G0002", "Pencil", 100, 20, "very good");
-        gdb.addGift("G0003", "Pencase", 200, 20, "very good");*/
+        gdb.addGift("G0003", "Pencase", 200, 20, "very good");
 
 
     }

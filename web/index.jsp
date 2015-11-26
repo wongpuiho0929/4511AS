@@ -43,7 +43,8 @@
                             out.print("<a href='login.jsp'>Log In</a>");
                         } else {
                             if (userName.getPosition().equals("Manager")) {
-                                out.print("<a href='addProduct.jsp'>Add Product</a> |");
+                                out.print("<a href='addProduct.jsp'>Add Product</a> | ");
+                                out.print("<a href='handleUser?action=list'>Accounts</a> | ");
                             }
                             out.print("<font size=5>" + userName.getUsername() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
                         }
