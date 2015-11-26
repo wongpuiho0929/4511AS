@@ -79,100 +79,52 @@
                 </div>
             </div> <!-- END of templatemo_menu -->
 
-            <div id="templatemo_middle" class="carousel">
-                <div class="panel">
-
-                    <div class="details_wrapper">
-
-                        <div class="details">
-
-                            <div class="detail">
-                                <h2><a href="#">Station Shop</a></h2>
-                                <p>Station Shop is free website template by templatemo for ecommerce websites or online stores. Sed aliquam arcu. Donec urna massa, cursus et mattis at, mattis quis lectus. </p>
-                                <a href="#" title="Read more" class="more">Read more</a>
-                            </div><!-- /detail -->
-
-                            <div class="detail">
-                                <h2><a href="#">Fusce hendrerit</a></h2>
-                                <p>Duis dignissim tincidunt turpis eget pellentesque. Nulla consectetur accumsan facilisis. Suspendisse et est lectus, at consectetur sem.</p>
-                                <a href="#" title="Read more" class="more">Read more</a>
-                            </div><!-- /detail -->
-
-                            <div class="detail">
-                                <h2><a href="#">Aenean massa cum</a></h2>
-                                <p>Sed vel interdum sapien. Aliquam consequat, diam sit amet iaculis ultrices, diam erat faucibus dolor, quis auctor metus libero vel mi.</p>
-                                <a href="#" title="Read more" class="more">Read more</a>
-                            </div><!-- /detail -->
-
-                        </div><!-- /details -->
-
-                    </div><!-- /details_wrapper --><!-- /paging --></div><!-- /panel -->
-
-                <div class="backgrounds">
-
-                    <div class="item item_1">
-                        <img src="images/slider/02.jpg" alt="Slider 01" />
-                    </div><!-- /item -->
-
-                    <div class="item item_2">
-                        <img src="images/slider/03.jpg" alt="Slider 02" />
-                    </div><!-- /item -->
-
-                    <div class="item item_3">
-                        <img src="images/slider/01.jpg" alt="Slider 03" />
-                    </div><!-- /item -->
-
-                </div><!-- /backgrounds -->
-            </div> <!-- END of templatemo_middle -->
-
             <div id="templatemo_main">
                 <div id="sidebar" class="float_l">
                     <div class="sidebar_box"><span class="bottom"></span>
-                        <h3>Categories</h3>   
+                        <h3>Manage</h3>   
                         <div class="content"> 
                             <ul class="sidebar_list">
-                                <li class="first"><a href="#">Aenean varius nulla</a></li>
-                                <li><a href="#">Cras mattis arcu</a></li>
-                                <li><a href="#">Donec turpis ipsum</a></li>
-                                <li><a href="#">Fusce sodales mattis</a></li>
-                                <li><a href="#">Maecenas et mauris</a></li>
-                                <li><a href="#">Mauris nulla tortor</a></li>
-                                <li><a href="#">Nulla odio ipsum</a></li>
-                                <li><a href="#">Nunc ac viverra nibh</a></li>
-                                <li><a href="#">Praesent id venenatis</a></li>
-                                <li><a href="#">Quisque odio velit</a></li>
-                                <li><a href="#">Suspendisse posuere</a></li>
-                                <li><a href="#">Tempus lacus risus</a></li>
-                                <li><a href="#">Ut tincidunt imperdiet</a></li>
-                                <li><a href="#">Vestibulum eleifend</a></li>
-                                <li class="last"><a href="#">Velit mi rutrum diam</a></li>
+                                <li class="first"><a href="handleUser?action=getEditAccount">Edit personal Information</a></li>
+                                <li class=""><a href="changeClientPassword.jsp">Change Password</a></li>
+                                <li class="last"><a href="bonusPoint.jsp">Check Bonus Point</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div id="content" class="float_r">
+                    <form method="get" action="gift">
+                        <input type="hidden" name="action" value="search">
+                            <table>
+                                <tr><td>Bonus Point</td><td><input type="text" name="bonus"/></td><td colspan="2"><input type="submit" name="search" value="Search" class="submit_btn"/></td><td colspan="2"><input type="submit" name="search" value="All" class="submit_btn"/></td></tr>
+                                <tr><td>Option</td><td><input type="radio" name="option" value="less"/>less</td></tr>
+                                <tr><td></td><td><input type="radio" name="option" value="equal"/>equal</td></tr>
+                                <tr><td></td><td><input type="radio" name="option" value="greater"/>greater</td></tr>
+                            </table>
+                    </form>
                     <form action="gift" method="POST" >
                         <input type="hidden" name="action" value="add" />
-                        <input type="hidden" name="userId" value="<%=userName.getId()%>"/>
+                        <input type="hidden" name="bonus" value="<%=userName.getBonus()%>"/>
                         <center><h1>Gift List</h1>
-                            <p align="right">bonus point:</p>
+                            <p align="right">bonus point:<%=userName.getBonus()%></p>                            
                             <%
                                 ArrayList<GiftBean> gifts
                                         = (ArrayList<GiftBean>) request.getAttribute("gb");
-                                out.println("<table border='1' >");
+                                out.println("<table border='0' width='90%'");
                                 out.println("<tr>");
-                                out.println("<th>Name</th> <th> Bonus Point</th><th>Qty</th><th>Description</th ><th></th >");
+                                out.println("<th align='left'>Name</th> <th> Bonus Point</th><th>Qty</th><th>Description</th ><th></th >");
                                 out.println("</tr>");
                                 for (int i = 0; i < gifts.size(); i++) {
                                     GiftBean gb = gifts.get(i);
-                                    out.println("<tr>");
-                                    out.println("<td>" + gb.getGiftName() + "</td>");
+                                    out.println("<tr align='center'>");
+                                    out.println("<td align='left'>" + gb.getGiftName() + "</td>");
                                     out.println("<td>" + gb.getBonusPoint() + "</td>");
                                     out.println("<td>" + gb.getQty() + "</td>");
                                     out.println("<td>" + gb.getDescriptions() + "</td>");
-                                    out.println("<td><input type=\"checkbox\" name=\"id\" value=\"" + gb.getGiftId() + "\"/></td>");
+                                    out.println("<td><input type=\"radio\" name=\"gid\" value=\"" + gb.getGiftId() + "\"/></td>");
                                     out.println("</tr>");
                                 }
+                                out.println("<tr></tr>");
                                 out.println("<tr><td colspan=\"5\" align=\"right\"><input type=\"submit\" value=\"select\"/></td></tr>");
                                 out.println("</table>");
                             %>
@@ -191,7 +143,8 @@
            Copyright © 2015 <a href="index.jsp">Stationery Station</a>
         </div> <!-- END of templatemo_footer -->
 
-    </div> <!-- END of templatemo_wrapper Text -->
 
-</body>
+        </div> <!-- END of templatemo_wrapper Text -->
+
+    </body>
 </html>

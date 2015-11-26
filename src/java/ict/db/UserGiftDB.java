@@ -66,15 +66,16 @@ public class UserGiftDB {
         }
     }
     
-    public ArrayList <UserGiftBean> listGift(){
+    public ArrayList <UserGiftBean> listGiftById(String id){
         Connection cnnct = null;
         PreparedStatement pStnmt = null;
         UserGiftBean ugb = null;
         ArrayList <UserGiftBean> ugbs = new ArrayList <UserGiftBean> ();
         try{
             cnnct = getConnection();
-            String preQueryStatment = "select * from usergift";
+            String preQueryStatment = "select * from usergift where id = ?";
             pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, id);
             ResultSet rs = null;
             rs = pStnmt.executeQuery();
             while (rs.next()){
@@ -108,7 +109,7 @@ public class UserGiftDB {
         pstmmt = cnnct.prepareStatement(preQueryStatement);
         pstmmt.setString(1, userId);
         pstmmt.setString(2, giftId);
-        pstmmt.setDouble(3, bonusPoint);
+        pstmmt.setInt(3, bonusPoint);
         int rowCount = pstmmt.executeUpdate();
         if (rowCount > 1) {
             isValid = true;

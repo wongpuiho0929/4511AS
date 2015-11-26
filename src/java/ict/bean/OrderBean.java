@@ -14,14 +14,17 @@ public class OrderBean {
     private String oId;
     private String uId;
     private double tPrice;
+    private String status;
+    private int bonus;
 
     public OrderBean() {
     }
 
-    public OrderBean(String oId, String uId, double tPrice) {
+    public OrderBean(String oId, String uId, double tPrice, String status) {
         this.oId = oId;
         this.uId = uId;
         this.tPrice = tPrice;
+        this.status = status;
     }
 
     public String getoId() {
@@ -46,6 +49,22 @@ public class OrderBean {
 
     public void settPrice(double tPrice) {
         this.tPrice = tPrice;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(int bonus) {
+        this.bonus = bonus;
     }
     
 }

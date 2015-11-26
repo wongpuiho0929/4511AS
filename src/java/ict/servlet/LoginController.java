@@ -66,7 +66,7 @@ public class LoginController extends HttpServlet {
         String password = request.getParameter("password");
         String targetURL;
         UserInfo isValid = db.isValidUser(username, password);
-        if (isValid != null) {
+        if (isValid != null && isValid.getIsfreeze().equals("N")) {
             HttpSession session = request.getSession(true);
             session.setAttribute("userName", isValid);
             targetURL = "cart?action=login&uid="+isValid.getId();

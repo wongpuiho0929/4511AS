@@ -109,12 +109,18 @@
                 </div>
                 <div id="content" class="float_r">
                     <h1>Change Password</h1>
-                    <script type="text/javascript">
-                        var error = null;
-                        error = <%=request.getAttribute("error")%>;
-                        if (error != null)
-                            alert("Password error!");
-                    </script> 
+                    <%
+                        String error = request.getParameter("error");
+                        if (error != null) {
+                            if (error.equals("1")) {
+                                out.print("Wrong old password");
+                            } else if (error.equals("2")) {
+                                out.print("New password and New password confirm is not same");
+                            } else if (error.equals("noError")) {
+                                out.print("Password Changed");
+                            }
+                        }
+                    %>
                     <form method="POST" action="changePasswordController">
                         <table border="0">
                             <tr>

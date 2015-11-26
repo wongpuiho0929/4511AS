@@ -5,22 +5,20 @@
  */
 package ict.servlet;
 
+import ict.bean.UserInfo;
 import ict.bean.GiftBean;
 import ict.db.GiftDB;
 import ict.db.UserGiftDB;
+import ict.db.UserDB;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -31,6 +29,7 @@ public class GiftController extends HttpServlet {
 
     private GiftDB gdb;
     private UserGiftDB ugdb;
+    private UserDB udb;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -54,19 +53,40 @@ public class GiftController extends HttpServlet {
             rd = getServletContext().getRequestDispatcher("/gifts.jsp");
             rd.forward(request, response);
         } else if ("add".equalsIgnoreCase(action)) {
-            String[] giftId = request.getParameterValues("id");
-            String userId = request.getParameter("userId");
-            for (int i = 0; i < giftId.length; i++) {
+            String giftId = request.getParameter("gid");
+            String id = (String) request.getServletContext().getAttribute("uid");
+            int bonus = Integer.parseInt(request.getParameter("bonus"));
+            if (id != null) {
                 try {
-                    GiftBean gb = gdb.listGiftByID(giftId[i]);
-                    ugdb.addUserGift(giftId[i], userId, gb.getBonusPoint());
-                    gdb.UpdateGiftQty(gb);
-                } catch (SQLException ex) {
+                    GiftBean gb = gdb.listGiftByID(giftId);
+                    UserInfo u = udb.queryCustByID(id);
+                    if (gb.getBonusPoint() < bonus || gb.getBonusPoint() == bonus || gb.getQty() <= 0) {
+                        int newBonus = bonus - gb.getBonusPoint();
+                        ugdb.addUserGift(giftId, id, gb.getBonusPoint());
+                        gdb.UpdateGiftQty(gb);
+                        u.setBonus(newBonus);
+                        udb.setNewBonus(u);
+                    }
+                } catch (Exception ex) {
                     PrintWriter out = response.getWriter();
                     out.println(ex);
                 }
+                response.sendRedirect("gift?action=list");
+            } else {
+                response.sendRedirect("login.jsp");
             }
-            response.sendRedirect("gift?action=list");
+        } else if (action.equalsIgnoreCase("search")) {
+            String type = request.getParameter("search");
+            if (type.equalsIgnoreCase("search")) {
+                String option = request.getParameter("option");
+                int bonus = Integer.parseInt(request.getParameter("bonus"));
+                ArrayList<GiftBean> gb = gdb.listGiftByBonusPoint(bonus, option);
+                request.setAttribute("gb", gb);
+                RequestDispatcher rd;
+                rd = getServletContext().getRequestDispatcher("/gifts.jsp");
+                rd.forward(request, response);
+            } else
+                response.sendRedirect("gift?action=list");
         } else {
             PrintWriter out = response.getWriter();
             out.println("No such action!!!");
@@ -80,7 +100,6 @@ public class GiftController extends HttpServlet {
         String url = this.getServletContext().getInitParameter("url");
         gdb = new GiftDB(url, username, password);
         ugdb = new UserGiftDB(url, username, password);
-        gdb.createGiftTable();
-        ugdb.createUserGiftTable();
+        udb = new UserDB(url, username, password);
     }
 }

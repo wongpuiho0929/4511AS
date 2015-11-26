@@ -2,6 +2,7 @@ package ict.servlet;
 
 import ict.bean.ShoppingCartBean;
 import ict.db.ShoppingCartDB;
+import ict.db.UserDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -16,13 +17,15 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "ShoppingcartController", urlPatterns = {"/cart"})
 public class ShoppingcartController extends HttpServlet {
 
-    ShoppingCartDB db;
+    private ShoppingCartDB db;
+    private UserDB udb;
 
     public void init() {
         String username = this.getServletContext().getInitParameter("username");
         String password = this.getServletContext().getInitParameter("password");
         String targetURL = this.getServletContext().getInitParameter("url");
         db = new ShoppingCartDB(targetURL, username, password);
+        udb = new UserDB(targetURL, username, password);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

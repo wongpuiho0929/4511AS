@@ -105,52 +105,49 @@
                     <div class="cleaner"></div>
                 </div>
             </div> <!-- END of templatemo_menu -->
+            <jsp:useBean id="u" scope="request" class="ict.bean.UserInfo" />
+            <%if (u.getId() != null) {
+                    out.print("<div id=\"sidebar\" class=\"float_l\"><div class=\"sidebar_box\"><span class=\"bottom\"></span><h3>Manage</h3><div class=\"content\"><ul class=\"sidebar_list\"><li class=\"first\"><a href=\"handleUser?action=getEditAccount\">Edit personal Information</a></li><li class=\"last\"><a href=\"changeClientPassword.jsp\">Change Password</a></li></ul></div></div></div>");
+                }
+                String temID = u.getId() != null ? "templatemo_main" : "templatemo_middle";
+                String temID2 = u.getId() != null ? "content" : "";
+                String temClass = u.getId() != null ? "float_r" : "";
+            %>
 
-            <div id="templatemo_main">
-                <div id="sidebar" class="float_l">
-                    <div class="sidebar_box"><span class="bottom"></span>
-                       <h3>Manage</h3>   
-                        <div class="content"> 
-                            <ul class="sidebar_list">
-                                <li class="first"><a href="handleUser?action=getEditAccount">Edit personal Information</a></li>
-                                <li class="last"><a href="changeClientPassword.jsp">Change Password</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div id="content" class="float_r">
-                    <jsp:useBean id="u" scope="request" class="ict.bean.UserInfo" />
+            <div id="<%=temID%>">
+
+                <div id="<%=temID2%>" class="<%=temClass%>">
                     <%
-                        String username = u.getId() != null ? u.getUsername(): "";
+                        String state = u.getId() != null ? "Edit Account" : "Register";
+                        String type = u.getId() != null ? "edit" : "add";
+                        String submitT = u.getId() != null ? "submit" : "register";
                         String name = u.getId() != null ? u.getName() : "";
                         String tel = u.getId() != null ? u.getTel() : "";
                         String address = u.getId() != null ? u.getAddress() : "";
-                        
                     %>
-                    <h1>Edit Account</h1>
-                    <form method="POST" action="editAccountController">
-                        <table border="0">
-                            <tr>
-                                <td><p align="right" /><b>username </b></td>
-                                <td><p /><input type="text" name="username" maxlength="10" size="15" value="<%=username%>"></td>
-                            </tr>
-                            <tr>
-                                <td><p align="right" /><b>name </b></td>
-                                <td><p /><input type="text" name="name" maxlength="10" size="15" value="<%=name%>"></td>
-                            </tr>
-                            <tr>
-                                <td><p align="right" /><b>tel </b></td>
-                                <td><p /><input type="text" name="tel" maxlength="10" size="15" value="<%=tel%>"></td>
-                            </tr>
-                            <tr>
-                                <td><p align="right" /><b>address </b></td>
-                                <td><p /><input type="text" name="address" maxlength="10" size="15" value="<%=address%>"></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><p align="center" /><input type="submit" value="submit"</td>
-                            </tr>
-                        </table>
-                    </form>
+                    <center>
+                        <h1><%if (u.getId() == null) out.print("<br /><br /><font color='cyan'>");%><%=state%><%if (u.getId() == null) out.print("</font>");%></h1>
+                        <form method="POST" action="editAccountController">
+                            <input type="hidden" name="action" value="<%=type%>"/>
+                            <table border="0">
+                                <tr>
+                                    <td><p align="right" /><b><%if (u.getId() == null) out.print("<font size='3'>");%>Name <%if (u.getId() == null) out.print("</font>");%></b></td>
+                                    <td><p /><input type="text" name="name" maxlength="10" size="15" value="<%=name%>"></td>
+                                </tr>
+                                <tr>
+                                    <td><p align="right" /><b><%if (u.getId() == null) out.print("<font size='3'>");%>Tel no <%if (u.getId() == null) out.print("</font>");%></b></td>
+                                    <td><p /><input type="text" name="tel" maxlength="10" size="15" value="<%=tel%>"></td>
+                                </tr>
+                                <tr>
+                                    <td><p align="right" /><b><%if (u.getId() == null) out.print("<font size='3'>");%>Deliery Address <%if (u.getId() == null) out.print("</font>");%></b></td>
+                                    <td><p /><input type="text" name="address" size="15" value="<%=address%>"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><p align="center" /><input type="submit" value="<%=submitT%>" class="<%if (u.getId() == null) out.print("submit_btn");%>" /></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </center>
                 </div> 
                 <div class="cleaner"></div>
             </div> <!-- END of templatemo_main -->

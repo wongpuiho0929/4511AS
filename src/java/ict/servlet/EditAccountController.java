@@ -43,19 +43,26 @@ public class EditAccountController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String id = (String) request.getServletContext().getAttribute("uid");
-        String username = request.getParameter("username");
         String name = request.getParameter("name");
         String tel = request.getParameter("tel");
         String address = request.getParameter("address");
+        String action = request.getParameter("action");
 
-        UserInfo u = new UserInfo();
-        u.setId(id);
-        u.setName(name);
-        u.setTel(tel);
-        u.setAddress(address);
-        u.setUsername(username);
-        db.editClientRecord(u);
-        response.sendRedirect("handleUser?action=showClientDateil");
+        if ("add".equalsIgnoreCase(action)) {
+            db.addRecord(id, name, tel, address, "Client");
+            response.sendRedirect("handleUser?action=list");
+        } else if ("edit".equalsIgnoreCase(action)) {
+            UserInfo u = new UserInfo();
+            u.setId(id);
+            u.setName(name);
+            u.setTel(tel);
+            u.setAddress(address);
+            db.editClientRecord(u);
+            response.sendRedirect("handleUser?action=showClientDateil");
+        } else {
+            PrintWriter out = response.getWriter();
+            out.println("No such action!!!");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

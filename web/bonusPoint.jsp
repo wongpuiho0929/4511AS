@@ -66,84 +66,27 @@
                 </div>
             </div> <!-- END of templatemo_menu -->
 
-            <div id="templatemo_middle" class="carousel">
-                <div class="panel">
-
-                    <div class="details_wrapper">
-
-                        <div class="details">
-
-                            <div class="detail">
-                                <h2><a href="#">Station Shop</a></h2>
-                                <p>Station Shop is free website template by templatemo for ecommerce websites or online stores. Sed aliquam arcu. Donec urna massa, cursus et mattis at, mattis quis lectus. </p>
-                                <a href="#" title="Read more" class="more">Read more</a>
-                            </div><!-- /detail -->
-
-                            <div class="detail">
-                                <h2><a href="#">Fusce hendrerit</a></h2>
-                                <p>Duis dignissim tincidunt turpis eget pellentesque. Nulla consectetur accumsan facilisis. Suspendisse et est lectus, at consectetur sem.</p>
-                                <a href="#" title="Read more" class="more">Read more</a>
-                            </div><!-- /detail -->
-
-                            <div class="detail">
-                                <h2><a href="#">Aenean massa cum</a></h2>
-                                <p>Sed vel interdum sapien. Aliquam consequat, diam sit amet iaculis ultrices, diam erat faucibus dolor, quis auctor metus libero vel mi.</p>
-                                <a href="#" title="Read more" class="more">Read more</a>
-                            </div><!-- /detail -->
-
-                        </div><!-- /details -->
-
-                    </div><!-- /details_wrapper --><!-- /paging --></div><!-- /panel -->
-
-                <div class="backgrounds">
-
-                    <div class="item item_1">
-                        <img src="images/slider/02.jpg" alt="Slider 01" />
-                    </div><!-- /item -->
-
-                    <div class="item item_2">
-                        <img src="images/slider/03.jpg" alt="Slider 02" />
-                    </div><!-- /item -->
-
-                    <div class="item item_3">
-                        <img src="images/slider/01.jpg" alt="Slider 03" />
-                    </div><!-- /item -->
-
-                </div><!-- /backgrounds -->
-            </div> <!-- END of templatemo_middle -->
-
             <div id="templatemo_main">
                 <div id="sidebar" class="float_l">
                     <div class="sidebar_box"><span class="bottom"></span>
-                        <h3>Categories</h3>   
+                        <h3>Manage</h3>   
                         <div class="content"> 
                             <ul class="sidebar_list">
-                                <li class="first"><a href="#">Aenean varius nulla</a></li>
-                                <li><a href="#">Cras mattis arcu</a></li>
-                                <li><a href="#">Donec turpis ipsum</a></li>
-                                <li><a href="#">Fusce sodales mattis</a></li>
-                                <li><a href="#">Maecenas et mauris</a></li>
-                                <li><a href="#">Mauris nulla tortor</a></li>
-                                <li><a href="#">Nulla odio ipsum</a></li>
-                                <li><a href="#">Nunc ac viverra nibh</a></li>
-                                <li><a href="#">Praesent id venenatis</a></li>
-                                <li><a href="#">Quisque odio velit</a></li>
-                                <li><a href="#">Suspendisse posuere</a></li>
-                                <li><a href="#">Tempus lacus risus</a></li>
-                                <li><a href="#">Ut tincidunt imperdiet</a></li>
-                                <li><a href="#">Vestibulum eleifend</a></li>
-                                <li class="last"><a href="#">Velit mi rutrum diam</a></li>
+                                <li class="first"><a href="handleUser?action=getEditAccount">Edit personal Information</a></li>
+                                <li class=""><a href="changeClientPassword.jsp">Change Password</a></li>
+                                <li class="last"><a href="bonusPoint.jsp">Check Bonus Point</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div id="content" class="float_r">
                     <center><h1>Bonus Point</h1></center>
-                    <p align="right">bonus point:</p>
-                    <a href="gift?action=list" >list gift</a>
+                    <p align="right">bonus point:<%=userName.getBonus()%></p>
+                    <p align="right"><a href="gift?action=list">list gift</a></p>
+                    <a href="listBonusCotroller?action=list">show bonus history</a>
                     <%
                         
-                    
+                        
                     %>                 
                 </div> 
                 <div class="cleaner"></div>

@@ -103,7 +103,8 @@
                         <div class="content"> 
                             <ul class="sidebar_list">
                                 <li class="first"><a href="handleUser?action=getEditAccount">Edit personal Information</a></li>
-                                <li class="last"><a href="changeClientPassword.jsp">Change Password</a></li>
+                                <li class=""><a href="changeClientPassword.jsp">Change Password</a></li>
+                                <li class="last"><a href="bonusPoint.jsp">Check Bonus Point</a></li>
                             </ul>
                         </div>
                     </div>
@@ -115,6 +116,8 @@
                         String tel = u.getId() != null ? u.getTel() : "";
                         String address = u.getId() != null ? u.getAddress() : "";
                         String username = u.getId() != null ? u.getUsername() : "";
+                        double balance = u.getId() != null ? u.getBalance(): 0.0;
+                        int bonus = u.getId() != null ? u.getBonus(): 0;
                     %>
                     <center>
                         <h1>Account Detail</h1>
@@ -134,6 +137,14 @@
                             <tr>
                                 <td><p align="right" /><b>Deliery Address : </b></td>
                                 <td><p /><%=address%></td>
+                            </tr>
+                            <tr>
+                                <td><p align="right" /><b>Balance : </b></td>
+                                <td><p /><%=balance%></td>
+                            </tr>
+                            <tr>
+                                <td><p align="right" /><b>Bonus : </b></td>
+                                <td><p /><%=bonus%></td>
                             </tr>
                         </table>
                     </center>

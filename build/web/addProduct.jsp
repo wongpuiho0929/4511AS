@@ -124,36 +124,44 @@
                         <input type="hidden" name="action" value="add">
                             <table cellpadding="15">
                                 <tr></tr>
-                                        <tr><td><font size="5" color="black">Product Name</font></td><td><font size="5" color="black">:</font>       
-                                            <input type="text" name="pName"/></td></tr>
-                                        <tr><td><font size="5" color="black">Price</font></td><td><font size="5" color="black">:</font>             
-                                            <input type="number" name="price" value=0 min='0' max='1000' step='0.1' style="width: 50px;"/></td></tr>
-                                        <tr><td><font size="5" color="black">QTY</font></td><td><font size="5" color="black">:</font>               
-                                            <input type="number" name="qty" value="0" min='0' max='50' step='1' style="width: 50px"/></td></tr>
-                                        <tr><td><font size="5" color="black">Brank Name </font></td><td><font size="5" color="black">:</font>        
-                                            <input type="text" name="bName" /></td></tr>
-                                        <tr><td><font size="5" color="black">Product Description</font></td><td><font size="5" color="black">:</font> 
-                                            <input type="textarea" name="description"/></td></tr>
-                                        <tr><td><font size="5" color="black">Category</font></td><td><font size="5" color="black">:</font>           
-                                            <input type="text" name="category"/></td></tr>
-                                        <tr><td><font size="5" color="black">Product photo</font></td><td><font size="5" color="black">:</font>       
-                                                <input type="file" name="photo"/></td></tr>
-                                        <tr><td colspan="2"><center><input type="submit" value="Add" class="submit_btn"/></center></td></tr>
-                                        </table>
-                                        </form>
-                                        </div> 
-                                        <div class="cleaner"></div>
-                                        </div> <!-- END of templatemo_main -->
+                                <tr><td><font size="5" color="black">Product Name</font></td><td><font size="5" color="black">:</font>       
+                                        <input type="text" name="pName"/></td></tr>
+                                <tr><td><font size="5" color="black">Price</font></td><td><font size="5" color="black">:</font>             
+                                        <input type="number" name="price" value=0 min='0' max='1000' step='0.1' style="width: 50px;"/></td></tr>
+                                <tr><td><font size="5" color="black">QTY</font></td><td><font size="5" color="black">:</font>               
+                                        <input type="number" name="qty" value="0" min='0' max='50' step='1' style="width: 50px"/></td></tr>
+                                <tr><td><font size="5" color="black">Brank Name </font></td><td><font size="5" color="black">:</font>        
+                                        <input type="text" name="bName" /></td></tr>
+                                <tr><td><font size="5" color="black">Product Description</font></td><td><font size="5" color="black">:</font> 
+                                        <input type="textarea" name="description"/></td></tr>
+                                <tr><td><font size="5" color="black">Category</font></td><td><font size="5" color="black">:</font>           
+                                        <select name="category">
+                                            <option value ="stationery">Stationery</option>
+                                            <option value ="officeEquipment">Office Equipment</option>
+                                            <option value="electrical">Electrical</option>
+                                            <option value="newspaper">Newspaper</option>
+                                            <option value="magazine">Magazine</option>
+                                            <option value="filingAccessories">File & Filing Accessories</option>
+                                        </select></td></tr>
+                                <tr><td><font size="5" color="black">Product photo</font></td><td><font size="5" color="black">:</font>       
+                                        <input type="file" name="photo"/></td></tr>
+                                <tr><td colspan="2"><center><input type="submit" value="Add" class="submit_btn"/></center></td></tr>
 
-                                        <div id="templatemo_footer">
-                                            <p>
-                                                 <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> |  <a href="checkout.jsp">Checkout</a>
-                                            </p>
+                            </table>
+                    </form>
+                </div> 
+                <div class="cleaner"></div>
+            </div> <!-- END of templatemo_main -->
 
-                                            Copyright © 2015 <a href="index.jsp">Stationery Station</a>
-                                        </div> <!-- END of templatemo_footer -->
+            <div id="templatemo_footer">
+                <p>
+                    <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> |  <a href="checkout.jsp">Checkout</a>
+                </p>
 
-                                        </div> <!-- END of templatemo_wrapper -->
+                Copyright © 2015 <a href="index.jsp">Stationery Station</a>
+            </div> <!-- END of templatemo_footer -->
 
-                                        </body>
-                                        </html>
+        </div> <!-- END of templatemo_wrapper -->
+
+    </body>
+</html>

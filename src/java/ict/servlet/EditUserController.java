@@ -6,6 +6,7 @@ import ict.bean.UserInfo;
 import ict.db.UserDB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,14 +40,15 @@ public class EditUserController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id = request.getParameter("id");
+        ArrayList<UserInfo> users = db.queryUser();
+        int idL = Integer.parseInt(users.get(users.size() -1).getId());
+        idL++;
+        String id = "" + idL;
         String name = request.getParameter("name");
         String tel = request.getParameter("tel");
         String address = request.getParameter("address");
         String position = request.getParameter("position");
         String action = request.getParameter("action");
-        
-        
         if ("add".equalsIgnoreCase(action)) {
             db.addRecord(id, name, tel, address, position);
             response.sendRedirect("handleUser?action=list");

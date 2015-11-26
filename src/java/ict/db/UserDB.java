@@ -44,7 +44,7 @@ public class UserDB {
             cnnct = getConnection();
             stmmt = cnnct.createStatement();
             String sql = "Create table if not EXISTS userInfo("
-                    + "Id varchar(5) not null," + "name varchar(25) not null,"
+                    + "id varchar(5) not null," + "name varchar(25) not null,"
                     + "tel varchar(10) not null," + "address varchar(50) not null,"
                     + "username varchar(25) not null," + "password varchar(25) not null,"
                     + "position varchar(25) not null," + "isfreeze varchar(1) not null,"
@@ -80,6 +80,7 @@ public class UserDB {
             bean.setPassword(rowCount.getString("password"));
             bean.setPosition(rowCount.getString("position"));
             bean.setIsfreeze(rowCount.getString("isfreeze"));
+            bean.setBonus(rowCount.getInt("bonus"));
             
         }
 
@@ -165,7 +166,7 @@ public class UserDB {
         boolean isSuccess = false;
         try {
             cnnct = getConnection();
-            String preQueryStatment = "INSERT INTO USERINFO (ID, NAME, TEL, ADDRESS, USERNAME, PASSWORD,POSITION,ISFREEZE)VALUES (?,?,?,?,?,?,?,?)";
+            String preQueryStatment = "INSERT INTO USERINFO (ID, NAME, TEL, ADDRESS, USERNAME, PASSWORD,POSITION,ISFREEZE,balance,bonus)VALUES (?,?,?,?,?,?,?,?,0,0)";
             pStnmt = cnnct.prepareStatement(preQueryStatment);
             pStnmt.setString(1, id);
             pStnmt.setString(2, name);
@@ -251,13 +252,19 @@ public class UserDB {
                 String username = rs.getString("username");
                 String password = rs.getString("password");
 
+                double balance = rs.getDouble("balance");
+                int bonus = rs.getInt("bonus");
+                        
+
                 u.setId(userId);
                 u.setUsername(username);
                 u.setPassword(password);
                 u.setName(name);
                 u.setTel(tel);
-                u.setAddress(tel);
+                u.setAddress(address);
                 u.setPosition(position);
+                u.setBalance(balance);
+                u.setBonus(bonus);
             }
             pStnmt.close();
             cnnct.close();
@@ -356,13 +363,12 @@ public class UserDB {
         boolean isSuccess = false;
         try {
             cnnct = getConnection();
-            String preQueryStatment = "update userinfo set name = ?,tel = ?, address = ?, username = ? where id = ?";
+            String preQueryStatment = "update userinfo set name = ?,tel = ?, address = ? where id = ?";
             pStnmt = cnnct.prepareStatement(preQueryStatment);
             pStnmt.setString(1, u.getName());
             pStnmt.setString(2, u.getTel());
             pStnmt.setString(3, u.getAddress());
-            pStnmt.setString(4, u.getUsername());
-            pStnmt.setString(5, u.getId());
+            pStnmt.setString(4, u.getId());
             int rowCount = pStnmt.executeUpdate();
             if (rowCount >= 1) {
                 isSuccess = true;
@@ -390,6 +396,31 @@ public class UserDB {
             pStnmt = cnnct.prepareStatement(preQueryStatment);
             pStnmt.setString(1, newPassword);
             pStnmt.setString(2, id);
+            int rowCount = pStnmt.executeUpdate();
+            if (rowCount >= 1) {
+                return true;
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return false;
+    }
+    
+    public Boolean setNewBonus(UserInfo ui) {
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        boolean isSuccess = false;
+        try {
+            cnnct = getConnection();
+            String preQueryStatment = "update userinfo set bonus = ? where id = ?";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setInt(1, ui.getBonus());
+            pStnmt.setString(2, ui.getId());
             int rowCount = pStnmt.executeUpdate();
             if (rowCount >= 1) {
                 return true;
