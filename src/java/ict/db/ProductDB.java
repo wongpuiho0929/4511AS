@@ -191,4 +191,37 @@ public class ProductDB {
         }
         return a;
     }
+    
+     public String lastID() {
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        String id = "";
+        try {
+            cnnct = getConnection();
+            String preQueryStatment = "select pid from product";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            ResultSet rs = null;
+            rs = pStnmt.executeQuery();
+            while (rs.next()) {
+                id = rs.getString("pid");
+            }
+            if (id == null || id == "") {
+                id = "P0001";
+                return id;
+            }
+            id = id.substring(id.indexOf("P") + 1);
+            int i = Integer.parseInt(id);
+            i++;
+            id = "P";
+            id += String.format("%04d", i);
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return id;
+    }
 }

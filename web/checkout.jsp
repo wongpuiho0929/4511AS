@@ -63,20 +63,10 @@
             <div id="templatemo_menu">
                 <div id="top_nav" class="ddsmoothmenu">
                     <ul>
-                        <li><a href="index.jsp">Home</a></li>
+                        <li><a href="index.jsp" >Home</a></li>
                         <li><a href="products.jsp">Products</a></li>
-                        <li><a href="Search.jsp">Search</a></li>
-                        <li><a href="about.jsp">About</a>
-                            <!--<ul>
-                                <li><a href="#submenu1">Sub menu 1</a></li>
-                                <li><a href="#submenu2">Sub menu 2</a></li>
-                                <li><a href="#submenu3">Sub menu 3</a></li>
-                                <li><a href="#submenu4">Sub menu 4</a></li>
-                                <li><a href="#submenu5">Sub menu 5</a></li>
-                            </ul>!-->
-                        </li>
+                        <li><a href="Search.jsp" >Search</a></li>
                         <li><a href="checkout.jsp" class="selected">Checkout</a></li>
-                        <li><a href="contact.jsp">Contact</a></li>
                     </ul>
                     <br style="clear: left" />
                 </div> <!-- end of ddsmoothmenu -->
@@ -161,7 +151,7 @@
 
             <div id="templatemo_footer">
                 <p>
-                    <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> | <a href="about.jsp">About</a> | <a href="faqs.jsp">FAQs</a> | <a href="checkout.jsp">Checkout</a> | <a href="contact.jsp">Contact</a>
+                     <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> |  <a href="checkout.jsp">Checkout</a>
                 </p>
 
                Copyright © 2015 <a href="index.jsp">Stationery Station</a>

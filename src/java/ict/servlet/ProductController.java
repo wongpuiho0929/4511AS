@@ -2,9 +2,13 @@ package ict.servlet;
 
 import ict.bean.ProductBean;
 import ict.db.ProductDB;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,12 +16,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.RequestContext;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 @WebServlet(name = "ProductController", urlPatterns = {"/product"})
 public class ProductController extends HttpServlet {
 
     ProductDB db;
-
+    private final String UPLOAD_DIRECTORY = "C:\\Users\\wongp\\Documents\\NetBeansProjects\\4511AS\\web\\images\\product";
+    
     public void init() {
         String username = this.getServletContext().getInitParameter("username");
         String password = this.getServletContext().getInitParameter("password");
@@ -34,6 +44,16 @@ public class ProductController extends HttpServlet {
         String id = request.getParameter("pid");
         String pName = request.getParameter("pName");
         String bName = request.getParameter("bName");
+        List<FileItem> multiparts = null;
+        if(action==null){
+            try {
+               multiparts = new ServletFileUpload(
+                        new DiskFileItemFactory()).parseRequest(request);
+                action = multiparts.get(0).getString();
+            } catch (FileUploadException ex) {
+                Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         if (action.equals("show")) {
             ShowProduct(request, response);
         } else if (action.equals("detail")) {
@@ -55,6 +75,33 @@ public class ProductController extends HttpServlet {
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/" + targetURL);
             rd.forward(request, response);
+        }else if (action.equals("add")){
+             if(ServletFileUpload.isMultipartContent(request)){
+            try {
+                String pId = db.lastID();
+                pName = multiparts.get(1).getString();
+                double price = Double.parseDouble(multiparts.get(2).getString());
+                int qty = Integer.parseInt(multiparts.get(3).getString());
+                bName = multiparts.get(4).getString();
+                String description = multiparts.get(5).getString();
+                String category = multiparts.get(6).getString();
+                String photoName ="";
+                FileItem item = multiparts.get(7);
+                    if(!item.isFormField()){
+                        String name = new File(item.getName()).getName();
+                        item.write( new File(UPLOAD_DIRECTORY + File.separator + name));
+                        photoName = "images/product/"+name;
+                db.addProduct(pId, pName, price, qty, bName, description, category, photoName);
+                }
+               request.setAttribute("message", "File Uploaded Successfully");
+            } catch (Exception ex) {
+               request.setAttribute("message", "File Upload Failed due to " + ex);
+            }          
+        }else{
+            request.setAttribute("message",
+                                 "Sorry this Servlet only handles file upload request");
+        }
+        request.getRequestDispatcher("/result.jsp").forward(request, response);
         }
     }
 

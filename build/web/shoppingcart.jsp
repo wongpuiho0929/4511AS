@@ -67,17 +67,15 @@
                 <div id="top_nav" class="ddsmoothmenu">
                     <ul>
                         <li><a href="index.jsp">Home</a></li>
-                        <li><a href="products.jsp">Products</a></li>
-                        <li><a href="Search.jsp">Search</a></li>
-                        <li><a href="about.jsp">About</a></li>
-                        <li><a href="checkout.jsp">Checkout</a></li>
-                        <li><a href="contact.jsp">Contact</a></li>
+                        <li><a href="products.jsp" class="selected">Products</a></li>
+                        <li><a href="Search.jsp" >Search</a></li>
+                        <li><a href="checkout.jsp" >Checkout</a></li>
                     </ul>
                     <br style="clear: left" />
                 </div> <!-- end of ddsmoothmenu -->
                 <div id="menu_second_bar">
                     <div id="top_shopping_cart">
-                       Shopping Cart: <strong><%=shoppingCart.size()%></strong> ( <a href="cart?action=show">Show Cart</a> )
+                        Shopping Cart: <strong><%=shoppingCart.size()%></strong> ( <a href="cart?action=show">Show Cart</a> )
                     </div>
                     <div class="cleaner"></div>
                 </div>
@@ -123,14 +121,14 @@
                         <%
                             for (int i = 0; i < shoppingCart.size(); i++) {
                                 ProductDB p = new ProductDB();
-                                ProductBean bean = p.productdetail(((ShoppingCartBean)(shoppingCart.get(i))).getPid());
+                                ProductBean bean = p.productdetail(((ShoppingCartBean) (shoppingCart.get(i))).getPid());
                                 out.print("<tr>");
-                                out.print("<td>" + "<img src='" + bean.getPhoto() + "'></td>");
+                                out.print("<td>" + "<img src='" + bean.getPhoto() + "' height='150' width='200'></td>");
                                 out.print("<td>" + bean.getName() + "</td>");
                                 out.print("<td align='center'><input id='qty' type='text' value='1' style='width: 20px; text-align: right' /> </td>");
                                 out.print("<td align='right'>" + bean.getPrice() + "</td>");
                                 out.print("<td align='right'>" + bean.getPrice() + "</td>");
-                                out.print("<td align='center'> <a href='cart?action=remove&sid=" + ((ShoppingCartBean)(shoppingCart.get(i))).getSid() + "'>Remove</a> </td>");
+                                out.print("<td align='center'> <a href='cart?action=remove&sid=" + ((ShoppingCartBean) (shoppingCart.get(i))).getSid() + "'>Remove</a> </td>");
                             }
                         %>
                         <tr>
@@ -152,7 +150,7 @@
 
             <div id="templatemo_footer">
                 <p>
-                    <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> | <a href="about.jsp">About</a> | <a href="faqs.jsp">FAQs</a> | <a href="checkout.jsp">Checkout</a> | <a href="contact.jsp">Contact</a>
+                   <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> |  <a href="checkout.jsp">Checkout</a>
                 </p>
 
                 Copyright © 2015 <a href="index.jsp">Stationery Station</a>

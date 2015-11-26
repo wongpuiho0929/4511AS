@@ -69,19 +69,9 @@
                 <div id="top_nav" class="ddsmoothmenu">
                     <ul>
                         <li><a href="index.jsp">Home</a></li>
-                        <li><a href="products.jsp" class="selected">Products</a></li>
-                        <li><a href="Search.jsp">Search</a></li>
-                        <li><a href="about.jsp">About</a>
-                            <!--<ul>
-                                <li><a href="#submenu1">Sub menu 1</a></li>
-                                <li><a href="#submenu2">Sub menu 2</a></li>
-                                <li><a href="#submenu3">Sub menu 3</a></li>
-                                <li><a href="#submenu4">Sub menu 4</a></li>
-                                <li><a href="#submenu5">Sub menu 5</a></li>
-                            </ul>!-->
-                        </li>
-                        <li><a href="checkout.jsp">Checkout</a></li>
-                        <li><a href="contact.jsp">Contact</a></li>
+                        <li><a href="products.jsp"  class="selected">Products</a></li>
+                        <li><a href="Search.jsp" >Search</a></li>
+                        <li><a href="checkout.jsp" >Checkout</a></li>
                     </ul>
                     <br style="clear: left" />
                 </div> <!-- end of ddsmoothmenu -->
@@ -123,7 +113,7 @@
                     <%
                         String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
                         String username = "root";
-                        String password = "";
+                        String password = "tommy985";
                         ProductDB pb = new ProductDB(url, username, password);
                         ArrayList<ProductBean> productList = pb.showProduct();
                         int count = 1;
@@ -134,7 +124,7 @@
                                 out.print("<div class='product_box no_margin_right'>");
                                 count = 0;
                             }
-                            out.print("<a href='product?action=detail&pid=" + productList.get(i).getPid() + "'><img src='" + productList.get(i).getPhoto() + "' alt='Image " + i + "' /></a>");
+                            out.print("<a href='product?action=detail&pid=" + productList.get(i).getPid() + "'><img src='" + productList.get(i).getPhoto() + "' alt='Image " + i + "' height='150' width='200'/></a>");
                             out.print("<h3>" + productList.get(i).getName() + "</h3>");
                             out.print("<p class='product_price'>$ " + productList.get(i).getPrice() + "</p>");
                             out.print("<a href='cart?action=add&pid=" + productList.get(i).getPid() + "' class='add_to_card'>Add to Cart</a>");
@@ -149,7 +139,7 @@
 
             <div id="templatemo_footer">
                 <p>
-                    <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> | <a href="about.jsp">About</a> | <a href="faqs.jsp">FAQs</a> | <a href="checkout.jsp">Checkout</a> | <a href="contact.jsp">Contact</a>
+                    <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> |  <a href="checkout.jsp">Checkout</a>
                 </p>
 
                 Copyright © 2015 <a href="index.jsp">Stationery Station</a>

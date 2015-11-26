@@ -65,17 +65,8 @@
                     <ul>
                         <li><a href="index.jsp" class="selected">Home</a></li>
                         <li><a href="products.jsp">Products</a></li>
-                        <li><a href="about.jsp">About</a>
-                            <!--<ul>
-                                <li><a href="#submenu1">Sub menu 1</a></li>
-                                <li><a href="#submenu2">Sub menu 2</a></li>
-                                <li><a href="#submenu3">Sub menu 3</a></li>
-                                <li><a href="#submenu4">Sub menu 4</a></li>
-                                <li><a href="#submenu5">Sub menu 5</a></li>
-                            </ul>!-->
-                        </li>
-                        <li><a href="checkout.jsp">Checkout</a></li>
-                        <li><a href="contact.jsp">Contact</a></li>
+                        <li><a href="Search.jsp" >Search</a></li>
+                        <li><a href="checkout.jsp" >Checkout</a></li>
                     </ul>
                     <br style="clear: left" />
                 </div> <!-- end of ddsmoothmenu -->
@@ -83,12 +74,7 @@
                     <div id="top_shopping_cart">
                         Shopping Cart: <strong>X Products</strong> ( <a href="#">Show Cart</a> )
                     </div>
-                    <div id="templatemo_search">
-                        <form action="#" method="get">
-                            <input type="text" value="Search" name="keyword" id="keyword" title="keyword" onfocus="clearText(this)" onblur="clearText(this)" class="txt_field" />
-                            <input type="submit" name="Search" value=" Search " alt="Search" id="searchbutton" title="Search" class="sub_btn"  />
-                        </form>
-                    </div>
+                  
                     <div class="cleaner"></div>
                 </div>
             </div> <!-- END of templatemo_menu -->
@@ -191,7 +177,7 @@
                                 out.println("</table>");
                             %>
                         </center>
-                        <tr style=" "
+                        
                 </form>
             </div> 
             <div class="cleaner"></div>
@@ -199,10 +185,10 @@
 
         <div id="templatemo_footer">
             <p>
-                <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> | <a href="about.jsp">About</a> | <a href="faqs.jsp">FAQs</a> | <a href="checkout.jsp">Checkout</a> | <a href="contact.jsp">Contact</a>
+                <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> |  <a href="checkout.jsp">Checkout</a>
             </p>
 
-            Copyright © 2048 <a href="#">Your Company Name</a>
+           Copyright © 2015 <a href="index.jsp">Stationery Station</a>
         </div> <!-- END of templatemo_footer -->
 
     </div> <!-- END of templatemo_wrapper Text -->

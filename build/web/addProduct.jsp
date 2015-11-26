@@ -81,17 +81,7 @@
                         <li><a href="index.jsp">Home</a></li>
                         <li><a href="products.jsp">Products</a></li>
                         <li><a href="Search.jsp" class="selected">Search</a></li>
-                        <li><a href="about.jsp">About</a>
-                            <!--<ul>
-                                <li><a href="#submenu1">Sub menu 1</a></li>
-                                <li><a href="#submenu2">Sub menu 2</a></li>
-                                <li><a href="#submenu3">Sub menu 3</a></li>
-                                <li><a href="#submenu4">Sub menu 4</a></li>
-                                <li><a href="#submenu5">Sub menu 5</a></li>
-                            </ul>!-->
-                        </li>
                         <li><a href="checkout.jsp">Checkout</a></li>
-                        <li><a href="contact.jsp">Contact</a></li>
                     </ul>
                     <br style="clear: left" />
                 </div> <!-- end of ddsmoothmenu -->
@@ -130,18 +120,25 @@
                 </div>
                 <div id="content" class="float_r">
                     <h1>add Products:</h1>
-                    <form method="get" action="product" name='addList' onsubmit="return validateForm()">
+                    <form method="POST" action="product" name='addList' onsubmit="return validateForm()" enctype="multipart/form-data" >
                         <input type="hidden" name="action" value="add">
                             <table cellpadding="15">
-                                <tr><td><font size="5" color="black">Product ID</font><td><font size="5" color="black">:</font>             <input type="text" name="pId"/></td>
-                                        <tr><td><font size="5" color="black">Product Name</font></td><td><font size="5" color="black">:</font>       <input type="text" name="pName"/></td></tr>
-                                        <tr><td><font size="5" color="black">Price</font></td><td><font size="5" color="black">:</font>             <input type="number" name="price" value=0 min='0' max='1000' step='0.1' style="width: 50px;"/></td></tr>
-                                        <tr><td><font size="5" color="black">QTY</font></td><td><font size="5" color="black">:</font>               <input type="number" name="qty" value="0" min='0' max='50' step='1' style="width: 50px"/></td></tr>
-                                        <tr><td><font size="5" color="black">Brank Name </font></td><td><font size="5" color="black">:</font>        <input type="text" name="bName" /></td></tr>
-                                        <tr><td><font size="5" color="black">Product Description</font></td><td><font size="5" color="black">:</font> <input type="textarea" name="description"/></td></tr>
-                                        <tr><td><font size="5" color="black">Category</font></td><td><font size="5" color="black">:</font>           <input type="text" name="category"/></td></tr>
-                                        <tr><td><font size="5" color="black">Product photo</font></td><td><font size="5" color="black">:</font>       <input type="file" name="photo"/></td></tr>
-                                        <tr><td colspan="2"><center><input type="submit" value="Search" class="submit_btn"/></center></td></tr>
+                                <tr></tr>
+                                        <tr><td><font size="5" color="black">Product Name</font></td><td><font size="5" color="black">:</font>       
+                                            <input type="text" name="pName"/></td></tr>
+                                        <tr><td><font size="5" color="black">Price</font></td><td><font size="5" color="black">:</font>             
+                                            <input type="number" name="price" value=0 min='0' max='1000' step='0.1' style="width: 50px;"/></td></tr>
+                                        <tr><td><font size="5" color="black">QTY</font></td><td><font size="5" color="black">:</font>               
+                                            <input type="number" name="qty" value="0" min='0' max='50' step='1' style="width: 50px"/></td></tr>
+                                        <tr><td><font size="5" color="black">Brank Name </font></td><td><font size="5" color="black">:</font>        
+                                            <input type="text" name="bName" /></td></tr>
+                                        <tr><td><font size="5" color="black">Product Description</font></td><td><font size="5" color="black">:</font> 
+                                            <input type="textarea" name="description"/></td></tr>
+                                        <tr><td><font size="5" color="black">Category</font></td><td><font size="5" color="black">:</font>           
+                                            <input type="text" name="category"/></td></tr>
+                                        <tr><td><font size="5" color="black">Product photo</font></td><td><font size="5" color="black">:</font>       
+                                                <input type="file" name="photo"/></td></tr>
+                                        <tr><td colspan="2"><center><input type="submit" value="Add" class="submit_btn"/></center></td></tr>
                                         </table>
                                         </form>
                                         </div> 
@@ -150,7 +147,7 @@
 
                                         <div id="templatemo_footer">
                                             <p>
-                                                <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> | <a href="about.jsp">About</a> | <a href="faqs.jsp">FAQs</a> | <a href="checkout.jsp">Checkout</a> | <a href="contact.jsp">Contact</a>
+                                                 <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> |  <a href="checkout.jsp">Checkout</a>
                                             </p>
 
                                             Copyright © 2015 <a href="index.jsp">Stationery Station</a>
