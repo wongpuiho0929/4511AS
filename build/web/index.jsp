@@ -36,7 +36,7 @@
                 </div>
 
                 <div id="header_right">
-                    <a href="handleUser?action=showClientDateil">My Account</a> | <a href="#">My Cart</a> | <a href="#">My Recard</a> | <a href="#">Checkout</a> |
+                    <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=list">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
 
                     <%
                         if (userName.getUsername() == null) {
@@ -107,12 +107,12 @@
                         <h3>Categories</h3>   
                         <div class="content"> 
                             <ul class="sidebar_list">
-                                <li class="first"><a href="#">File & Filing Accessories</a></li>
-                                <li><a href="#">Office Equipment</a></li>
-                                <li><a href="#">Electrical</a></li>
-                                <li><a href="#">Newspaper</a></li>
-                                <li><a href="#">Magazine</a></li>
-                                <li class="last"><a href="#">Stationery</a></li>
+                                <li class="first"><a href="product?action=searchC&category=File & Filing Accessories">File & Filing Accessories</a></li>
+                                <li><a href="product?action=searchC&category=Office Equipment">Office Equipment</a></li>
+                                <li><a href="product?action=searchC&category=Electrical">Electrical</a></li>
+                                <li><a href="product?action=searchC&category=Newspaper">Newspaper</a></li>
+                                <li><a href="product?action=searchC&category=Magazine">Magazine</a></li>
+                                <li class="last"><a href="product?action=searchC&category=Stationery">Stationery</a></li>
                             </ul>
                         </div>
                        <br>
@@ -122,11 +122,11 @@
                                 <%
                                     for(int i=0;i<groupBy.size();i++){
                                         if(i==0){
-                                            out.print("<li class='first'><a href=#>"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                                            out.print("<li class='first'><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
                                         }else if(i==groupBy.size()-1){
-                                            out.print("<li class='last'><a href=#>"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                                            out.print("<li class='last'><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
                                         }else{
-                                            out.print("<li><a href=#>"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                                            out.print("<li><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
                                         }
                                     }
                                    
@@ -139,7 +139,7 @@
                     <h1>New Products</h1>
                     <%
                         int count = 1;
-                        for (int i = 0; i < productList.size(); i++) {
+                        for (int i = productList.size()-1; i >productList.size()-10; i--) {
                             if (count != 3) {
                                 out.print("<div class='product_box'>");
                             } else {

@@ -34,13 +34,20 @@
                 </div>
 
                 <div id="header_right">
-                    <a href="#">My Account</a> | <a href="#">My Cart</a> | <a href="#">My Recard</a> | <a href="#">Checkout</a> |
+                                        <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=list">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
 
-                    <%
+                      <%
                         if (userName.getUsername() == null) {
-                            out.print("<a href='login.jsp'>Log In</a>");
+                            out.print("<a href='login.jsp'>Log In</a> | ");
+                            out.print("<a href='editClientAccout.jsp'>Register</a>");
                         } else {
-                            out.print("<font size=5>" + userName.getUsername() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
+                            if (userName.getPosition().equals("Manager")) {
+
+                                out.print("<a href='addProduct.jsp'>Add Product</a> | ");
+                                out.print("<a href='handleOrder?action=list'>Handle Orders</a> | ");
+                                out.print("<a href='handleUser?action=list'>Handle Accounts</a> | ");
+                            }
+                            out.print("<font size=5>" + userName.getName() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
                         }
                     %>
                 </div>

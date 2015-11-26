@@ -39,6 +39,7 @@
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
         <jsp:useBean class="java.util.ArrayList" id='shoppingCart' scope='session'/>
+        <jsp:useBean class="java.util.ArrayList" id="groupBy" scope='session'/>
         <% String s = userName.getId();
             pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
         %>
@@ -51,13 +52,20 @@
                 </div>
 
                 <div id="header_right">
-                    <a href="#">My Account</a> | <a href="#">My Cart</a> | <a href="#">My Recard</a> | <a href="#">Checkout</a> |
+                                      <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=list">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
 
                     <%
                         if (userName.getUsername() == null) {
-                            out.print("<a href='login.jsp'>Log In</a>");
+                            out.print("<a href='login.jsp'>Log In</a> | ");
+                            out.print("<a href='editClientAccout.jsp'>Register</a>");
                         } else {
-                            out.print("<font size=5>" + userName.getUsername() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
+                            if (userName.getPosition().equals("Manager")) {
+
+                                out.print("<a href='addProduct.jsp'>Add Product</a> | ");
+                                out.print("<a href='handleOrder?action=list'>Handle Orders</a> | ");
+                                out.print("<a href='handleUser?action=list'>Handle Accounts</a> | ");
+                            }
+                            out.print("<font size=5>" + userName.getName() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
                         }
                     %>
                 </div>
@@ -95,6 +103,24 @@
                                 <li><a href="#">Newspaper</a></li>
                                 <li><a href="#">Magazine</a></li>
                                 <li class="last"><a href="#">Stationery</a></li>
+                            </ul>
+                        </div>
+                                               <br>
+                        <h3>Brand</h3>
+                        <div class="content"> 
+                            <ul class="sidebar_list">
+                                <%
+                                    for(int i=0;i<groupBy.size();i++){
+                                        if(i==0){
+                                            out.print("<li class='first'><a href=#>"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                                        }else if(i==groupBy.size()-1){
+                                            out.print("<li class='last'><a href=#>"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                                        }else{
+                                            out.print("<li><a href=#>"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                                        }
+                                    }
+                                   
+                                %>
                             </ul>
                         </div>
                     </div>

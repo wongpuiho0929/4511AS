@@ -44,6 +44,7 @@ public class ProductController extends HttpServlet {
         String id = request.getParameter("pid");
         String pName = request.getParameter("pName");
         String bName = request.getParameter("bName");
+        String category = request.getParameter("category");
         List<FileItem> multiparts = null;
         if (action == null) {
             try {
@@ -83,6 +84,28 @@ public class ProductController extends HttpServlet {
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/" + targetURL);
             rd.forward(request, response);
+        } else if (action.equals("searchB")) {
+            ArrayList<ProductBean> pb = db.searchProductByBrand(bName);
+            response.setContentType("text/html");
+            request.setAttribute("search", pb);
+            ArrayList<String> a = new ArrayList<String>();
+            a.add("true");
+            request.setAttribute("chicked", a);
+            String targetURL = "Search.jsp";
+            RequestDispatcher rd;
+            rd = getServletContext().getRequestDispatcher("/" + targetURL);
+            rd.forward(request, response);
+        } else if (action.equals("searchC")) {
+            ArrayList<ProductBean> pb = db.searchProductByCategory(category);
+            response.setContentType("text/html");
+            request.setAttribute("search", pb);
+            ArrayList<String> a = new ArrayList<String>();
+            a.add("true");
+            request.setAttribute("chicked", a);
+            String targetURL = "Search.jsp";
+            RequestDispatcher rd;
+            rd = getServletContext().getRequestDispatcher("/" + targetURL);
+            rd.forward(request, response);
         } else if (action.equals("add")) {
             if (ServletFileUpload.isMultipartContent(request)) {
                 try {
@@ -92,7 +115,7 @@ public class ProductController extends HttpServlet {
                     int qty = Integer.parseInt(multiparts.get(3).getString());
                     bName = multiparts.get(4).getString();
                     String description = multiparts.get(5).getString();
-                    String category = multiparts.get(6).getString();
+                    category = multiparts.get(6).getString();
                     String photoName = "";
                     long a = multiparts.get(7).getSize();
                     FileItem item = multiparts.get(7);
@@ -111,7 +134,22 @@ public class ProductController extends HttpServlet {
                 request.setAttribute("message",
                         "Sorry this Servlet only handles file upload request");
             }
-            request.getRequestDispatcher("/result.jsp").forward(request, response);
+            request.getRequestDispatcher("/run.jsp").forward(request, response);
+        } else if (action.equals("edit")) {
+
+            double price = Double.parseDouble(request.getParameter("price"));
+            int qty = Integer.parseInt(request.getParameter("qty"));
+            String description = request.getParameter("description");
+            category = request.getParameter("category");
+            try {
+                db.updateProduct(id, pName, price, qty, bName, description, category);
+                String targetURL = "product?action=detail&pid=" + id;
+                RequestDispatcher rd;
+                rd = getServletContext().getRequestDispatcher("/" + targetURL);
+                rd.forward(request, response);
+            } catch (Exception e) {
+            }
+
         }
     }
 

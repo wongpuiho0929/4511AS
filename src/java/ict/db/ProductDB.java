@@ -221,6 +221,103 @@ public class ProductDB {
         return a;
     }
     
+    public ArrayList<ProductBean> searchProductByBrand(String brand) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        ProductBean pb = null;
+        ArrayList<ProductBean> a = new ArrayList();
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM PRODUCT where brand=?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1,brand);
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
+            while (rs.next()) {
+                pb = new ProductBean();
+                pb.setPid(rs.getString("pid"));
+                pb.setName(rs.getString("pname"));
+                pb.setPrice(rs.getDouble("price"));
+                pb.setBrand(rs.getString("brand"));
+                pb.setDescription(rs.getString("description"));
+                pb.setCategory(rs.getString("category"));
+                pb.setQty(rs.getInt("qty"));
+                pb.setPhoto(rs.getString("photo"));
+                a.add(pb);
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return a;
+    }
+    
+     public ArrayList<ProductBean> searchProductByCategory(String category) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        ProductBean pb = null;
+        ArrayList<ProductBean> a = new ArrayList();
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM PRODUCT where category=?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1,category);
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
+            while (rs.next()) {
+                pb = new ProductBean();
+                pb.setPid(rs.getString("pid"));
+                pb.setName(rs.getString("pname"));
+                pb.setPrice(rs.getDouble("price"));
+                pb.setBrand(rs.getString("brand"));
+                pb.setDescription(rs.getString("description"));
+                pb.setCategory(rs.getString("category"));
+                pb.setQty(rs.getInt("qty"));
+                pb.setPhoto(rs.getString("photo"));
+                a.add(pb);
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return a;
+    }
+    
+    public boolean updateProduct(String pid,String name,double price,int qty,String bName,String description,String category) throws SQLException, IOException{
+         Connection cnnct = null;
+        PreparedStatement pstmmt = null;
+        boolean isValid = false;
+        cnnct = getConnection();
+        String preQueryStatement = "UPDATE Product SET pName=?,price=?,qty=?,brand=?,description=?,category=? where pid=?";
+        pstmmt = cnnct.prepareStatement(preQueryStatement);
+        pstmmt.setString(7, pid);
+        pstmmt.setString(1, name);
+        pstmmt.setDouble(2, price);
+        pstmmt.setInt(3, qty);
+        pstmmt.setString(4, bName);
+        pstmmt.setString(5, description);
+        pstmmt.setString(6, category);
+        int rowCount = pstmmt.executeUpdate();
+        if (rowCount > 1) {
+            isValid = true;
+        }
+        pstmmt.close();
+        cnnct.close();
+        return isValid;
+    }
+    
      public String lastID() {
         Connection cnnct = null;
         PreparedStatement pStnmt = null;

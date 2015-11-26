@@ -103,7 +103,7 @@ public class LoginController extends HttpServlet {
         rd.forward(request, response);*/
         PrintWriter out = response.getWriter();
         out.print("<script type='text/javascript'>");
-        out.print("location.href='index.jsp'");
+        out.print("location.href='run.jsp'");
         out.print("</script>");
     }
 
