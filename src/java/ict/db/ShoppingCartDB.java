@@ -91,7 +91,7 @@ public class ShoppingCartDB {
         ArrayList<ShoppingCartBean> a = new ArrayList<ShoppingCartBean>();
         try {
             cnnct = getConnection();
-            String preQueryStatment = "select * from shoppingcart where uid=?";
+            String preQueryStatment = "select * from shoppingcart where uid=? and oid is NULL";
             pStnmt = cnnct.prepareStatement(preQueryStatment);
             pStnmt.setString(1, uId);
             ResultSet rs = null;
@@ -171,5 +171,71 @@ public class ShoppingCartDB {
         } catch (IOException ex) {
             Logger.getLogger(ShoppingCartDB.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public boolean updateCart(ShoppingCartBean gb){
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        boolean isSuccess = false;
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "update ShoppingCart set oid = ?, status = ? where sid = ?";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setString(1, gb.getOid());
+            pStnmt.setString(2, "Confirm");
+            pStnmt.setString(3, gb.getSid());
+            int rowCount = pStnmt.executeUpdate();
+            if (rowCount >=1 ){
+                isSuccess = true;
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isSuccess;
+    }
+    
+    public ArrayList<ShoppingCartBean> getProductId(String id) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        ShoppingCartBean cart = null;
+        ArrayList<ShoppingCartBean> a = new ArrayList<ShoppingCartBean>();
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM ShoppingCart where oid=?";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1,id);
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
+            while (rs.next()) {
+                cart = new ShoppingCartBean();
+                String sid = rs.getString("sid");
+                String uid = rs.getString("uid");
+                String pid = rs.getString("pid");
+                int qty = rs.getInt("qty");
+                String oid = rs.getString("oid");
+
+                cart.setSid(sid);
+                cart.setUid(uid);
+                cart.setQty(qty);
+                cart.setPid(pid);
+                cart.setOid(oid);
+                a.add(cart);
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return a;
     }
 }

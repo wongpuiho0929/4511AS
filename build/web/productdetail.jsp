@@ -79,7 +79,7 @@
             <div id="templatemo_main">
                 <div id="sidebar" class="float_l">
                     <div class="sidebar_box"><span class="bottom"></span>
-                         <h3>Categories</h3>   
+                        <h3>Categories</h3>   
                         <div class="content"> 
                             <ul class="sidebar_list">
                                 <li class="first"><a href="product?action=searchC&category=File & Filing Accessories">File & Filing Accessories</a></li>
@@ -90,142 +90,105 @@
                                 <li class="last"><a href="product?action=searchC&category=Stationery">Stationery</a></li>
                             </ul>
                         </div>
-                       <br>
-                        <h3>Brand</h3>
-                        <div class="content"> 
-                            <ul class="sidebar_list">
-                                <%
-                                    for(int i=0;i<groupBy.size();i++){
-                                        if(i==0){
-                                            out.print("<li class='first'><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
-                                        }else if(i==groupBy.size()-1){
-                                            out.print("<li class='last'><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
-                                        }else{
-                                            out.print("<li><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                        <br>
+                            <h3>Brand</h3>
+                            <div class="content"> 
+                                <ul class="sidebar_list">
+                                    <%
+                                        for (int i = 0; i < groupBy.size(); i++) {
+                                            if (i == 0) {
+                                                out.print("<li class='first'><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                            } else if (i == groupBy.size() - 1) {
+                                                out.print("<li class='last'><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                            } else {
+                                                out.print("<li><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                            }
                                         }
-                                    }
-                                   
-                                %>
+
+                                    %>
                                 </ul>
                             </div>
                     </div>
-                </div>
-                                    <td height="30">Model:</td>
-                                    <td><%=productDetail.getPid()%></td>
-                                </tr>
-                                <tr>
-                                    <td height="30">Manufacturer:</td>
-                                    <td><%=productDetail.getBrand()%></td>
-                                </tr>
-                                <tr><td height="30">Quantity</td><td><input type="text" name="qty" value="1" style="width: 20px; text-align: right" /></td></tr>
-                            </table>     
+                </div>                      
+                <div id="content" class="float_r">                  
+                    <h1>Product Detail</h1>
+                    <table width="680px" cellspacing="0" cellpadding="5">
+                        <tr><td rowspan="6"><img src="<%=productDetail.getPhoto()%>" height='150' width='200'></img></td></tr>
+                        <tr>
+                            <td height="30">Model:</td>
+                            <td><%=productDetail.getPid()%></td>
+                        </tr>
+                        <tr>
+                            <td height="30">Manufacturer:</td>
+                            <td><%=productDetail.getBrand()%></td>
+                        </tr>
+                        <td height="30">Product ID:</td>
+                        <td><%=productDetail.getPid()%></td>
+                        </tr>
+                        <tr>
+                            <td height="30">Brand:</td>
+                            <td class=""><%=productDetail.getBrand()%></td>
+                        </tr>
+                        <tr><td height="30">Quantity</td>
+                            <%
+                                if (productDetail.getQty() > 0) {
+                                    out.print("<td class='product_availabilityT'>" + productDetail.getQty() + "</td></tr>");
+                                } else {
+                                    out.print("<td class='product_availabilityF'>" + productDetail.getQty() + "</td></tr>");
+                                }
+                            %>
+                    </table>  
+                    <div class="cleaner h20"></div>
+                    <%out.print("<center><a href='cart?action=add&pid=" + productDetail.getPid() + "'class='add_to_card'>Add to Cart</a></center>");%>
 
-                            <div class="cleaner h20"></div>
-                            <input type="submit" value="Add to Cart"/>
-                        </form>
-                    </div>
                     <div class="cleaner h30"></div>
 
                     <h5>Product Description</h5>
                     <p><%=productDetail.getDescription()%></p>	
-
                     <div class="cleaner h50"></div>
 
-                    <h4>Etiam In Tellus</h4>
+                    <h4>Other</h4>
                     <%
-                        String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
-                        String username = "root";
-                        String password = "";
-                        ProductDB pb = new ProductDB(url, username, password);
-                        ArrayList<ProductBean> productList = pb.showProduct();
-                        int count = 1;
-                        for (int i = 0; i < 3; i++) {
-                            if (count != 3) {
-                                out.print("<div class='product_box'>");
-                            } else {
-                                out.print("<div class='product_box no_margin_right'>");
-                                count = 0;
-                            }
-                            out.print("<a href='product?action=detail&pid=" + productList.get(i).getPid() + "'><img src='" + productList.get(i).getPhoto() + "' alt='Image " + i + "' height='150' width='200'/></a>");
-                            out.print("<h3>" + productList.get(i).getName() + "</h3>");
-                            out.print("<p class='product_price'>$ " + productList.get(i).getPrice() + "</p>");
-                            out.print("<a href='cart?action=add&pid=" + productList.get(i).getPid() + "' class='add_to_card'>Add to Cart</a>");
-                            out.print("<a href='product?action=detail&pid=" + productList.get(i).getPid() + "' class='detail'>Detail</a>");
-                            out.print("</div>");
-                            count++;
-                        }
-                    %>     
-
-
-                                    <td height="30">Product ID:</td>
-                                    <td><%=productDetail.getPid()%></td>
-                                </tr>
-                                <tr>
-                                    <td height="30">Brand:</td>
-                                    <td class="product_price"><%=productDetail.getBrand()%></td>
-                                </tr>
-                                <tr><td height="30">Quantity</td>
-                                    <%
-                                        if (productDetail.getQty() > 0) {
-                                            out.print("<td class='product_availabilityT'>"+productDetail.getQty()+"</td></tr>");
-                                        } else {
-                                           out.print("<td class='product_availabilityF'>"+productDetail.getQty()+"</td></tr>");
-                                        }
-                                    %>
-                                    
-                            </table>
-                            <div class="cleaner h20"></div>
-                            <%out.print("<center><a href='cart?action=add&pid=" + productDetail.getPid() + "'class='add_to_card'>Add to Cart</a></center>");%>
-                        </div>
-                        <div class="cleaner h30"></div>
-
-                        <h5>Product Description</h5>
-                        <p><%=productDetail.getDescription()%></p>	
-
-                        <div class="cleaner h50"></div>
-
-                        <h4>Other</h4>
-                        <%
-                            long[] temp = new long[3];
-                            boolean chk = true;
-                            while (chk) {
-                                for (int i = 0; i < 3; i++) {
-                                    temp[i] = (long) Math.floor(Math.random() * productList.size());
-                                    if (i == 2) {
-                                        if ((temp[0] != temp[1]) && (temp[0] != temp[2]) && (temp[1] != temp[2])) {
-                                            chk = false;
-                                        }
+                        long[] temp = new long[3];
+                        boolean chk = true;
+                        while (chk) {
+                            for (int i = 0; i < 3; i++) {
+                                temp[i] = (long) Math.floor(Math.random() * productList.size());
+                                if (i == 2) {
+                                    if ((temp[0] != temp[1]) && (temp[0] != temp[2]) && (temp[1] != temp[2])) {
+                                        chk = false;
                                     }
                                 }
                             }
+                        }
 
-                            for (int i = 2; i >= 0; i--) {
-                                if (i != 0) {
-                                    out.print("<div class='product_box'>");
-                                } else {
-                                    out.print("<div class='product_box no_margin_right'>");
-                                }
-                                out.print("<a href='product?action=detail&pid=" + ((ProductBean) productList.get((int) temp[i])).getPid() + "'>" + "<img src='" + ((ProductBean) productList.get((int) temp[i])).getPhoto() + "' height='150' width='200'></a><br>");
-                                out.print(((ProductBean) productList.get((int) temp[i])).getName());
-                                out.print("<p class='product_price'>$" + ((ProductBean) productList.get((int) temp[i])).getPrice() + "</p>");
-                                out.print("<a href='cart?action=add&pid=" + ((ProductBean) productList.get((int) temp[i])).getPid() + "' class='add_to_card'>Add to Cart</a>");
-                                out.print("<a href='product?action=detail&pid=" + ((ProductBean) productList.get((int) temp[i])).getPid() + "' class='detail'>Detail</a>");
-                                out.print("</div>");
+                        for (int i = 2; i >= 0; i--) {
+                            if (i != 0) {
+                                out.print("<div class='product_box'>");
+                            } else {
+                                out.print("<div class='product_box no_margin_right'>");
                             }
+                            out.print("<a href='product?action=detail&pid=" + ((ProductBean) productList.get((int) temp[i])).getPid() + "'>" + "<img src='" + ((ProductBean) productList.get((int) temp[i])).getPhoto() + "' height='150' width='200'></a><br>");
+                            out.print(((ProductBean) productList.get((int) temp[i])).getName());
+                            out.print("<p class='product_price'>$" + ((ProductBean) productList.get((int) temp[i])).getPrice() + "</p>");
+                            out.print("<a href='cart?action=add&pid=" + ((ProductBean) productList.get((int) temp[i])).getPid() + "' class='add_to_card'>Add to Cart</a>");
+                            out.print("<a href='product?action=detail&pid=" + ((ProductBean) productList.get((int) temp[i])).getPid() + "' class='detail'>Detail</a>");
+                            out.print("</div>");
+                        }
 
-                        %>
+                    %>
+                </div>
+            </div> 
+            <div class="cleaner"></div>
+        </div> <!-- END of templatemo_main -->
 
-                </div> 
-                <div class="cleaner"></div>
-            </div> <!-- END of templatemo_main -->
+        <div id="templatemo_footer">
+            <p>
+                <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> |  <a href="checkout.jsp">Checkout</a>
+            </p>
 
-            <div id="templatemo_footer">
-                <p>
-                    <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> |  <a href="checkout.jsp">Checkout</a>
-                </p>
-
-                Copyright © 2015 <a href="index.jsp">Stationery Station</a>
-            </div> <!-- END of templatemo_footer -->
+            Copyright © 2015 <a href="index.jsp">Stationery Station</a>
+        </div> <!-- END of templatemo_footer -->
 
         </div> <!-- END of templatemo_wrapper -->
 

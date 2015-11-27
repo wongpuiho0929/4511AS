@@ -350,4 +350,23 @@ public class ProductDB {
         }
         return id;
     }
+     
+     public boolean orderProduct(String pid, int qty) throws SQLException, IOException {
+        Connection cnnct = null;
+        PreparedStatement pstmmt = null;
+        boolean isValid = false;
+        cnnct = getConnection();
+        String preQueryStatement = "UPDATE Product set qty = qty-? where pid = ?";
+        pstmmt = cnnct.prepareStatement(preQueryStatement);        
+        pstmmt.setInt(1, qty);
+        pstmmt.setString(2, pid);
+        
+        int rowCount = pstmmt.executeUpdate();
+        if (rowCount > 1) {
+            isValid = true;
+        }
+        pstmmt.close();
+        cnnct.close();
+        return isValid;
+    }
 }

@@ -121,7 +121,6 @@
                         </div>
                     </div>
                 </div>
-<<<<<<< HEAD
                 <div id="content" class="float_r">                   
                     <%
                         ArrayList<OrderBean> orders
@@ -129,18 +128,19 @@
                         out.println("<h1>Order List</h1>");
                         out.println("<center><table border='0' width='90%'>");
                         out.println("<tr>");
-                        out.println("<th>OrderId</th> <th>UserId</th><th>Total Price</th><th>State</th ><th>View/th ><th>Update</th >");
+                        out.println("<th align='left'>OrderId</th> <th>UserId</th><th>Total Price</th><th>State</th ><th>View</th ><th>Update</th >");
                         out.println("</tr>");
 
                         for (int i = 0; i < orders.size(); i++) {
                             OrderBean c = orders.get(i);
-                            out.println("<tr>");
-                            out.println("<td>" + c.getoId() + "</td>");
+                            out.println("<tr align='center'>");
+                            out.println("<td align='left'>" + c.getoId() + "</td>");
                             out.println("<td>" + c.getuId() + "</td>");
                             out.println("<td>" + c.gettPrice() + "</td>");
                             out.println("<td>" + c.getStatus() + "</td>");
                             out.println("<td><a href=\"handleOrder?action=view&id=" + c.getoId() + "\"</a>view product</td>");
-                            out.println("<td><a href=\"handleOrder?action=update&id=" + c.getoId() + "\"</a>update state</td>");
+                            if(c.getStatus().equalsIgnoreCase("process"))
+                                out.println("<td><a href=\"handleOrder?action=show&id=" + c.getoId() + "\"</a>update state</td>");
                             out.println("</tr>");
                         }
                         out.println("</table>");

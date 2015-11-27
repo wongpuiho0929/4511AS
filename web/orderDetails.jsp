@@ -1,16 +1,22 @@
-<%@page import="ict.db.ShoppingCartDB"%>
+<%-- 
+    Document   : listOrder
+    Created on : 2015年11月25日, 上午11:56:54
+    Author     : pet10_000
+--%>
+
 <%@page import="ict.bean.ShoppingCartBean"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="ict.bean.ProductBean"%>
-<%@page import="ict.db.ProductDB"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="ict.bean.OrderBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Stationery Station</title>
+        <title>Handle Orders</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
+
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
         <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -18,11 +24,9 @@
         <link rel="stylesheet" type="text/css" media="all" href="css/jquery.dualSlider.0.2.css" />
         <script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>
     </head>
-
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
         <jsp:useBean class="java.util.ArrayList" id='shoppingCart' scope='session'/>
-        <jsp:useBean class="java.util.ArrayList" id="productList" scope='session'/>
         <jsp:useBean class="java.util.ArrayList" id="groupBy" scope='session'/>
         <% String s = userName.getId();
             pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
@@ -62,8 +66,18 @@
                     <ul>
                         <li><a href="index.jsp" class="selected">Home</a></li>
                         <li><a href="products.jsp">Products</a></li>
-                        <li><a href="Search.jsp" >Search</a></li>
-                        <li><a href="checkout.jsp" >Checkout</a></li>
+                        <li><a href="Search.jsp">Search</a></li>
+                        <li><a href="about.jsp">About</a>
+                            <!--<ul>
+                                <li><a href="#submenu1">Sub menu 1</a></li>
+                                <li><a href="#submenu2">Sub menu 2</a></li>
+                                <li><a href="#submenu3">Sub menu 3</a></li>
+                                <li><a href="#submenu4">Sub menu 4</a></li>
+                                <li><a href="#submenu5">Sub menu 5</a></li>
+                            </ul>!-->
+                        </li>
+                        <li><a href="checkout.jsp">Checkout</a></li>
+                        <li><a href="contact.jsp">Contact</a></li>
                     </ul>
                     <br style="clear: left" />
                 </div> <!-- end of ddsmoothmenu -->
@@ -74,33 +88,6 @@
                     <div class="cleaner"></div>
                 </div>
             </div> <!-- END of templatemo_menu -->
-
-            <div id="templatemo_middle" class="carousel">
-                <div class="panel">
-
-                    <div class="details_wrapper">
-
-                        <div class="details">
-
-                            <div class="detail">
-                                <h2><a href="#">Station Shop</a></h2>
-                                <p>Station Shop is free website template by templatemo for ecommerce websites or online stores. Sed aliquam arcu. Donec urna massa, cursus et mattis at, mattis quis lectus. </p>
-                                <a href="#" title="Read more" class="more">Read more</a>
-                            </div><!-- /detail -->
-
-                        </div><!-- /details -->
-
-                    </div><!-- /details_wrapper --><!-- /paging --></div><!-- /panel -->
-
-                <div class="backgrounds">
-
-                    <div class="item item_1">
-                        <img src="images/slider/02.jpg" alt="Slider 01" />
-                    </div><!-- /item -->
-
-                </div><!-- /backgrounds -->
-            </div> <!-- END of templatemo_middle -->
-
             <div id="templatemo_main">
                 <div id="sidebar" class="float_l">
                     <div class="sidebar_box"><span class="bottom"></span>
@@ -115,53 +102,63 @@
                                 <li class="last"><a href="product?action=searchC&category=Stationery">Stationery</a></li>
                             </ul>
                         </div>
-                       <br>
+                        <br>
                         <h3>Brand</h3>
                         <div class="content"> 
                             <ul class="sidebar_list">
                                 <%
-                                    for(int i=0;i<groupBy.size();i++){
-                                        if(i==0){
-                                            out.print("<li class='first'><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
-                                        }else if(i==groupBy.size()-1){
-                                            out.print("<li class='last'><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
-                                        }else{
-                                            out.print("<li><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                                    for (int i = 0; i < groupBy.size(); i++) {
+                                        if (i == 0) {
+                                            out.print("<li class='first'><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                        } else if (i == groupBy.size() - 1) {
+                                            out.print("<li class='last'><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                        } else {
+                                            out.print("<li><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
                                         }
                                     }
-                                   
+
                                 %>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div id="content" class="float_r">
-                    <h1>New Products</h1>
-                    <%                       
-                        int count = 1;
-                        for (int i = productList.size()-1; i >productList.size()-10; i--) {
-                            if (count != 3) {
-                                out.print("<div class='product_box'>");
-                            } else {
-                                out.print("<div class='product_box no_margin_right'>");
-                                count = 0;
+                <div id="content" class="float_r">                   
+                    <%                
+                        OrderBean o = (OrderBean) request.getAttribute("o");
+                        ArrayList<ShoppingCartBean> sc = (ArrayList<ShoppingCartBean>) request.getAttribute("scdbl");
+                        ArrayList<ProductBean> p = (ArrayList<ProductBean>) request.getAttribute("pdbl");
+                        out.println("<h1>Order "+ o.getoId() + "</h1>");                        
+                        out.println("<center><table border='0' width='90%'>");
+                        out.println("<tr>");
+                        out.println("<th></th><th align='left'>ProductID</th> <th>Name</th><th>Price</th><th>Qty</th >");
+                        out.println("</tr>");
+
+                        for (int i = 0; i < p.size(); i++) {
+                            ProductBean c = p.get(i);
+                            ShoppingCartBean d = null;
+                            for (int j = 0; j < p.size(); j++) {
+                                if(sc.get(j).getPid().equalsIgnoreCase(c.getPid()))
+                                    d = sc.get(j);
                             }
-                            out.print("<a href='product?action=detail&pid=" + ((ProductBean)(productList.get(i))).getPid() + "'><img src='" +  ((ProductBean)(productList.get(i))).getPhoto() + "' alt='Image " + i + "' height='150' width='200'/></a>");
-                            out.print("<h3>" +  ((ProductBean)(productList.get(i))).getName() + "</h3>");
-                            out.print("<p class='product_price'>$ " +  ((ProductBean)(productList.get(i))).getPrice() + "</p>");
-                            out.print("<a href='cart?action=add&pid=" +  ((ProductBean)(productList.get(i))).getPid() + "' class='add_to_card'>Add to Cart</a>");
-                            out.print("<a href='product?action=detail&pid=" +  ((ProductBean)(productList.get(i))).getPid() + "' class='detail'>Detail</a>");
-                            out.print("</div>");
-                            count++;
+                            out.println("<tr align='center'>");
+                            out.println("<td align='left'><img src='" +  c.getPhoto() + "' alt='Image " + i + "' height='150' width='200'/></td>");
+                            out.println("<td align='left'>" + c.getPid() + "</td>");
+                            out.println("<td>" + c.getName() + "</td>");
+                            out.println("<td>" + c.getPrice() + "</td>");
+                            out.println("<td>" + d.getQty() + "</td>");                            
+                            out.println("</tr>");
                         }
-                    %>   
+                        out.println("<tr align='right'><th>Total Price</th><td>"+ o.gettPrice() + "</td></tr>");
+                        out.println("</table>");                        
+                    %>
+                    </center>
                 </div> 
                 <div class="cleaner"></div>
             </div> <!-- END of templatemo_main -->
 
             <div id="templatemo_footer">
                 <p>
-                    <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> |  <a href="checkout.jsp">Checkout</a>
+                    <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> | <a href="about.jsp">About</a> | <a href="faqs.jsp">FAQs</a> | <a href="checkout.jsp">Checkout</a> | <a href="contact.jsp">Contact</a>
                 </p>
 
                 Copyright © 2015 <a href="index.jsp">Stationery Station</a>

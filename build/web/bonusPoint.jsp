@@ -105,12 +105,13 @@
                             if(ob != null) {
                                 out.println("<table border='0' width='90%'");
                                 out.println("<tr>");
-                                out.println("<th align='left'>Order ID</th> <th>Total Price</th><th>State</th><th>Bonus Point</th >");
+                                out.println("<th align='left'>Order ID</th><th>Pick up date</th><th>Total Price</th><th>State</th><th>Bonus Point</th >");
                                 out.println("</tr>");
                                 for (int i = 0; i < ob.size(); i++) {
                                     OrderBean o = ob.get(i);
                                     out.println("<tr align='center'>");
                                     out.println("<td align='left'>" + o.getoId() + "</td>");
+                                    out.println("<td>" + o.getPickUpDate() + "</td>");
                                     out.println("<td>" + o.gettPrice() + "</td>");
                                     out.println("<td>" + o.getStatus() + "</td>");
                                     out.println("<td>+" + o.getBonus() + "</td>");

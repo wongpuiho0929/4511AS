@@ -6,16 +6,28 @@
 package ict.servlet;
 
 import ict.bean.OrderBean;
+import ict.bean.ProductBean;
+import ict.bean.ShoppingCartBean;
+import ict.bean.UserInfo;
 import ict.db.OrderDB;
+import ict.db.ProductDB;
+import ict.db.ShoppingCartDB;
+import ict.db.UserDB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -23,9 +35,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "HandleOrder", urlPatterns = {"/handleOrder"})
 public class HandleOrder extends HttpServlet {
-    
+
     private OrderDB db;
-    
+    private ProductDB pdb;
+    private UserDB udb;
+    private ShoppingCartDB scdb;
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doPost(request, response);
@@ -42,7 +57,9 @@ public class HandleOrder extends HttpServlet {
         String password = this.getServletContext().getInitParameter("password");
         String url = this.getServletContext().getInitParameter("url");
         db = new OrderDB(url, username, password);
-        db.createOrderTable();
+        pdb = new ProductDB(url, username, password);
+        udb = new UserDB(url, username, password);
+        scdb = new ShoppingCartDB(url, username, password);
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -53,11 +70,77 @@ public class HandleOrder extends HttpServlet {
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/listOrder.jsp");
             rd.forward(request, response);
-        }else if ("add".equalsIgnoreCase(action)) {
-            
+        } else if ("add".equalsIgnoreCase(action)) {
+            try {
+                HttpSession session = request.getSession(true);
+                ArrayList<ShoppingCartBean> arr = (ArrayList<ShoppingCartBean>) session.getAttribute("shoppingCart");
+                String oid = db.lastID();
+                String uid = (String) request.getServletContext().getAttribute("uid");
+                double tprice = Double.parseDouble(request.getParameter("total"));
+                int bouns = calBonus(tprice);
+                java.util.Date date = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("datetime")); 
+                java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                if(request.getParameter("select").equalsIgnoreCase("delivery")) {
+                    db.addDeliveryOrder(oid, uid,tprice, "process", bouns);
+                }else if(request.getParameter("select").equalsIgnoreCase("self")) {
+                    db.addPickUpOrder(oid, uid, sqlDate, tprice, "process", bouns);
+                }
+                for (int i = 0; i < arr.size(); i++) {
+                    arr.get(i).setOid(oid);
+                    scdb.updateCart(arr.get(i));
+                    pdb.orderProduct(arr.get(i).getPid(), arr.get(i).getQty());
+                }
+                session.removeAttribute("shoppingCart");
+                UserInfo u = (UserInfo) session.getAttribute("userName");                
+                u.setBonus(u.getBonus() + bouns);
+                session.setAttribute("userName", u);
+                udb.setNewBonus(u);
+                response.sendRedirect("product?action=groupBy");
+            } catch (SQLException ex) {
+                Logger.getLogger(HandleOrder.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ParseException ex) {
+                Logger.getLogger(HandleOrder.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else if ("view".equalsIgnoreCase(action)) {
+            String oid = request.getParameter("id");
+            OrderBean o = db.listOrderByOid(oid);
+            ArrayList<ShoppingCartBean> arr = scdb.getProductId(oid);
+            ArrayList<ProductBean> pdbl = new ArrayList<ProductBean> ();
+            for (int i = 0; i < arr.size(); i++) {
+                ProductBean pb = pdb.productdetail(arr.get(i).getPid());
+                pdbl.add(pb);
+            }
+            request.setAttribute("o", o);
+            request.setAttribute("scdbl", arr);
+            request.setAttribute("pdbl", pdbl);
+            RequestDispatcher rd;
+            rd = getServletContext().getRequestDispatcher("/orderDetails.jsp");
+            rd.forward(request, response);
+        }else if ("show".equalsIgnoreCase(action)) {
+            String oid = request.getParameter("id");
+            OrderBean o = db.listOrderByOid(oid);
+            request.setAttribute("o", o);
+            RequestDispatcher rd;
+            rd = getServletContext().getRequestDispatcher("/updateOrder.jsp");
+            rd.forward(request, response);
+        }else if ("update".equalsIgnoreCase(action)) {
+            try {
+                String oid = request.getParameter("oid");
+                String status = request.getParameter("status");
+                PrintWriter out = response.getWriter();
+                out.print(status + oid);
+                out.print(db.updateStatus(oid, status));
+                response.sendRedirect("handleOrder?action=list");
+            } catch (SQLException ex) {
+                Logger.getLogger(HandleOrder.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             PrintWriter out = response.getWriter();
             out.println("No such action!!!");
         }
+    }
+
+    private int calBonus(double tprice) {
+        return (int) (tprice / 1000) * 100;
     }
 }

@@ -5,6 +5,8 @@
  */
 package ict.bean;
 
+import java.sql.Date;
+
 /**
  *
  * @author pet10_000
@@ -13,6 +15,7 @@ public class OrderBean {
     
     private String oId;
     private String uId;
+    private Date pickUpDate;
     private double tPrice;
     private String status;
     private int bonus;
@@ -20,11 +23,13 @@ public class OrderBean {
     public OrderBean() {
     }
 
-    public OrderBean(String oId, String uId, double tPrice, String status) {
+    public OrderBean(String oId, String uId, Date pickUpDate, double tPrice, String status, int bonus) {
         this.oId = oId;
         this.uId = uId;
+        this.pickUpDate = pickUpDate;
         this.tPrice = tPrice;
         this.status = status;
+        this.bonus = bonus;
     }
 
     public String getoId() {
@@ -65,6 +70,14 @@ public class OrderBean {
 
     public void setBonus(int bonus) {
         this.bonus = bonus;
+    }
+
+    public Date getPickUpDate() {
+        return pickUpDate;
+    }
+
+    public void setPickUpDate(Date pickUpDate) {
+        this.pickUpDate = pickUpDate;
     }
     
 }
