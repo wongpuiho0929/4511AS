@@ -137,7 +137,7 @@
                 </div>
                 <div id="content" class="float_r">
                     <h1>New Products</h1>
-                    <%                       
+                    <%
                         int count = 1;
                         for (int i = productList.size()-1; i >productList.size()-10; i--) {
                             if (count != 3) {

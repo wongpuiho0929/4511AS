@@ -39,6 +39,7 @@
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
         <jsp:useBean class="java.util.ArrayList" id='shoppingCart' scope='session'/>
+        <jsp:useBean class="java.util.ArrayList" id="productList" scope='session'/>
         <jsp:useBean class="java.util.ArrayList" id="groupBy" scope='session'/>
         <% String s = userName.getId();
             pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
@@ -128,11 +129,6 @@
                 <div id="content" class="float_r">
                     <h1>New Products</h1>
                     <%
-                        String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
-                        String username = "root";
-                        String password = "";
-                        ProductDB pb = new ProductDB(url, username, password);
-                        ArrayList<ProductBean> productList = pb.showProduct();
                         int count = 1;
                         for (int i = 0; i < productList.size(); i++) {
                             if (count != 3) {
@@ -141,11 +137,11 @@
                                 out.print("<div class='product_box no_margin_right'>");
                                 count = 0;
                             }
-                            out.print("<a href='product?action=detail&pid=" + productList.get(i).getPid() + "'><img src='" + productList.get(i).getPhoto() + "' alt='Image " + i + "' height='150' width='200'/></a>");
-                            out.print("<h3>" + productList.get(i).getName() + "</h3>");
-                            out.print("<p class='product_price'>$ " + productList.get(i).getPrice() + "</p>");
-                            out.print("<a href='cart?action=add&pid=" + productList.get(i).getPid() + "' class='add_to_card'>Add to Cart</a>");
-                            out.print("<a href='product?action=detail&pid=" + productList.get(i).getPid() + "' class='detail'>Detail</a>");
+                            out.print("<a href='product?action=detail&pid=" + ((ProductBean)productList.get(i)).getPid() + "'><img src='" + ((ProductBean)productList.get(i)).getPhoto() + "' alt='Image " + i + "' height='150' width='200'/></a>");
+                            out.print("<h3>" + ((ProductBean)productList.get(i)).getName() + "</h3>");
+                            out.print("<p class='product_price'>$ " + ((ProductBean)productList.get(i)).getPrice() + "</p>");
+                            out.print("<a href='cart?action=add&pid=" + ((ProductBean)productList.get(i)).getPid() + "' class='add_to_card'>Add to Cart</a>");
+                            out.print("<a href='product?action=detail&pid=" + ((ProductBean)productList.get(i)).getPid() + "' class='detail'>Detail</a>");
                             out.print("</div>");
                             count++;
                         }

@@ -45,6 +45,11 @@ public class ProductController extends HttpServlet {
         String pName = request.getParameter("pName");
         String bName = request.getParameter("bName");
         String category = request.getParameter("category");
+        String price1 = request.getParameter("price1");
+        String price2 = request.getParameter("price2");
+        String sortBy = request.getParameter("sortBy");
+        String sortType = request.getParameter("sortType");
+        
         List<FileItem> multiparts = null;
         if (action == null) {
             try {
@@ -74,7 +79,7 @@ public class ProductController extends HttpServlet {
             rd = getServletContext().getRequestDispatcher("/" + targetURL);
             rd.forward(request, response);
         } else if (action.equals("search")) {
-            ArrayList<ProductBean> pb = db.searchProduct(pName, bName);
+            ArrayList<ProductBean> pb = db.searchProduct(pName, bName, category, price1, price2, sortBy, sortType);
             response.setContentType("text/html");
             request.setAttribute("search", pb);
             ArrayList<String> a = new ArrayList<String>();
