@@ -94,7 +94,7 @@
                         <h3>Categories</h3>   
                         <div class="content"> 
                             <ul class="sidebar_list">
-                                <li class="first"><a href="product?action=searchC&category=File & Filing Accessories">File & Filing Accessories</a></li>
+                                <li class="first"><a href="product?action=searchC&category=File and Filing Accessories">File and Filing Accessories</a></li>
                                 <li><a href="product?action=searchC&category=Office Equipment">Office Equipment</a></li>
                                 <li><a href="product?action=searchC&category=Electrical">Electrical</a></li>
                                 <li><a href="product?action=searchC&category=Newspaper">Newspaper</a></li>
