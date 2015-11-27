@@ -138,7 +138,7 @@
                         <%
                             String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
                             String username = "root";
-                            String password = "";
+                            String password = "tommy985";
                             double tprice = 0.0;
                             ProductDB p = new ProductDB(url, username, password);
                             for (int i = 0; i < shoppingCart.size(); i++) {

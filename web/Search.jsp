@@ -13,25 +13,20 @@
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
 
         <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
-
-        <script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/ddsmoothmenu.js"></script>
-
+        <script type="text/javascript" src="js/jquery-latest.js"></script> 
+        <script type="text/javascript" src="js/jquery.tablesorter.js"></script> 
         <script type="text/javascript">
-
-            ddsmoothmenu.init({
-                mainmenuid: "top_nav", //menu DIV id
-                orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
-                classname: 'ddsmoothmenu', //class added to menu's outer DIV
-                //customtheme: ["#1c5a80", "#18374a"],
-                contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
-            })
-
+            $(document).ready(function ()
+            {
+                $("#myTable").tablesorter({sortList: [[0, 0], [1, 0]]});
+            }
+            );
         </script>
+
 
         <link rel="stylesheet" type="text/css" media="all" href="css/jquery.dualSlider.0.2.css" />
 
-        <script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>
+       
 
 
     </head>
@@ -54,7 +49,7 @@
                 </div>
 
                 <div id="header_right">
-                                        <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=record">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
+                    <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=record">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
                     <%
                         if (userName.getUsername() == null) {
                             out.print("<a href='login.jsp'>Log In</a> | ");
@@ -106,25 +101,25 @@
                                 <li class="last"><a href="product?action=searchC&category=Stationery">Stationery</a></li>
                             </ul>
                         </div>
-                       <br>
-                        <h3>Brand</h3>
-                        <div class="content"> 
-                            <ul class="sidebar_list">
-                                <%
-                                    for(int i=0;i<groupBy.size();i++){
-                                        if(i==0){
-                                            out.print("<li class='first'><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
-                                        }else if(i==groupBy.size()-1){
-                                            out.print("<li class='last'><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
-                                        }else{
-                                            out.print("<li><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                        <br>
+                            <h3>Brand</h3>
+                            <div class="content"> 
+                                <ul class="sidebar_list">
+                                    <%
+                                        for (int i = 0; i < groupBy.size(); i++) {
+                                            if (i == 0) {
+                                                out.print("<li class='first'><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                            } else if (i == groupBy.size() - 1) {
+                                                out.print("<li class='last'><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                            } else {
+                                                out.print("<li><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                            }
                                         }
-                                    }
-                                   
-                                %>
-                                    </ul>
-                                
-                        </div>
+
+                                    %>
+                                </ul>
+
+                            </div>
                     </div>
                 </div>
                 <div id="content" class="float_r">
@@ -155,48 +150,50 @@
                                 <tr><td></td><td></td><td></td><td align="right"><input type="submit" value="Search" class="submit_btn"/></td></tr>
                             </table>
                     </form>
-                    <%                        out.print("<hr/>");
-                        out.print("<table>");
-                        try {
-                            if (chicked.get(0).toString().equals("true") && search.size() == 0) {
-                                out.print("<h1>Sorry, No record was found.</h1>");
-                            }
-                        } catch (Exception ex) {
+                    <table id="myTable" class="tablesorter">
+                        <thead>
+                            <%                        out.print("<hr/>");
 
-                        }
+                                try {
+                                    if (chicked.get(0).toString().equals("true") && search.size() == 0) {
+                                        out.print("<h1>Sorry, No record was found.</h1>");
+                                    }
+                                } catch (Exception ex) {
 
-                        for (int i = 0; i < search.size(); i++) {
-                            if (i == 0) {
-                                out.print("<tr><td></td><td width=200><b>Name</b></td><td width=200><b>Brand</b></td><td width=200><b>Type</b></td><td width=200><b>Price</b></td></tr>");
-                            }
-                            out.print("<tr><td width=200>");
-                            out.print("<img src='" + ((ProductBean) search.get(i)).getPhoto() + "' height= 150 width=180></td>");
-                            out.print("<td width=200>" + ((ProductBean) search.get(i)).getName() + "</td>");
-                            out.print("<td width=200>" + ((ProductBean) search.get(i)).getBrand() + "</td>");
-                            out.print("<td width=200>" + ((ProductBean) search.get(i)).getCategory() + "</td>");
-                            out.print("<td width=200>" + ((ProductBean) search.get(i)).getPrice() + "</td>");
-                            out.print("</tr>");
-                        }
-                        out.print("</table>");
-                    %>
+                                }
+
+                                for (int i = 0; i < search.size(); i++) {
+                                    if (i == 0) {
+                                        out.print("<tr><th></th><th width=200><b><a href='#'>Name</a></b></th><th width=200><b><a href='#'>Brand</a></b></th><th width=200><b><a href='#'>Type</a></b></th><th width=200><b><a href='#'>Price</a></b></th></tr></thead><tbody>");
+                                    }
+                                    out.print("<tr><td width=200>");
+                                    out.print("<img src='" + ((ProductBean) search.get(i)).getPhoto() + "' height= 150 width=180></td>");
+                                    out.print("<td width=200>" + ((ProductBean) search.get(i)).getName() + "</td>");
+                                    out.print("<td width=200>" + ((ProductBean) search.get(i)).getBrand() + "</td>");
+                                    out.print("<td width=200>" + ((ProductBean) search.get(i)).getCategory() + "</td>");
+                                    out.print("<td width=200>" + ((ProductBean) search.get(i)).getPrice() + "</td>");
+                                    out.print("</tr>");
+                                }
+                                out.print("</tbody></table>");
+                            %>
 
 
 
 
 
-                </div> 
-                <div class="cleaner"></div>
-            </div> <!-- END of templatemo_main -->
+                            </div> 
+                            <div class="cleaner"></div>
+                            </div> <!-- END of templatemo_main -->
 
-            <div id="templatemo_footer">
-                <p>
-                    <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> |  <a href="checkout.jsp">Checkout</a>
-                </p>
+                            <div id="templatemo_footer">
+                                <p>
+                                    <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> |  <a href="checkout.jsp">Checkout</a>
+                                </p>
 
-                Copyright © 2015 <a href="index.jsp">Stationery Station</a>
-            </div> <!-- END of templatemo_footer -->
+                                Copyright © 2015 <a href="index.jsp">Stationery Station</a>
+                            </div> <!-- END of templatemo_footer -->
 
-        </div> <!-- END of templatemo_wrapper -->
+                            </div> <!-- END of templatemo_wrapper -->
 
-    </body>
-</html>
+                            </body>
+                            </html>

@@ -95,33 +95,33 @@
             <div id="templatemo_main">
                 <div id="sidebar" class="float_l">
                     <div class="sidebar_box"><span class="bottom"></span>
-                        <h3>Categories</h3>   
+     <h3>Categories</h3>   
                         <div class="content"> 
                             <ul class="sidebar_list">
-                                <li class="first"><a href="#">File and Filing Accessories</a></li>
-                                <li><a href="#">Office Equipment</a></li>
-                                <li><a href="#">Electrical</a></li>
-                                <li><a href="#">Newspaper</a></li>
-                                <li><a href="#">Magazine</a></li>
-                                <li class="last"><a href="#">Stationery</a></li>
+                                <li class="first"><a href="product?action=searchC&category=File and Filing Accessories">File and Filing Accessories</a></li>
+                                <li><a href="product?action=searchC&category=Office Equipment">Office Equipment</a></li>
+                                <li><a href="product?action=searchC&category=Electrical">Electrical</a></li>
+                                <li><a href="product?action=searchC&category=Newspaper">Newspaper</a></li>
+                                <li><a href="product?action=searchC&category=Magazine">Magazine</a></li>
+                                <li class="last"><a href="product?action=searchC&category=Stationery">Stationery</a></li>
                             </ul>
                         </div>
-                                               <br>
-                        <h3>Brand</h3>
-                        <div class="content"> 
-                            <ul class="sidebar_list">
-                                <%
-                                    for(int i=0;i<groupBy.size();i++){
-                                        if(i==0){
-                                            out.print("<li class='first'><a href=#>"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
-                                        }else if(i==groupBy.size()-1){
-                                            out.print("<li class='last'><a href=#>"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
-                                        }else{
-                                            out.print("<li><a href=#>"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                        <br>
+                            <h3>Brand</h3>
+                            <div class="content"> 
+                                <ul class="sidebar_list">
+                                    <%
+                                        for (int i = 0; i < groupBy.size(); i++) {
+                                            if (i == 0) {
+                                                out.print("<li class='first'><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                            } else if (i == groupBy.size() - 1) {
+                                                out.print("<li class='last'><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                            } else {
+                                                out.print("<li><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                            }
                                         }
-                                    }
-                                   
-                                %>
+
+                                    %>
                             </ul>
                         </div>
                     </div>
