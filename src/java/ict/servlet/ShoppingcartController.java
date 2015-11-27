@@ -42,19 +42,19 @@ public class ShoppingcartController extends HttpServlet {
         String action = request.getParameter("action");
         String pid = request.getParameter("pid");
         String uid = (String) request.getServletContext().getAttribute("uid");
-        if(uid==null||uid==""){
+        if (uid == null || uid == "") {
             uid = request.getParameter("uid");
         }
         String removesid = request.getParameter("sid");
         PrintWriter out = response.getWriter();
-        if(action.equals("login")){
+        if (action.equals("login")) {
             ArrayList<ShoppingCartBean> pb = db.showCart(uid);
             HttpSession session = request.getSession(true);
             session.setAttribute("shoppingCart", pb);
             out.print("<script type='text/javascript'>");
             out.print("location.href='index.jsp'");
             out.print("</script>");
-        }else if (action.equals("show")) {
+        } else if (action.equals("show")) {
             ArrayList<ShoppingCartBean> pb = db.showCart(uid);
             HttpSession session = request.getSession(true);
             session.setAttribute("shoppingCart", pb);
@@ -63,21 +63,26 @@ public class ShoppingcartController extends HttpServlet {
             out.print("</script>");
         } else if (action.equals("add")) {
             try {
-                String sid = db.lastID();
-                ShoppingCartBean bean = db.getCart(pid, uid);
-                if(bean == null)
-                    db.addShoppingCart(sid, uid, pid, 1);
-                else
-                    db.updateQty(bean.getQty()+1, bean.getSid());
-                pdb.orderProduct(pid, 1);
-                String targetURL = "cart?action=show&uid=" + uid;
-                RequestDispatcher rd;
-                rd = getServletContext().getRequestDispatcher("/" + targetURL);
-                rd.forward(request, response);
+                if (uid != null && pdb.productdetail(pid).getQty() > 0) {
+                    String sid = db.lastID();
+                    ShoppingCartBean bean = db.getCart(pid, uid);
+                    if (bean == null) {
+                        db.addShoppingCart(sid, uid, pid, 1);
+                    } else {
+                        db.updateQty(bean.getQty() + 1, bean.getSid());
+                    }
+                    pdb.orderProduct(pid, 1);
+                    String targetURL = "cart?action=show&uid=" + uid;
+                    RequestDispatcher rd;
+                    rd = getServletContext().getRequestDispatcher("/" + targetURL);
+                    rd.forward(request, response);
+                } else {
+                    response.sendRedirect("index.jsp");
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(ShoppingcartController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else if (action.equals("remove")) {
+        } else if (action.equals("remove")) {
             try {
                 db.remove(removesid);
                 int qty = Integer.parseInt(request.getParameter("qty"));
