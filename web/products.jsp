@@ -98,7 +98,7 @@
                         <h3>Categories</h3>   
                         <div class="content"> 
                             <ul class="sidebar_list">
-                                <li class="first"><a href="#">File & Filing Accessories</a></li>
+                                <li class="first"><a href="#">File and Filing Accessories</a></li>
                                 <li><a href="#">Office Equipment</a></li>
                                 <li><a href="#">Electrical</a></li>
                                 <li><a href="#">Newspaper</a></li>

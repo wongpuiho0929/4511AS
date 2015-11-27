@@ -49,7 +49,7 @@ public class ProductDB {
                     + "PId varchar(5) not null," + "pName varchar(25) not null,"
                     + "price double not null," + "qty int(20) not null,"
                     + "brand varchar(20) not null," + "description varchar(20) not null,"
-                    + "category varchar(20) not null," + "photo varchar(25))";
+                    + "category varchar(30) not null," + "photo varchar(25))";
             stmmt.execute(sql);
             stmmt.close();
             cnnct.close();
