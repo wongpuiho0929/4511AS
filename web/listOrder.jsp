@@ -155,7 +155,7 @@
                         }
                         out.println("</table>");
                     %>
-                    </center>
+                   
                 </div> 
                 <div class="cleaner"></div>
             </div> <!-- END of templatemo_main -->

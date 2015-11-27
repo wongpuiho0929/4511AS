@@ -63,21 +63,26 @@ public class ShoppingcartController extends HttpServlet {
             out.print("</script>");
         } else if (action.equals("add")) {
             try {
-                if (uid != null && pdb.productdetail(pid).getQty() > 0) {
-                    String sid = db.lastID();
-                    ShoppingCartBean bean = db.getCart(pid, uid);
-                    if (bean == null) {
-                        db.addShoppingCart(sid, uid, pid, 1);
+                if (uid != null) {
+                    if (pdb.productdetail(pid).getQty() > 0) {
+                        String sid = db.lastID();
+                        ShoppingCartBean bean = db.getCart(pid, uid);
+                        if (bean == null) {
+                            db.addShoppingCart(sid, uid, pid, 1);
+                        } else {
+                            db.updateQty(bean.getQty() + 1, bean.getSid());
+                        }
+                        pdb.orderProduct(pid, 1);
+                        String targetURL = "cart?action=show&uid=" + uid;
+                        RequestDispatcher rd;
+                        rd = getServletContext().getRequestDispatcher("/" + targetURL);
+                        rd.forward(request, response);
                     } else {
-                        db.updateQty(bean.getQty() + 1, bean.getSid());
+                        out.print("<script type='text/javascript'>alert('Sold!');location.href='index.jsp';</script>");
                     }
-                    pdb.orderProduct(pid, 1);
-                    String targetURL = "cart?action=show&uid=" + uid;
-                    RequestDispatcher rd;
-                    rd = getServletContext().getRequestDispatcher("/" + targetURL);
-                    rd.forward(request, response);
                 } else {
-                    response.sendRedirect("index.jsp");
+                    out.print("<script type='text/javascript'>alert('Login First!');location.href='index.jsp';</script>");
+                    
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(ShoppingcartController.class.getName()).log(Level.SEVERE, null, ex);
