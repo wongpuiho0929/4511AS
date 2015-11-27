@@ -10,8 +10,8 @@ public class test extends HttpServlet {
     public static void main(String[] arg) throws SQLException, IOException {
         String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
         String username = "root";
-        String password = "";
-        
+        String password = "tommy985";
+        /*
         UserDB db = new UserDB(url, username, password);
         db.createUserInfoTable();
         db.addUserInfo("1","","","","xyz","123","Manager","N");
@@ -31,7 +31,7 @@ public class test extends HttpServlet {
         pdb.addProduct("P0009", "Donec laoreet velit", 65.0, 20,"Apple","IS a Pen","pen", "images/product/09.jpg");
         
         ShoppingCartDB scdb = new ShoppingCartDB(url,username,password);
-        scdb.createShoppingCartTable();
+        scdb.createShoppingCartTable();*/
         GiftDB gdb = new GiftDB(url,username,password);
         gdb.createGiftTable();
         gdb.addGift("G0001", "Pen", 100, 20, "very good");

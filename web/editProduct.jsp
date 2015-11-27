@@ -1,5 +1,3 @@
-<%@page import="ict.db.ShoppingCartDB"%>
-<%@page import="ict.bean.ShoppingCartBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="ict.bean.ProductBean"%>
 <%@page import="ict.db.ProductDB"%>
@@ -8,22 +6,62 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Stationery Station</title>
+        <title>Stationery Station - Search Page</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
+
         <link href="css/templatemo_style.css" rel="stylesheet" type="text/css" />
+
         <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
+
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/ddsmoothmenu.js"></script>
+
+        <script type="text/javascript">
+
+            ddsmoothmenu.init({
+                mainmenuid: "top_nav", //menu DIV id
+                orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+                classname: 'ddsmoothmenu', //class added to menu's outer DIV
+                //customtheme: ["#1c5a80", "#18374a"],
+                contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+            });
+
+        </script>
+
+     <script type="text/javascript">
+            function validateForm() {
+                var x = document.forms["addList"]["pName"].value;
+                var price = document.forms["addList"]["price"].value;
+                var bName = document.forms["addList"]["bName"].value;
+                if (x == null || x == "") {
+                    alert("Product Name must be filled out");
+                    return false;
+                }
+                if (price == 0) {
+                    document.forms["addList"]["price"].value = 0;
+                    alert("Your do not set the price");
+                    return false;
+                }
+                  if (bName == null || bName == "") {
+                    alert("Brand Name must be filled out");
+                    return false;
+                }
+            }
+        </script>
+
         <link rel="stylesheet" type="text/css" media="all" href="css/jquery.dualSlider.0.2.css" />
+
         <script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>
+
+
     </head>
 
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
         <jsp:useBean class="java.util.ArrayList" id='shoppingCart' scope='session'/>
-        <jsp:useBean class="java.util.ArrayList" id="productList" scope='session'/>
         <jsp:useBean class="java.util.ArrayList" id="groupBy" scope='session'/>
+        <jsp:useBean class="ict.bean.ProductBean" id="productDetail" scope="session"/>
         <% String s = userName.getId();
             pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
         %>
@@ -32,7 +70,7 @@
             <div id="templatemo_header">
 
                 <div id="site_title">
-                    <h1><a href="index.jsp">Stationery Station</a></h1>
+                    <h1><a href="index.jsp">Station Shop</a></h1>
                 </div>
 
                 <div id="header_right">
@@ -60,10 +98,10 @@
             <div id="templatemo_menu">
                 <div id="top_nav" class="ddsmoothmenu">
                     <ul>
-                        <li><a href="index.jsp" class="selected">Home</a></li>
-                        <li><a href="products.jsp">Products</a></li>
+                        <li><a href="index.jsp">Home</a></li>
+                        <li><a href="products.jsp" class="selected">Products</a></li>
                         <li><a href="Search.jsp" >Search</a></li>
-                        <li><a href="checkout.jsp" >Checkout</a></li>
+                        <li><a href="checkout.jsp">Checkout</a></li>
                     </ul>
                     <br style="clear: left" />
                 </div> <!-- end of ddsmoothmenu -->
@@ -75,36 +113,10 @@
                 </div>
             </div> <!-- END of templatemo_menu -->
 
-            <div id="templatemo_middle" class="carousel">
-                <div class="panel">
-
-                    <div class="details_wrapper">
-
-                        <div class="details">
-
-                            <div class="detail">
-                                <h2><a href="#">Station Shop</a></h2>
-                                <p>Station Shop is free website template by templatemo for ecommerce websites or online stores. Sed aliquam arcu. Donec urna massa, cursus et mattis at, mattis quis lectus. </p>
-                                <a href="#" title="Read more" class="more">Read more</a>
-                            </div><!-- /detail -->
-
-                        </div><!-- /details -->
-
-                    </div><!-- /details_wrapper --><!-- /paging --></div><!-- /panel -->
-
-                <div class="backgrounds">
-
-                    <div class="item item_1">
-                        <img src="images/slider/02.jpg" alt="Slider 01" />
-                    </div><!-- /item -->
-
-                </div><!-- /backgrounds -->
-            </div> <!-- END of templatemo_middle -->
-
             <div id="templatemo_main">
                 <div id="sidebar" class="float_l">
                     <div class="sidebar_box"><span class="bottom"></span>
-                        <h3>Categories</h3>   
+                         <h3>Categories</h3>   
                         <div class="content"> 
                             <ul class="sidebar_list">
                                 <li class="first"><a href="product?action=searchC&category=File & Filing Accessories">File & Filing Accessories</a></li>
@@ -131,36 +143,41 @@
                                     }
                                    
                                 %>
-                            </ul>
-                        </div>
+                                </ul>
+
+                            </div>
                     </div>
                 </div>
                 <div id="content" class="float_r">
-                    <h1>New Products</h1>
-                    <%
-                        String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
-                        String username = "root";
-                        String password = "";
-                        ProductDB pb = new ProductDB(url, username, password);
-                        ArrayList<ProductBean> productList = pb.showProduct();
+                    <h1>Edit Products:</h1>
+                    <form method="POST" action="product" name='addList' onsubmit="return validateForm()">
+                        <input type="hidden" name="action" value="edit"/>
+                        <input type="hidden" name="pid" value="<%=productDetail.getPid()%>"/>
+                        <table cellpadding="15">
+                            <tr></tr>
+                            <tr><td><font size="5" color="black">Product Name</font></td><td><font size="5" color="black">:</font>       
+                                    <input type="text" name="pName" value="<%=productDetail.getName()%>"/></td></tr>
+                            <tr><td><font size="5" color="black">Price</font></td><td><font size="5" color="black">:</font>             
+                                    <input type="number" name="price" value="<%=productDetail.getPrice()%>" min='0' max='1000' step='0.1' style="width: 50px;"/></td></tr>
+                            <tr><td><font size="5" color="black">QTY</font></td><td><font size="5" color="black">:</font>               
+                                    <input type="number" name="qty" value="<%=productDetail.getQty()%>" min='0' max='50' step='1' style="width: 50px"/></td></tr>
+                            <tr><td><font size="5" color="black">Brank Name </font></td><td><font size="5" color="black">:</font>        
+                                    <input type="text" name="bName" value="<%=productDetail.getBrand()%>"/></td></tr>
+                            <tr><td><font size="5" color="black">Product Description</font></td><td><font size="5" color="black">:</font> 
+                                    <input type="textarea" name="description" value="<%=productDetail.getDescription()%>"/></td></tr>
+                            <tr><td><font size="5" color="black">Category</font></td><td><font size="5" color="black">:</font>           
+                                    <select name="category">
+                                        <option value ="stationery">Stationery</option>
+                                        <option value ="officeEquipment">Office Equipment</option>
+                                        <option value="electrical">Electrical</option>
+                                        <option value="newspaper">Newspaper</option>
+                                        <option value="magazine">Magazine</option>
+                                        <option value="filingAccessories">File & Filing Accessories</option>
+                                    </select></td></tr>
+                            <tr><td></td><td><input type="submit" value="Edit" class="submit_btn" style="width: 70px"/><input type="reset" value="Clear" class="submit_btn" style="width: 70px"/></td></tr>
 
-                        int count = 1;
-                        for (int i = productList.size()-1; i >productList.size()-10; i--) {
-                            if (count != 3) {
-                                out.print("<div class='product_box'>");
-                            } else {
-                                out.print("<div class='product_box no_margin_right'>");
-                                count = 0;
-                            }
-                            out.print("<a href='product?action=detail&pid=" + ((ProductBean)(productList.get(i))).getPid() + "'><img src='" +  ((ProductBean)(productList.get(i))).getPhoto() + "' alt='Image " + i + "' height='150' width='200'/></a>");
-                            out.print("<h3>" +  ((ProductBean)(productList.get(i))).getName() + "</h3>");
-                            out.print("<p class='product_price'>$ " +  ((ProductBean)(productList.get(i))).getPrice() + "</p>");
-                            out.print("<a href='cart?action=add&pid=" +  ((ProductBean)(productList.get(i))).getPid() + "' class='add_to_card'>Add to Cart</a>");
-                            out.print("<a href='product?action=detail&pid=" +  ((ProductBean)(productList.get(i))).getPid() + "' class='detail'>Detail</a>");
-                            out.print("</div>");
-                            count++;
-                        }
-                    %>   
+                        </table>
+                    </form>
                 </div> 
                 <div class="cleaner"></div>
             </div> <!-- END of templatemo_main -->
@@ -173,7 +190,7 @@
                 Copyright © 2015 <a href="index.jsp">Stationery Station</a>
             </div> <!-- END of templatemo_footer -->
 
-        </div> <!-- END of templatemo_wrapper Text -->
+        </div> <!-- END of templatemo_wrapper -->
 
     </body>
 </html>

@@ -25,15 +25,26 @@
                 classname: 'ddsmoothmenu', //class added to menu's outer DIV
                 //customtheme: ["#1c5a80", "#18374a"],
                 contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
-            })
+            });
 
         </script>
 
         <script type="text/javascript">
             function validateForm() {
                 var x = document.forms["addList"]["pName"].value;
+                var price = document.forms["addList"]["price"].value;
+                var bName = document.forms["addList"]["bName"].value;
                 if (x == null || x == "") {
-                    alert("Name must be filled out");
+                    alert("Product Name must be filled out");
+                    return false;
+                }
+                if (price == 0) {
+                    document.forms["addList"]["price"].value = 0;
+                    alert("Your do not set the price");
+                    return false;
+                }
+                  if (bName == null || bName == "") {
+                    alert("Brand Name must be filled out");
                     return false;
                 }
             }
@@ -49,6 +60,7 @@
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
         <jsp:useBean class="java.util.ArrayList" id='shoppingCart' scope='session'/>
+        <jsp:useBean class="java.util.ArrayList" id="groupBy" scope='session'/>
         <% String s = userName.getId();
             pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
         %>
@@ -61,13 +73,20 @@
                 </div>
 
                 <div id="header_right">
-                    <a href="#">My Account</a> | <a href="#">My Cart</a> | <a href="#">My Recard</a> | <a href="#">Checkout</a> |
+                    <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=list">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
 
                     <%
                         if (userName.getUsername() == null) {
-                            out.print("<a href='login.jsp'>Log In</a>");
+                            out.print("<a href='login.jsp'>Log In</a> | ");
+                            out.print("<a href='editClientAccout.jsp'>Register</a>");
                         } else {
-                            out.print("<font size=5>" + userName.getUsername() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
+                            if (userName.getPosition().equals("Manager")) {
+
+                                out.print("<a href='addProduct.jsp'>Add Product</a> | ");
+                                out.print("<a href='handleOrder?action=list'>Handle Orders</a> | ");
+                                out.print("<a href='handleUser?action=list'>Handle Accounts</a> | ");
+                            }
+                            out.print("<font size=5>" + userName.getName() + ",</font>" + " <a href='login?action=logout'> Logout</a>");
                         }
                     %>
                 </div>
@@ -96,26 +115,36 @@
             <div id="templatemo_main">
                 <div id="sidebar" class="float_l">
                     <div class="sidebar_box"><span class="bottom"></span>
-                        <h3>Categories</h3>   
+                       <h3>Categories</h3>   
                         <div class="content"> 
                             <ul class="sidebar_list">
-                                <li class="first"><a href="#">Aenean varius nulla</a></li>
-                                <li><a href="#">Cras mattis arcu</a></li>
-                                <li><a href="#">Donec turpis ipsum</a></li>
-                                <li><a href="#">Fusce sodales mattis</a></li>
-                                <li><a href="#">Maecenas et mauris</a></li>
-                                <li><a href="#">Mauris nulla tortor</a></li>
-                                <li><a href="#">Nulla odio ipsum</a></li>
-                                <li><a href="#">Nunc ac viverra nibh</a></li>
-                                <li><a href="#">Praesent id venenatis</a></li>
-                                <li><a href="#">Quisque odio velit</a></li>
-                                <li><a href="#">Suspendisse posuere</a></li>
-                                <li><a href="#">Tempus lacus risus</a></li>
-                                <li><a href="#">Ut tincidunt imperdiet</a></li>
-                                <li><a href="#">Vestibulum eleifend</a></li>
-                                <li class="last"><a href="#">Velit mi rutrum diam</a></li>
+                                <li class="first"><a href="product?action=searchC&category=File & Filing Accessories">File & Filing Accessories</a></li>
+                                <li><a href="product?action=searchC&category=Office Equipment">Office Equipment</a></li>
+                                <li><a href="product?action=searchC&category=Electrical">Electrical</a></li>
+                                <li><a href="product?action=searchC&category=Newspaper">Newspaper</a></li>
+                                <li><a href="product?action=searchC&category=Magazine">Magazine</a></li>
+                                <li class="last"><a href="product?action=searchC&category=Stationery">Stationery</a></li>
                             </ul>
                         </div>
+                       <br>
+                        <h3>Brand</h3>
+                        <div class="content"> 
+                            <ul class="sidebar_list">
+                                <%
+                                    for(int i=0;i<groupBy.size();i++){
+                                        if(i==0){
+                                            out.print("<li class='first'><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                                        }else if(i==groupBy.size()-1){
+                                            out.print("<li class='last'><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                                        }else{
+                                            out.print("<li><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                                        }
+                                    }
+                                   
+                                %>
+                                </ul>
+
+                            </div>
                     </div>
                 </div>
                 <div id="content" class="float_r">
