@@ -138,12 +138,6 @@
                 <div id="content" class="float_r">
                     <h1>New Products</h1>
                     <%
-                        String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
-                        String username = "root";
-                        String password = "";
-                        ProductDB pb = new ProductDB(url, username, password);
-                        ArrayList<ProductBean> productList = pb.showProduct();
-
                         int count = 1;
                         for (int i = productList.size()-1; i >productList.size()-10; i--) {
                             if (count != 3) {

@@ -121,6 +121,7 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
                 <div id="content" class="float_r">                   
                     <%
                         ArrayList<OrderBean> orders
