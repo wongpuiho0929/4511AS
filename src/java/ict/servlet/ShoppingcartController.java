@@ -1,11 +1,15 @@
 package ict.servlet;
 
 import ict.bean.ShoppingCartBean;
+import ict.db.ProductDB;
 import ict.db.ShoppingCartDB;
 import ict.db.UserDB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +22,7 @@ import javax.servlet.http.HttpSession;
 public class ShoppingcartController extends HttpServlet {
 
     private ShoppingCartDB db;
+    private ProductDB pdb;
     private UserDB udb;
 
     public void init() {
@@ -26,6 +31,7 @@ public class ShoppingcartController extends HttpServlet {
         String targetURL = this.getServletContext().getInitParameter("url");
         db = new ShoppingCartDB(targetURL, username, password);
         udb = new UserDB(targetURL, username, password);
+        pdb = new ProductDB(targetURL, username, password);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -56,26 +62,33 @@ public class ShoppingcartController extends HttpServlet {
             out.print("location.href='shoppingcart.jsp'");
             out.print("</script>");
         } else if (action.equals("add")) {
-            String sid = db.lastID();
-            db.addShoppingCart(sid, uid, pid, 1);
-            String targetURL = "cart?action=show&uid=" + uid;
-            RequestDispatcher rd;
-            rd = getServletContext().getRequestDispatcher("/" + targetURL);
-            rd.forward(request, response);
-        }else if (action.equals("addmore")) {
-            int qty = Integer.parseInt(request.getParameter("qty"));
-            String sid = db.lastID();
-            db.addShoppingCart(sid, uid, pid, qty);
-            String targetURL = "cart?action=show&uid=" + uid;
-            RequestDispatcher rd;
-            rd = getServletContext().getRequestDispatcher("/" + targetURL);
-            rd.forward(request, response);
+            try {
+                String sid = db.lastID();
+                ShoppingCartBean bean = db.getCart(pid, uid);
+                if(bean == null)
+                    db.addShoppingCart(sid, uid, pid, 1);
+                else
+                    db.updateQty(bean.getQty()+1, bean.getSid());
+                pdb.orderProduct(pid, 1);
+                String targetURL = "cart?action=show&uid=" + uid;
+                RequestDispatcher rd;
+                rd = getServletContext().getRequestDispatcher("/" + targetURL);
+                rd.forward(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(ShoppingcartController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else if (action.equals("remove")) {
-            db.remove(removesid);
-            String targetURL = "cart?action=show&uid=" + uid;
-            RequestDispatcher rd;
-            rd = getServletContext().getRequestDispatcher("/" + targetURL);
-            rd.forward(request, response);
+            try {
+                db.remove(removesid);
+                int qty = Integer.parseInt(request.getParameter("qty"));
+                pdb.unOrderProduct(pid, qty);
+                String targetURL = "cart?action=show&uid=" + uid;
+                RequestDispatcher rd;
+                rd = getServletContext().getRequestDispatcher("/" + targetURL);
+                rd.forward(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(ShoppingcartController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

@@ -40,7 +40,7 @@
                 </div>
 
                 <div id="header_right">
-                    <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=list">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
+                    <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=record">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
 
                     <%
                         if (userName.getUsername() == null) {
@@ -67,7 +67,6 @@
                         <li><a href="index.jsp" class="selected">Home</a></li>
                         <li><a href="products.jsp">Products</a></li>
                         <li><a href="Search.jsp">Search</a></li>
-                        <li><a href="about.jsp">About</a>
                             <!--<ul>
                                 <li><a href="#submenu1">Sub menu 1</a></li>
                                 <li><a href="#submenu2">Sub menu 2</a></li>
@@ -77,7 +76,6 @@
                             </ul>!-->
                         </li>
                         <li><a href="checkout.jsp">Checkout</a></li>
-                        <li><a href="contact.jsp">Contact</a></li>
                     </ul>
                     <br style="clear: left" />
                 </div> <!-- end of ddsmoothmenu -->
@@ -127,8 +125,9 @@
                         OrderBean o = (OrderBean) request.getAttribute("o");
                         ArrayList<ShoppingCartBean> sc = (ArrayList<ShoppingCartBean>) request.getAttribute("scdbl");
                         ArrayList<ProductBean> p = (ArrayList<ProductBean>) request.getAttribute("pdbl");
-                        out.println("<h1>Order "+ o.getoId() + "</h1>");                        
-                        out.println("<center><table border='0' width='90%'>");
+                        out.println("<h1>Order "+ o.getoId() + "</h1>");    
+                        out.println("<div align='right'/><a href='handleOrder?action=list'><input type='button' value='Back' class='submit_btn'/></a>"); 
+                        out.println("<br/><center><table border='0' width='90%'>");
                         out.println("<tr>");
                         out.println("<th></th><th align='left'>ProductID</th> <th>Name</th><th>Price</th><th>Qty</th >");
                         out.println("</tr>");

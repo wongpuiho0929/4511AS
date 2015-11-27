@@ -54,7 +54,7 @@
                 </div>
 
                 <div id="header_right">
-                                        <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=list">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
+                                        <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=record">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
                     <%
                         if (userName.getUsername() == null) {
                             out.print("<a href='login.jsp'>Log In</a> | ");

@@ -199,6 +199,61 @@ public class ShoppingCartDB {
         return isSuccess;
     }
     
+    public boolean updateQty(int qty, String sid){
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        boolean isSuccess = false;
+        try{
+            cnnct = getConnection();
+            String preQueryStatment = "update ShoppingCart set qty = ? where sid = ?";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            pStnmt.setInt(1, qty);
+            pStnmt.setString(2, sid);
+            int rowCount = pStnmt.executeUpdate();
+            if (rowCount >=1 ){
+                isSuccess = true;
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return isSuccess;
+    }
+    
+    public ShoppingCartBean getCart(String pid, String uid) {
+        Connection cnnct = null;
+        PreparedStatement pStmnt = null;
+        ShoppingCartBean cart = null;
+        try {
+            cnnct = getConnection();
+            String preQueryStatement = "SELECT * FROM ShoppingCart where pid=? and uid = ? and oid is NULL";
+            pStmnt = cnnct.prepareStatement(preQueryStatement);
+            pStmnt.setString(1, pid);
+            pStmnt.setString(2, uid);
+            ResultSet rs = null;
+            rs = pStmnt.executeQuery();
+            while (rs.next()) {        
+                cart = new ShoppingCartBean();
+                cart.setQty(rs.getInt("qty"));
+                cart.setSid(rs.getString("sid")); 
+            }
+            pStmnt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            while (ex != null) {
+                ex.printStackTrace();
+                ex = ex.getNextException();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cart;
+    }
+    
     public ArrayList<ShoppingCartBean> getProductId(String id) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;

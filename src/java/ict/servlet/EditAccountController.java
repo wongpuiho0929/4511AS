@@ -49,8 +49,9 @@ public class EditAccountController extends HttpServlet {
         String action = request.getParameter("action");
 
         if ("add".equalsIgnoreCase(action)) {
+            id = db.lastID();
             db.addRecord(id, name, tel, address, "Client");
-            response.sendRedirect("handleUser?action=list");
+            response.sendRedirect("login.jsp");
         } else if ("edit".equalsIgnoreCase(action)) {
             UserInfo u = new UserInfo();
             u.setId(id);

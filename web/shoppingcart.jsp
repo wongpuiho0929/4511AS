@@ -50,7 +50,7 @@
                 </div>
 
                 <div id="header_right">
-                                      <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=list">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
+                                      <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=record">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
 
                        <%
                         if (userName.getUsername() == null) {
@@ -138,7 +138,7 @@
                         <%
                             String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
                             String username = "root";
-                            String password = "tommy985";
+                            String password = "";
                             double tprice = 0.0;
                             ProductDB p = new ProductDB(url, username, password);
                             for (int i = 0; i < shoppingCart.size(); i++) {
@@ -150,7 +150,7 @@
                                 out.print("<td align='center'>"+ qty +"</td>");
                                 out.print("<td align='right'>" + bean.getPrice() + "</td>");
                                 out.print("<td align='right'>" + bean.getPrice()*qty + "</td>");
-                                out.print("<td align='center'> <a href='cart?action=remove&sid=" + ((ShoppingCartBean) (shoppingCart.get(i))).getSid() + "'>Remove</a> </td>");
+                                out.print("<td align='center'> <a href='cart?action=remove&sid=" + ((ShoppingCartBean) (shoppingCart.get(i))).getSid() + "&qty=" + ((ShoppingCartBean) (shoppingCart.get(i))).getQty()+ "'>Remove</a> </td>");
                                 tprice += bean.getPrice()*qty;
                             }
                         %>

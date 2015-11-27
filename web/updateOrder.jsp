@@ -40,7 +40,7 @@
                 </div>
 
                 <div id="header_right">
-                    <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=list">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
+                    <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=record">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
 
                     <%
                         if (userName.getUsername() == null) {
@@ -67,7 +67,6 @@
                         <li><a href="index.jsp" class="selected">Home</a></li>
                         <li><a href="products.jsp">Products</a></li>
                         <li><a href="Search.jsp">Search</a></li>
-                        <li><a href="about.jsp">About</a>
                             <!--<ul>
                                 <li><a href="#submenu1">Sub menu 1</a></li>
                                 <li><a href="#submenu2">Sub menu 2</a></li>
@@ -77,7 +76,6 @@
                             </ul>!-->
                         </li>
                         <li><a href="checkout.jsp">Checkout</a></li>
-                        <li><a href="contact.jsp">Contact</a></li>
                     </ul>
                     <br style="clear: left" />
                 </div> <!-- end of ddsmoothmenu -->

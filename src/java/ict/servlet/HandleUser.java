@@ -92,6 +92,9 @@ public class HandleUser extends HttpServlet {
                 rd = getServletContext().getRequestDispatcher("/showClientAccount.jsp");
                 rd.forward(request, response);
             }
+            else {
+                response.sendRedirect("login.jsp");
+            }               
         } else if ("getEditAccount".equalsIgnoreCase(action)) {
             String id = (String) request.getServletContext().getAttribute("uid");
             if (id != null) {

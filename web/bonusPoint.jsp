@@ -6,9 +6,7 @@
 
 <%@page import="ict.bean.GiftBean"%>
 <%@page import="ict.bean.OrderBean"%>
-<%@page import="ict.bean.OrderBean"%>
 <%@page import="ict.bean.UserGiftBean"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,11 +22,12 @@
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/ddsmoothmenu.js"></script>
         <link rel="stylesheet" type="text/css" media="all" href="css/jquery.dualSlider.0.2.css" />
-            
+
         <script src="js/jquery-1.3.2.min.js" type="text/javascript"></script>       
     </head>
     <body>
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
+        <jsp:useBean class="java.util.ArrayList" id='shoppingCart' scope='session'/>
         <% String s = userName.getId();
             pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
         %>
@@ -40,9 +39,9 @@
                 </div>
 
                 <div id="header_right">
-                                        <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=list">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
+                    <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=record">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
 
-                      <%
+                    <%
                         if (userName.getUsername() == null) {
                             out.print("<a href='login.jsp'>Log In</a> | ");
                             out.print("<a href='editClientAccout.jsp'>Register</a>");
@@ -73,7 +72,7 @@
                 </div> <!-- end of ddsmoothmenu -->
                 <div id="menu_second_bar">
                     <div id="top_shopping_cart">
-                        Shopping Cart: <strong>X Products</strong> ( <a href="#">Show Cart</a> )
+                        Shopping Cart: <strong><%=shoppingCart.size()%></strong> ( <a href="cart?action=show">Show Cart</a> )
                     </div>
                     <div class="cleaner"></div>
                 </div>
@@ -98,11 +97,10 @@
                     <p align="right"><a href="gift?action=list">list gift</a></p>
                     <a href="listBonusCotroller?action=list">show bonus history</a>
                     <center>
-                        <%
-                            ArrayList<UserGiftBean> ugb = (ArrayList<UserGiftBean>) request.getAttribute("ugb");
+                        <%    ArrayList<UserGiftBean> ugb = (ArrayList<UserGiftBean>) request.getAttribute("ugb");
                             ArrayList<OrderBean> ob = (ArrayList<OrderBean>) request.getAttribute("ob");
                             ArrayList<GiftBean> gb = (ArrayList<GiftBean>) request.getAttribute("gb");
-                            if(ob != null) {
+                            if (ob != null) {
                                 out.println("<table border='0' width='90%'");
                                 out.println("<tr>");
                                 out.println("<th align='left'>Order ID</th><th>Pick up date</th><th>Total Price</th><th>State</th><th>Bonus Point</th >");
@@ -116,10 +114,13 @@
                                     out.println("<td>" + o.getStatus() + "</td>");
                                     out.println("<td>+" + o.getBonus() + "</td>");
                                     out.println("</tr>");
-                                }                      
-                                out.println("</table>"); 
+                                    if (o.getStatus().equalsIgnoreCase("cancel")) {
+                                        out.println("<tr align='center'>><td></td><td></td><td></td><td></td><td>-" + o.getBonus() + "</td></tr>");
+                                    }
+                                }
+                                out.println("</table>");
                             }
-                            if(ugb != null) {
+                            if (ugb != null) {
                                 out.println("<table border='0' width='90%'");
                                 out.println("<tr>");
                                 out.println("<th align='left'>Gift ID</th> <th>Name</th><th>Descriptions</th ><th>Bonus Point</th >");
@@ -128,7 +129,7 @@
                                     UserGiftBean ug = ugb.get(i);
                                     for (int j = 0; j < gb.size(); j++) {
                                         GiftBean g = gb.get(j);
-                                        if(ug.getGiftId().equalsIgnoreCase(g.getGiftId())) {
+                                        if (ug.getGiftId().equalsIgnoreCase(g.getGiftId())) {
                                             out.println("<tr align='center'>");
                                             out.println("<td align='left'>" + ug.getGiftId() + "</td>");
                                             out.println("<td>" + g.getGiftName() + "</td>");
@@ -137,8 +138,8 @@
                                             out.println("</tr>");
                                         }
                                     }
-                                }                     
-                                out.println("</table>"); 
+                                }
+                                out.println("</table>");
                             }
                         %>
                     </center>
@@ -151,7 +152,7 @@
                     <a href="index.jsp">Home</a> | <a href="products.jsp">Products</a> |  <a href="checkout.jsp">Checkout</a>
                 </p>
 
-                 Copyright © 2015 <a href="index.jsp">Stationery Station</a>
+                Copyright © 2015 <a href="index.jsp">Stationery Station</a>
             </div> <!-- END of templatemo_footer -->
 
         </div> <!-- END of templatemo_wrapper Text -->

@@ -60,7 +60,7 @@
                 </div>
 
                 <div id="header_right">
-                    <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=list">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
+                    <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=record">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
                     <%
                         if (userName.getUsername() == null) {
                             out.print("<a href='login.jsp'>Log In</a> | ");
@@ -164,7 +164,7 @@
                         <%
                             String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
                             String username = "root";
-                            String password = "tommy985";
+                            String password = "";
                             double tprice = 0.0;
                             ProductDB p = new ProductDB(url, username, password);
                             for (int i = 0; i < shoppingCart.size(); i++) {
@@ -175,7 +175,7 @@
                         %>
                         <h4>TOTAL: <strong><%=tprice%></strong></h4>
                         <p><input type="radio" name="select" value="delivery" onclick="hide()" checked/><font size='3'>delivery  </font> 
-                            <input type="radio" name="select" value="self" onclick="show()"/><font size='3'>self pick up </font>                          
+                            <input type="radio" name="select" value="self" onclick="show()"/><font size='3'>self pick-up </font>                          
                             <p align="right"><input type="submit" value="Create Order"/></p>
                             <input type="hidden" name="total" value="<%=tprice%>"/>
                     </form>

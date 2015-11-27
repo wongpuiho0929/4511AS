@@ -172,8 +172,7 @@ public class UserDB {
             pStnmt.setString(2, name);
             pStnmt.setString(3, tel);
             pStnmt.setString(4, address);
-            pStnmt.setString(7, position);
-            pStnmt.setString(8, "Y");
+
             Random r = new Random();
             char[] temp = new char[8];
             for (int i = 0; i < temp.length - 1; i++) {
@@ -181,13 +180,13 @@ public class UserDB {
                 username += temp[i];
             }
             pStnmt.setString(5, username);
-
             for (int i = 0; i < temp.length; i++) {
                 temp[i] = (char) (r.nextInt(74) + 48);
                 password += temp[i];
             }
             pStnmt.setString(6, password);
-
+            pStnmt.setString(7, position);
+            pStnmt.setString(8, "Y");
             int rowCount = pStnmt.executeUpdate();
             if (rowCount >= 1) {
                 isSuccess = true;
@@ -434,5 +433,38 @@ public class UserDB {
             ex.printStackTrace();
         }
         return false;
+    }
+    
+    public String lastID() {
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        String id = "";
+        try {
+            cnnct = getConnection();
+            String preQueryStatment = "select id from userinfo";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            ResultSet rs = null;
+            rs = pStnmt.executeQuery();
+            while (rs.next()) {
+                id = rs.getString("id");
+            }
+            if (id == null || id == "") {
+                id = "U0001";
+                return id;
+            }
+            id = id.substring(id.indexOf("U") + 1);
+            int i = Integer.parseInt(id);
+            i++;
+            id = "U";
+            id += String.format("%04d", i);
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return id;
     }
 }

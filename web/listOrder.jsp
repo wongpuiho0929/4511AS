@@ -39,7 +39,7 @@
                 </div>
 
                 <div id="header_right">
-                                      <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=list">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
+                    <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=record">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
 
                     <%
                         if (userName.getUsername() == null) {
@@ -66,17 +66,15 @@
                         <li><a href="index.jsp" class="selected">Home</a></li>
                         <li><a href="products.jsp">Products</a></li>
                         <li><a href="Search.jsp">Search</a></li>
-                        <li><a href="about.jsp">About</a>
-                            <!--<ul>
-                                <li><a href="#submenu1">Sub menu 1</a></li>
-                                <li><a href="#submenu2">Sub menu 2</a></li>
-                                <li><a href="#submenu3">Sub menu 3</a></li>
-                                <li><a href="#submenu4">Sub menu 4</a></li>
-                                <li><a href="#submenu5">Sub menu 5</a></li>
-                            </ul>!-->
+                        <!--<ul>
+                            <li><a href="#submenu1">Sub menu 1</a></li>
+                            <li><a href="#submenu2">Sub menu 2</a></li>
+                            <li><a href="#submenu3">Sub menu 3</a></li>
+                            <li><a href="#submenu4">Sub menu 4</a></li>
+                            <li><a href="#submenu5">Sub menu 5</a></li>
+                        </ul>!-->
                         </li>
                         <li><a href="checkout.jsp">Checkout</a></li>
-                        <li><a href="contact.jsp">Contact</a></li>
                     </ul>
                     <br style="clear: left" />
                 </div> <!-- end of ddsmoothmenu -->
@@ -90,7 +88,7 @@
             <div id="templatemo_main">
                 <div id="sidebar" class="float_l">
                     <div class="sidebar_box"><span class="bottom"></span>
-                       <h3>Categories</h3>   
+                        <h3>Categories</h3>   
                         <div class="content"> 
                             <ul class="sidebar_list">
                                 <li class="first"><a href="product?action=searchC&category=File & Filing Accessories">File & Filing Accessories</a></li>
@@ -101,50 +99,62 @@
                                 <li class="last"><a href="product?action=searchC&category=Stationery">Stationery</a></li>
                             </ul>
                         </div>
-                       <br>
+                        <br>
                         <h3>Brand</h3>
                         <div class="content"> 
                             <ul class="sidebar_list">
                                 <%
-                                    for(int i=0;i<groupBy.size();i++){
-                                        if(i==0){
-                                            out.print("<li class='first'><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
-                                        }else if(i==groupBy.size()-1){
-                                            out.print("<li class='last'><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
-                                        }else{
-                                            out.print("<li><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                                    for (int i = 0; i < groupBy.size(); i++) {
+                                        if (i == 0) {
+                                            out.print("<li class='first'><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                        } else if (i == groupBy.size() - 1) {
+                                            out.print("<li class='last'><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                        } else {
+                                            out.print("<li><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
                                         }
                                     }
-                                   
+
                                 %>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div id="content" class="float_r">                   
-                    <%
-                        ArrayList<OrderBean> orders
+                    <%                        ArrayList<OrderBean> orders
                                 = (ArrayList<OrderBean>) request.getAttribute("ob");
+                        String action = (String) request.getAttribute("action");
                         out.println("<h1>Order List</h1>");
                         out.println("<center><table border='0' width='90%'>");
                         out.println("<tr>");
-                        out.println("<th align='left'>OrderId</th> <th>UserId</th><th>Total Price</th><th>State</th ><th>View</th ><th>Update</th >");
+                        out.println("<th align='left'>OrderId</th><th>Pick-up Date</th>");
+                        if (action.equalsIgnoreCase("list")) {
+                            out.println("<th>UserId</th>");
+                        }
+                        out.println("<th>Total Price</th><th>State</th ><th>View</th ><th>Update</th >");
                         out.println("</tr>");
 
                         for (int i = 0; i < orders.size(); i++) {
                             OrderBean c = orders.get(i);
                             out.println("<tr align='center'>");
                             out.println("<td align='left'>" + c.getoId() + "</td>");
-                            out.println("<td>" + c.getuId() + "</td>");
+                            out.println("<td>" + c.getPickUpDate() + "</td>");
+                            if (action.equalsIgnoreCase("list")) {
+                                out.println("<td>" + c.getuId() + "</td>");
+                            }
                             out.println("<td>" + c.gettPrice() + "</td>");
                             out.println("<td>" + c.getStatus() + "</td>");
                             out.println("<td><a href=\"handleOrder?action=view&id=" + c.getoId() + "\"</a>view product</td>");
-                            if(c.getStatus().equalsIgnoreCase("process"))
-                                out.println("<td><a href=\"handleOrder?action=show&id=" + c.getoId() + "\"</a>update state</td>");
+                            if (c.getStatus().equalsIgnoreCase("process")) {
+                                if (action.equalsIgnoreCase("list")) {
+                                    out.println("<td><a href=\"handleOrder?action=show&id=" + c.getoId() + "\"</a>update state</td>");
+                                }
+                                else
+                                    out.println("<td><a href=\"handleOrder?action=cancel&id=" + c.getoId() + "\"</a>cancel</td>");
+                            }
                             out.println("</tr>");
                         }
                         out.println("</table>");
-                        %>
+                    %>
                     </center>
                 </div> 
                 <div class="cleaner"></div>

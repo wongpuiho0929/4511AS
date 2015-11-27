@@ -35,7 +35,7 @@
                 </div>
 
                 <div id="header_right">
-                    <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=list">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
+                    <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=record">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
 
                     <%
                         if (userName.getUsername() == null) {
@@ -111,10 +111,19 @@
                 <div id="content" class="float_r">
 
                     <div >
-                        <font size="10" color="black"><b><%=productDetail.getName()%></b> </font>
-                        <div align="right"><a href="editProduct.jsp">edit</a></div>
+                        <p>
+                            <br/>
+                            <font size="10" color="black"><b><%=productDetail.getName()%></b> </font>
+                                    <%
+                                        if (userName.getUsername() != null && userName.getPosition().equals("Manager")) {
+                                            out.print("<div align=\"right\"><a href=\"editProduct.jsp\">edit</a></div>");
+                                        }
+                                    %>
+                        </p>
+                        <br/>
                     </div>
                     <hr>
+                        <br/>
                         <div class="content_half float_l">
                             <a  rel="lightbox[portfolio]" href="<%=productDetail.getPhoto()%>"><img src="<%=productDetail.getPhoto()%>" alt="Image 01" height='300' width='350'/></a>
                         </div>
