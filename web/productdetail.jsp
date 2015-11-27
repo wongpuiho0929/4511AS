@@ -1,4 +1,6 @@
 <%@page import="ict.bean.ProductBean"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="ict.db.ProductDB"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -108,34 +110,53 @@
                             </div>
                     </div>
                 </div>
-                <div id="content" class="float_r">
+                                    <td height="30">Model:</td>
+                                    <td><%=productDetail.getPid()%></td>
+                                </tr>
+                                <tr>
+                                    <td height="30">Manufacturer:</td>
+                                    <td><%=productDetail.getBrand()%></td>
+                                </tr>
+                                <tr><td height="30">Quantity</td><td><input type="text" name="qty" value="1" style="width: 20px; text-align: right" /></td></tr>
+                            </table>     
 
-                    <div >
-                        <font size="10" color="black"><b><%=productDetail.getName()%></b> </font>
-                        <div align="right"><a href="editProduct.jsp">edit</a></div>
+                            <div class="cleaner h20"></div>
+                            <input type="submit" value="Add to Cart"/>
+                        </form>
                     </div>
-                    <hr>
-                        <div class="content_half float_l">
-                            <a  rel="lightbox[portfolio]" href="<%=productDetail.getPhoto()%>"><img src="<%=productDetail.getPhoto()%>" alt="Image 01" height='300' width='350'/></a>
-                        </div>
-                        <div class="content_half float_r">
-                            <table>
-                                <tr>
-                                    <td height="30" width="160">Price:</td>
-                                    <td><p class="product_price">$<%=productDetail.getPrice()%></td>
-                                </tr>
-                                <tr>
-                                    <td height="30">Availability:</td>
-                                    <%
-                                        if (productDetail.getQty() > 0) {
-                                            out.print("<td class='product_availabilityT'>In Stock</td>");
-                                        } else {
-                                            out.print("<td class='product_availabilityF'>Sold</td>");
-                                        }
-                                    %>
+                    <div class="cleaner h30"></div>
 
-                                </tr>
-                                <tr>
+                    <h5>Product Description</h5>
+                    <p><%=productDetail.getDescription()%></p>	
+
+                    <div class="cleaner h50"></div>
+
+                    <h4>Etiam In Tellus</h4>
+                    <%
+                        String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
+                        String username = "root";
+                        String password = "";
+                        ProductDB pb = new ProductDB(url, username, password);
+                        ArrayList<ProductBean> productList = pb.showProduct();
+                        int count = 1;
+                        for (int i = 0; i < 3; i++) {
+                            if (count != 3) {
+                                out.print("<div class='product_box'>");
+                            } else {
+                                out.print("<div class='product_box no_margin_right'>");
+                                count = 0;
+                            }
+                            out.print("<a href='product?action=detail&pid=" + productList.get(i).getPid() + "'><img src='" + productList.get(i).getPhoto() + "' alt='Image " + i + "' height='150' width='200'/></a>");
+                            out.print("<h3>" + productList.get(i).getName() + "</h3>");
+                            out.print("<p class='product_price'>$ " + productList.get(i).getPrice() + "</p>");
+                            out.print("<a href='cart?action=add&pid=" + productList.get(i).getPid() + "' class='add_to_card'>Add to Cart</a>");
+                            out.print("<a href='product?action=detail&pid=" + productList.get(i).getPid() + "' class='detail'>Detail</a>");
+                            out.print("</div>");
+                            count++;
+                        }
+                    %>     
+
+
                                     <td height="30">Product ID:</td>
                                     <td><%=productDetail.getPid()%></td>
                                 </tr>
@@ -193,6 +214,7 @@
                             }
 
                         %>
+
                 </div> 
                 <div class="cleaner"></div>
             </div> <!-- END of templatemo_main -->

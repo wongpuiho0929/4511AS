@@ -62,7 +62,15 @@ public class ShoppingcartController extends HttpServlet {
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/" + targetURL);
             rd.forward(request, response);
-        } else if (action.equals("remove")) {
+        }else if (action.equals("addmore")) {
+            int qty = Integer.parseInt(request.getParameter("qty"));
+            String sid = db.lastID();
+            db.addShoppingCart(sid, uid, pid, qty);
+            String targetURL = "cart?action=show&uid=" + uid;
+            RequestDispatcher rd;
+            rd = getServletContext().getRequestDispatcher("/" + targetURL);
+            rd.forward(request, response);
+        }else if (action.equals("remove")) {
             db.remove(removesid);
             String targetURL = "cart?action=show&uid=" + uid;
             RequestDispatcher rd;

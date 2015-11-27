@@ -132,7 +132,7 @@ public class GiftDB {
         PreparedStatement pStmnt = null;
         GiftBean gb = null;
         ArrayList <GiftBean> gbs = new ArrayList <GiftBean> ();
-        String preQueryStatement = "";
+        String preQueryStatement;
         try {
             cnnct = getConnection();
             if("less".equalsIgnoreCase(option))               
@@ -145,7 +145,7 @@ public class GiftDB {
             pStmnt.setInt(1, gBonusPoint);
             ResultSet rs = null;
             rs = pStmnt.executeQuery();
-            if (rs.next()) {
+            while (rs.next()){
                 gb = new GiftBean();
                 String giftId = rs.getString("giftId");
                 String giftName = rs.getString("giftName");
@@ -159,17 +159,14 @@ public class GiftDB {
                 gb.setQty(qty);
                 gb.setDescriptions(descriptions);
                 gbs.add(gb);
-             
             }
             pStmnt.close();
             cnnct.close();
         } catch (SQLException ex) {
-            while (ex != null) {
-                ex.printStackTrace();
-                ex = ex.getNextException();
-            }
+            ex.printStackTrace();
+            ex = ex.getNextException();
         } catch (IOException ex) {
-            Logger.getLogger(ProductDB.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         return gbs;
     }

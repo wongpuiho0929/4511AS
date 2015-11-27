@@ -109,7 +109,7 @@ public class OrderDB {
         ArrayList <OrderBean> dbs = new ArrayList <OrderBean> ();
         try{
             cnnct = getConnection();
-            String preQueryStatment = "select * from order where id=?";            
+            String preQueryStatment = "select * from order where uid=?";            
             pStnmt = cnnct.prepareStatement(preQueryStatment);
             pStnmt.setString(1, id);
             ResultSet rs = null;

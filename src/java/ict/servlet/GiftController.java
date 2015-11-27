@@ -19,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -65,6 +66,10 @@ public class GiftController extends HttpServlet {
                         ugdb.addUserGift(giftId, id, gb.getBonusPoint());
                         gdb.UpdateGiftQty(gb);
                         u.setBonus(newBonus);
+                        HttpSession session = request.getSession(true);
+                        u = (UserInfo)session.getAttribute("userName");
+                        u.setBonus(newBonus);
+                        session.setAttribute("userName", u);
                         udb.setNewBonus(u);
                     }
                 } catch (Exception ex) {

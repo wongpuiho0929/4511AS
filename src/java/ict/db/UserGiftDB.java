@@ -73,7 +73,7 @@ public class UserGiftDB {
         ArrayList <UserGiftBean> ugbs = new ArrayList <UserGiftBean> ();
         try{
             cnnct = getConnection();
-            String preQueryStatment = "select * from usergift where id = ?";
+            String preQueryStatment = "select * from usergift where userid = ?";
             pStnmt = cnnct.prepareStatement(preQueryStatment);
             pStnmt.setString(1, id);
             ResultSet rs = null;

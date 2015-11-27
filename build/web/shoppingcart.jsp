@@ -136,22 +136,28 @@
 
                         </tr>
                         <%
+                            String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
+                            String username = "root";
+                            String password = "";
+                            double tprice = 0.0;
+                            ProductDB p = new ProductDB(url, username, password);
                             for (int i = 0; i < shoppingCart.size(); i++) {
-                                ProductDB p = new ProductDB();
-                                ProductBean bean = p.productdetail(((ShoppingCartBean) (shoppingCart.get(i))).getPid());
+                                ProductBean bean = p.productdetail(((ShoppingCartBean)(shoppingCart.get(i))).getPid());
+                                int qty = ((ShoppingCartBean)(shoppingCart.get(i))).getQty();
                                 out.print("<tr>");
                                 out.print("<td>" + "<img src='" + bean.getPhoto() + "' height='150' width='200'></td>");
                                 out.print("<td>" + bean.getName() + "</td>");
-                                out.print("<td align='center'><input id='qty' type='text' value='1' style='width: 20px; text-align: right' /> </td>");
+                                out.print("<td align='center'>"+ qty +"</td>");
                                 out.print("<td align='right'>" + bean.getPrice() + "</td>");
-                                out.print("<td align='right'>" + bean.getPrice() + "</td>");
+                                out.print("<td align='right'>" + bean.getPrice()*qty + "</td>");
                                 out.print("<td align='center'> <a href='cart?action=remove&sid=" + ((ShoppingCartBean) (shoppingCart.get(i))).getSid() + "'>Remove</a> </td>");
+                                tprice += bean.getPrice()*qty;
                             }
                         %>
                         <tr>
                             <td colspan="3"></td>
                             <td align="right" style="background:#ddd; font-weight:bold"> Total </td>
-                            <td align="right" style="background:#ddd; font-weight:bold">$140 </td>
+                            <td align="right" style="background:#ddd; font-weight:bold"><%=tprice%> </td>
                             <td style="background:#ddd; font-weight:bold"> </td>
                         </tr>
                     </table>
