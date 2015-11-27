@@ -132,9 +132,27 @@
                     <form method="get" action="product">
                         <input type="hidden" name="action" value="search">
                             <table>
-                                <tr><td><font size="5" color="black">Product Name</font></td><td><font size="5" color="black">:</font><input type="text" name="pName"/></td></tr>
-                                <tr><td><font size="5" color="black">Brank Name </font></td><td><font size="5" color="black">:</font><input type="text" name="bName" /></td></tr>
-                                <tr><td colspan="2"><center><input type="submit" value="Search" class="submit_btn"/></center></td></tr>
+                                <tr><td><font size="3" color="black">Product Name</font></td><td><font size="3" color="black">: </font><input type="text" name="pName"/></td><td><font size="3" color="black">Brank Name </font></td><td><font size="3" color="black">: </font><input type="text" name="bName" /></td></tr>
+                                <tr><td><font size="3" color="black">Category</font></td><td><font size="3" color="black">: </font><select name="category">
+                                            <option value ="">All</option>
+                                            <option value ="stationery">Stationery</option>
+                                            <option value ="officeEquipment">Office Equipment</option>
+                                            <option value="electrical">Electrical</option>
+                                            <option value="newspaper">Newspaper</option>
+                                            <option value="magazine">Magazine</option>
+                                            <option value="filingAccessories">File & Filing Accessories</option>
+                                        </select></td>
+                                </tr>
+                                <tr><td><font size="3" color="black">Price</font></td><td colspan="3"><font size="3" color="black">: from </font><input type="text" name="price1" value="0"/><font size="3" color="black"> to </font><font size="5" color="black"></font><input type="text" name="price2" value="999999" /></td></tr>
+                                <tr><td><font size="3" color="black">Sort by</font></td><td><font size="3" color="black">: </font><select name="sortBy">
+                                            <option value ="pName">Name</option>
+                                            <option value ="brand">Brand</option>
+                                            <option value="price">Price</option>
+                                        </select><select name="sortType">
+                                            <option value ="asc">Ascending</option>
+                                            <option value ="desc">Descending</option>
+                                        </select></td></tr>
+                                <tr><td></td><td></td><td></td><td align="right"><input type="submit" value="Search" class="submit_btn"/></td></tr>
                             </table>
                     </form>
                     <%                        out.print("<hr/>");

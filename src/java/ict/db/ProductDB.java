@@ -183,17 +183,22 @@ public class ProductDB {
         return pb;
     }
 
-    public ArrayList<ProductBean> searchProduct(String pName, String bName) {
+    public ArrayList<ProductBean> searchProduct(String pName, String bName, String category, String price1, String price2, String sortBy, String sortType) {
         Connection cnnct = null;
         PreparedStatement pStmnt = null;
         ProductBean pb = null;
         ArrayList<ProductBean> a = new ArrayList();
         try {
             cnnct = getConnection();
-            String preQueryStatement = "SELECT * FROM PRODUCT where pName Like ? and brand like ?";
+            String preQueryStatement = "SELECT * FROM PRODUCT where pName Like ? and brand like ? and category like ? and price between ? and ? ORDER BY ? ?";
             pStmnt = cnnct.prepareStatement(preQueryStatement);
             pStmnt.setString(1, "%" + pName + "%");
             pStmnt.setString(2, "%" + bName + "%");
+            pStmnt.setString(3, "%" + category + "%");
+            pStmnt.setString(4, price1 );
+            pStmnt.setString(5, price2);
+            pStmnt.setString(6, sortBy);
+            pStmnt.setString(7, sortType);
             ResultSet rs = null;
             rs = pStmnt.executeQuery();
             while (rs.next()) {
