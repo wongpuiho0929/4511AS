@@ -13,7 +13,7 @@
         <script src="js/jquery-1.4.4.js"></script>
         <script type="text/javascript">
 
-            var millisecondsToWait = 2500;
+            var millisecondsToWait = 2000;
             setTimeout(function () {
                 $(document).ready(function () {
                     location.href = "product?action=groupBy";

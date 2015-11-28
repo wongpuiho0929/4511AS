@@ -74,7 +74,6 @@
                                 <li><a href="#submenu4">Sub menu 4</a></li>
                                 <li><a href="#submenu5">Sub menu 5</a></li>
                             </ul>!-->
-                        </li>
                         <li><a href="checkout.jsp">Checkout</a></li>
                     </ul>
                     <br style="clear: left" />
@@ -92,7 +91,7 @@
                         <h3>Categories</h3>   
                         <div class="content"> 
                             <ul class="sidebar_list">
-                                <li class="first"><a href="product?action=searchC&category=File & Filing Accessories">File & Filing Accessories</a></li>
+                                <li class="first"><a href="product?action=searchC&category=filingAccessories">File and Filing Accessories</a></li>
                                 <li><a href="product?action=searchC&category=Office Equipment">Office Equipment</a></li>
                                 <li><a href="product?action=searchC&category=Electrical">Electrical</a></li>
                                 <li><a href="product?action=searchC&category=Newspaper">Newspaper</a></li>

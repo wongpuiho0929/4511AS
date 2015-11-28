@@ -94,8 +94,8 @@
                     <div class="sidebar_box"><span class="bottom"></span>
                       <h3>Categories</h3>   
                         <div class="content"> 
-                            <ul class="sidebar_list">
-                                <li class="first"><a href="product?action=searchC&category=File and Filing Accessories">File and Filing Accessories</a></li>
+                           <ul class="sidebar_list">
+                                <li class="first"><a href="product?action=searchC&category=filingAccessories">File and Filing Accessories</a></li>
                                 <li><a href="product?action=searchC&category=Office Equipment">Office Equipment</a></li>
                                 <li><a href="product?action=searchC&category=Electrical">Electrical</a></li>
                                 <li><a href="product?action=searchC&category=Newspaper">Newspaper</a></li>
@@ -150,7 +150,7 @@
                                 out.print("<td align='center'>"+ qty +"</td>");
                                 out.print("<td align='right'>" + bean.getPrice() + "</td>");
                                 out.print("<td align='right'>" + bean.getPrice()*qty + "</td>");
-                                out.print("<td align='center'> <a href='cart?action=remove&sid=" + ((ShoppingCartBean) (shoppingCart.get(i))).getSid() + "&qty=" + ((ShoppingCartBean) (shoppingCart.get(i))).getQty()+ "'>Remove</a> </td>");
+                                out.print("<td align='center'> <a href='cart?action=remove&sid=" + ((ShoppingCartBean) (shoppingCart.get(i))).getSid() + "&qty=" + ((ShoppingCartBean) (shoppingCart.get(i))).getQty()+"&pid="+ ((ShoppingCartBean) (shoppingCart.get(i))).getPid()+ "'>Remove</a> </td>");
                                 tprice += bean.getPrice()*qty;
                             }
                         %>

@@ -117,8 +117,8 @@
                     <div class="sidebar_box"><span class="bottom"></span>
                        <h3>Categories</h3>   
                         <div class="content"> 
-                            <ul class="sidebar_list">
-                                <li class="first"><a href="product?action=searchC&category=File and Filing Accessories">File and Filing Accessories</a></li>
+                             <ul class="sidebar_list">
+                                <li class="first"><a href="product?action=searchC&category=filingAccessories">File and Filing Accessories</a></li>
                                 <li><a href="product?action=searchC&category=Office Equipment">Office Equipment</a></li>
                                 <li><a href="product?action=searchC&category=Electrical">Electrical</a></li>
                                 <li><a href="product?action=searchC&category=Newspaper">Newspaper</a></li>
@@ -166,7 +166,7 @@
                                 <tr><td><font size="5" color="black">Category</font></td><td><font size="5" color="black">:</font>           
                                         <select name="category">
                                             <option value ="stationery">Stationery</option>
-                                            <option value ="officeEquipment">Office Equipment</option>
+                                            <option value ="Office Equipment">Office Equipment</option>
                                             <option value="electrical">Electrical</option>
                                             <option value="newspaper">Newspaper</option>
                                             <option value="magazine">Magazine</option>

@@ -384,7 +384,7 @@ public class ProductDB {
         pstmmt = cnnct.prepareStatement(preQueryStatement);        
         pstmmt.setInt(1, qty);
         pstmmt.setString(2, pid);
-        
+       
         int rowCount = pstmmt.executeUpdate();
         if (rowCount > 1) {
             isValid = true;

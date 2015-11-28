@@ -168,11 +168,11 @@
                             <tr><td><font size="5" color="black">Category</font></td><td><font size="5" color="black">:</font>           
                                     <select name="category">
                                         <option value ="stationery">Stationery</option>
-                                        <option value ="officeEquipment">Office Equipment</option>
+                                        <option value ="office Equipment">Office Equipment</option>
                                         <option value="electrical">Electrical</option>
                                         <option value="newspaper">Newspaper</option>
                                         <option value="magazine">Magazine</option>
-                                        <option value="filingAccessories">File and Filing Accessories</option>
+                                        <option value="filing Accessories">File and Filing Accessories</option>
                                     </select></td></tr>
                             <tr><td></td><td><input type="submit" value="Edit" class="submit_btn" style="width: 70px"/><input type="reset" value="Clear" class="submit_btn" style="width: 70px"/></td></tr>
 
