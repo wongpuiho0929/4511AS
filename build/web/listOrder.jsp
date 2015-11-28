@@ -123,30 +123,39 @@
                     <%                        ArrayList<OrderBean> orders
                                 = (ArrayList<OrderBean>) request.getAttribute("ob");
                         String action = (String) request.getAttribute("action");
+                        int num = orders.size();                        
                         out.println("<h1>Order List</h1>");
+                        if (action.equalsIgnoreCase("list")) {
+                            out.println("<p align='right'><a href=\"handleOrder?action=incomplete\">list incomplete orders</a></p>");
+                        } else if(action.equalsIgnoreCase("incomplete")) {
+                            out.println("<p align='right'><a href=\"handleOrder?action=list\">list all orders</a></p>");
+                        }
                         out.println("<center><table border='0' width='90%'>");
                         out.println("<tr>");
-                        out.println("<th align='left'>OrderId</th><th>Pick-up Date</th>");
-                        if (action.equalsIgnoreCase("list")) {
+                        out.println("<th align='left'>OrderId</th><th>Pick-up Date</th>");                       
+                        if (action.equalsIgnoreCase("list") || action.equalsIgnoreCase("incomplete")) {
                             out.println("<th>UserId</th>");
+                        }
+                        if(action.equalsIgnoreCase("record") && orders.size()>10) {
+                            num = 10;
                         }
                         out.println("<th>Total Price</th><th>State</th ><th>View</th ><th>Update</th >");
                         out.println("</tr>");
 
-                        for (int i = 0; i < orders.size(); i++) {
+                        for (int i = 0; i < num; i++) {
                             OrderBean c = orders.get(i);
                             out.println("<tr align='center'>");
                             out.println("<td align='left'>" + c.getoId() + "</td>");
                             out.println("<td>" + c.getPickUpDate() + "</td>");
-                            if (action.equalsIgnoreCase("list")) {
+                            if (action.equalsIgnoreCase("list") || action.equalsIgnoreCase("incomplete")) {
                                 out.println("<td>" + c.getuId() + "</td>");
                             }
                             out.println("<td>" + c.gettPrice() + "</td>");
                             out.println("<td>" + c.getStatus() + "</td>");
                             out.println("<td><a href=\"handleOrder?action=view&id=" + c.getoId() + "\"</a>view product</td>");
                             if (c.getStatus().equalsIgnoreCase("process")) {
-                                if (action.equalsIgnoreCase("list")) {
-                                    out.println("<td><a href=\"handleOrder?action=show&id=" + c.getoId() + "\"</a>update state</td>");
+                                if (action.equalsIgnoreCase("list") || action.equalsIgnoreCase("incomplete")) {
+                                    out.println("<td><a href=\"handleOrder?action=show&id=" + c.getoId() + "\"</a>update status</td>");
                                 }
                                 else
                                     out.println("<td><a href=\"handleOrder?action=cancel&id=" + c.getoId() + "\"</a>cancel</td>");

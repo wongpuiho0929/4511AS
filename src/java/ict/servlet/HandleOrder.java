@@ -79,7 +79,14 @@ public class HandleOrder extends HttpServlet {
             RequestDispatcher rd;
             rd = getServletContext().getRequestDispatcher("/listOrder.jsp");
             rd.forward(request, response);
-        } else if ("add".equalsIgnoreCase(action)) {
+        } else if ("incomplete".equalsIgnoreCase(action)) {
+            ArrayList<OrderBean> ob = db.listOrderByStatus();
+            request.setAttribute("ob", ob);
+            request.setAttribute("action", action);
+            RequestDispatcher rd;
+            rd = getServletContext().getRequestDispatcher("/listOrder.jsp");
+            rd.forward(request, response);
+        }else if ("add".equalsIgnoreCase(action)) {
             try {
                 String uid = (String) request.getServletContext().getAttribute("uid");
                 if (uid != null) {
@@ -104,7 +111,7 @@ public class HandleOrder extends HttpServlet {
                     u.setBonus(u.getBonus() + bouns);
                     session.setAttribute("userName", u);
                     udb.setNewBonus(u);
-                    response.sendRedirect("product?action=groupBy");
+                    response.sendRedirect("handleOrder?action=record");
                 } else {
                     response.sendRedirect("login.jsp");
                 }

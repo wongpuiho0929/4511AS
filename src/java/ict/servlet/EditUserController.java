@@ -41,9 +41,7 @@ public class EditUserController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ArrayList<UserInfo> users = db.queryUser();
-        int idL = Integer.parseInt(users.get(users.size() -1).getId());
-        idL++;
-        String id = "" + idL;
+        String id = db.lastID();
         String name = request.getParameter("name");
         String tel = request.getParameter("tel");
         String address = request.getParameter("address");

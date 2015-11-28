@@ -44,7 +44,11 @@ public class ShoppingCartDB {
             stmmt = cnnct.createStatement();
             String sql = "Create table if not EXISTS shoppingcart("
                     + "sId varchar(5) not null," + "uId varchar(5) not null," + "oId varchar(5),"
-                    + "pId varchar(5) not null," + "qty int(20) not null,"+"status varchar(10) not null"
+                    + "pId varchar(5) not null," + "qty int(20) not null,"+"status varchar(10) not null,"
+                    + "primary key (sId),"
+                    + "FOREIGN KEY (oid) REFERENCES orders(oid),"
+                    + "FOREIGN KEY (pid) REFERENCES product(pid),"
+                    + "FOREIGN KEY (uid) REFERENCES userinfo(id)"
                     + ")";
             stmmt.execute(sql);
             stmmt.close();

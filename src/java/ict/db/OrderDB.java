@@ -57,7 +57,8 @@ public class OrderDB {
                     + "tPrice double not null,"
                     + "state varchar(20) not null,"
                     + "bonus int(20) not null,"
-                    + "primary key (oId)"
+                    + "primary key (oId),"
+                    + "FOREIGN KEY (uId) REFERENCES userinfo(id)"
                     + ")";
             stmmt.execute(sql);
             stmmt.close();
@@ -76,7 +77,46 @@ public class OrderDB {
         ArrayList<OrderBean> dbs = new ArrayList<OrderBean>();
         try {
             cnnct = getConnection();
-            String preQueryStatment = "select * from orders";
+            String preQueryStatment = "select * from orders order by oid desc";
+            pStnmt = cnnct.prepareStatement(preQueryStatment);
+            ResultSet rs = null;
+            rs = pStnmt.executeQuery();
+            while (rs.next()) {
+                db = new OrderBean();
+                String oId = rs.getString("oId");
+                String uId = rs.getString("uId");
+                Date date = rs.getDate("pickupdate");
+                double tPrice = rs.getDouble("tPrice");
+                String state = rs.getString("state");
+                int bonus = rs.getInt("bonus");
+
+                db.setoId(oId);
+                db.setuId(uId);
+                db.setPickUpDate(date);
+                db.settPrice(tPrice);
+                db.setStatus(state);
+                db.setBonus(bonus);
+                dbs.add(db);
+            }
+            pStnmt.close();
+            cnnct.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            ex = ex.getNextException();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return dbs;
+    }
+    
+    public ArrayList<OrderBean> listOrderByStatus() {
+        Connection cnnct = null;
+        PreparedStatement pStnmt = null;
+        OrderBean db = null;
+        ArrayList<OrderBean> dbs = new ArrayList<OrderBean>();
+        try {
+            cnnct = getConnection();
+            String preQueryStatment = "select * from orders where state = 'process' order by oid desc";
             pStnmt = cnnct.prepareStatement(preQueryStatment);
             ResultSet rs = null;
             rs = pStnmt.executeQuery();
@@ -115,7 +155,7 @@ public class OrderDB {
         ArrayList<OrderBean> dbs = new ArrayList<OrderBean>();
         try {
             cnnct = getConnection();
-            String preQueryStatment = "select * from orders where uid=?";
+            String preQueryStatment = "select * from orders where uid=? order by oid desc";
             pStnmt = cnnct.prepareStatement(preQueryStatment);
             pStnmt.setString(1, id);
             ResultSet rs = null;

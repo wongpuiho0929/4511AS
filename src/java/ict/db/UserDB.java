@@ -48,7 +48,8 @@ public class UserDB {
                     + "tel varchar(10) not null," + "address varchar(50) not null,"
                     + "username varchar(25) not null," + "password varchar(25) not null,"
                     + "position varchar(25) not null," + "isfreeze varchar(1) not null,"
-                    + "balance double not null,"+"bonus int(20) not null"
+                    + "balance double not null,"+"bonus int(20) not null, "
+                    + "primary key (id)"
                     +")";
             stmmt.execute(sql);
             stmmt.close();
@@ -76,6 +77,7 @@ public class UserDB {
             bean.setId(rowCount.getString("id"));
             bean.setName(rowCount.getString("name"));
             bean.setTel(rowCount.getString("tel"));
+            bean.setAddress(rowCount.getString("address"));
             bean.setUsername(rowCount.getString("username"));
             bean.setPassword(rowCount.getString("password"));
             bean.setPosition(rowCount.getString("position"));

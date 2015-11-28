@@ -53,7 +53,9 @@ public class UserGiftDB {
                     = "create table if not exists UserGift ("
                     + "userId varchar(5) not null,"
                     + "giftId varchar(5) not null,"
-                    + "bonusPoint int(20) not null"
+                    + "bonusPoint int(20) not null,"
+                    + "FOREIGN KEY (giftId) REFERENCES gift(giftid),"
+                    + "FOREIGN KEY (userId) REFERENCES userinfo(id)"
                     + ")";
             stmnt.execute(sql);
             stmnt.close();

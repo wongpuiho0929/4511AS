@@ -10,13 +10,13 @@ public class test extends HttpServlet {
     public static void main(String[] arg) throws SQLException, IOException {
         String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
         String username = "root";
-        String password = "tommy985";
-        /*
+        String password = "";
+        
         UserDB db = new UserDB(url, username, password);
         db.createUserInfoTable();
         db.addUserInfo("1","","","","xyz","123","Manager","N");
-        */
-       /* ProductDB pdb = new ProductDB(url, username, password);
+        
+        ProductDB pdb = new ProductDB(url, username, password);
 
         pdb.createProductTable();
         pdb.addProduct("P0001", "Integer eleifend sed", 100.0, 20,"Apple","IS a Pen","electrical","images/product/01.jpg");
@@ -29,8 +29,12 @@ public class test extends HttpServlet {
         pdb.addProduct("P0008", "Suspendisse fermentum", 220.0, 20,"Apple","IS a Pen","Office Equipment", "images/product/08.jpg");
         pdb.addProduct("P0009", "Donec laoreet velit", 65.0, 20,"Apple","IS a Pen","newspaper", "images/product/09.jpg");
         
+        OrderDB odb = new OrderDB(url,username,password);
+        odb.createOrderTable();
+        
         ShoppingCartDB scdb = new ShoppingCartDB(url,username,password);
         scdb.createShoppingCartTable();
+        
         GiftDB gdb = new GiftDB(url,username,password);
         gdb.createGiftTable();
         gdb.addGift("G0001", "Pen", 100, 20, "very good");
@@ -39,9 +43,8 @@ public class test extends HttpServlet {
         
         UserGiftDB ugdb = new UserGiftDB(url,username,password);
         ugdb.createUserGiftTable();
-        */
-        OrderDB odb = new OrderDB(url,username,password);
-        odb.createOrderTable();
+        
+        
         
     }
 }

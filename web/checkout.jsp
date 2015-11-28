@@ -148,9 +148,7 @@
                             <input type="text"  style="width:300px;"  value="<%=userName.getPosition()%>" readonly/>                      
                         </div>
 
-                        <div class="content_half float_r checkout">
-                            Email:
-                            <input type="text"  style="width:300px;"  value="<%=userName.getAddress()%>" readonly/>
+                        <div class="content_half float_r checkout">                           
                             Phone:<br />
                             <span style="font-size:10px">Please, specify your reachable phone number. YOU MAY BE GIVEN A CALL TO VERIFY AND COMPLETE THE ORDER.</span>
                             <input type="text"  style="width:300px;"  value="<%=userName.getTel()%>" readonly/>
@@ -164,7 +162,7 @@
                         <%
                             String url = "jdbc:mysql://localhost:3306/ITP4511_ASDB";
                             String username = "root";
-                            String password = "tommy985";
+                            String password = "";
                             double tprice = 0.0;
                             ProductDB p = new ProductDB(url, username, password);
                             for (int i = 0; i < shoppingCart.size(); i++) {
