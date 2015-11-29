@@ -54,12 +54,19 @@
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
         <jsp:useBean class="java.util.ArrayList" id="groupBy" scope='session'/>
         <% String s = userName.getId();
-            if (!userName.getPosition().equals("Manager")) {
+            pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
+            String position = userName.getPosition();
+            try {
+                if (!position.equals("Manager")) {
+                    out.print("<script type='text/javascript'>");
+                    out.print("location.href='index.jsp'");
+                    out.print("</script>");
+                }
+            } catch (Exception e) {
                 out.print("<script type='text/javascript'>");
-                out.print("location.href='run.jsp'");
+                out.print("location.href='index.jsp'");
                 out.print("</script>");
             }
-            pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
         %>
 
         <div id="templatemo_wrapper">
@@ -174,8 +181,8 @@
                                         out.print("checked");
                                     }%> /> manager
                                            <input type="radio" name="position" maxlength="10" size="15" value="Client" <%if ("Client".equals(position)) {
-                                            out.print("checked");
-                                        }%> /> client</td>
+                                                   out.print("checked");
+                                               }%> /> client</td>
                             </tr>
                             <tr>
                                 <td colspan="2"><p align="center" /><input type="submit" value="submit"</td>

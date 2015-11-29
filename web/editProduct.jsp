@@ -62,13 +62,20 @@
         <jsp:useBean class="java.util.ArrayList" id='shoppingCart' scope='session'/>
         <jsp:useBean class="java.util.ArrayList" id="groupBy" scope='session'/>
         <jsp:useBean class="ict.bean.ProductBean" id="productDetail" scope="session"/>
-        <% String s = userName.getId();
-            if (!userName.getPosition().equals("Manager")) {
+         <% String s = userName.getId();
+            pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
+            String position = userName.getPosition();
+            try {
+                if (!position.equals("Manager")) {
+                    out.print("<script type='text/javascript'>");
+                    out.print("location.href='index.jsp'");
+                    out.print("</script>");
+                }
+            } catch (Exception e) {
                 out.print("<script type='text/javascript'>");
-                out.print("location.href='run.jsp'");
+                out.print("location.href='index.jsp'");
                 out.print("</script>");
             }
-            pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
         %>
 
         <div id="templatemo_wrapper">

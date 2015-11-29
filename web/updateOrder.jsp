@@ -123,16 +123,16 @@
                 <div id="content" class="float_r"> 
                     <form method="POST" action="handleOrder">
                         <input type="hidden" value="update" name="action"/>
-
+                        
                         <table border="0" width='90%'>
-                            <%                                OrderBean o = (OrderBean) request.getAttribute("o");
+                            <%  OrderBean o = (OrderBean) request.getAttribute("o");
                                 out.println("<h1>Order " + o.getoId() + "</h1>");
                                 out.println("<tr><td><b>Pick up date : </b></td><td>" + o.getPickUpDate() + "</td></tr>");
                                 out.println("<tr><td><b>UserID : </b></td><td>" + o.getuId() + "</td></tr>");
                                 out.println("<tr><td><b>Order Status : </b></td><td>" + o.getStatus() + "</td></tr>");
 
                             %>    
-                            <input type="hidden" name="oid" value="<%=o.getoId()%>"/>
+                           <input type="hidden" name="oid" value="<%=o.getoId()%>"/>
                             <tr>
                                 <td><b>New Order Status : </b></td>
                                 <td><input type="radio" name="status" value="process"/>process</td>
