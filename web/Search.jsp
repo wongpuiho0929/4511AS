@@ -168,7 +168,7 @@
                                     }
                                     out.print("<tr><td width=200>");
                                     out.print("<img src='" + ((ProductBean) search.get(i)).getPhoto() + "' height= 150 width=180></td>");
-                                    out.print("<td width=200>" + ((ProductBean) search.get(i)).getName() + "</td>");
+                                    out.print("<td width=200><a href='product?action=detail&pid=" +((ProductBean) search.get(i)).getPid()+"'>"+ ((ProductBean) search.get(i)).getName() + "</a></td>");
                                     out.print("<td width=200>" + ((ProductBean) search.get(i)).getBrand() + "</td>");
                                     out.print("<td width=200>" + ((ProductBean) search.get(i)).getCategory() + "</td>");
                                     out.print("<td width=200>" + ((ProductBean) search.get(i)).getPrice() + "</td>");
