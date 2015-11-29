@@ -43,7 +43,7 @@
                     alert("Your do not set the price");
                     return false;
                 }
-                  if (bName == null || bName == "") {
+                if (bName == null || bName == "") {
                     alert("Brand Name must be filled out");
                     return false;
                 }
@@ -62,6 +62,11 @@
         <jsp:useBean class="java.util.ArrayList" id='shoppingCart' scope='session'/>
         <jsp:useBean class="java.util.ArrayList" id="groupBy" scope='session'/>
         <% String s = userName.getId();
+            if (!userName.getPosition().equals("Manager")) {
+                out.print("<script type='text/javascript'>");
+                out.print("location.href='run.jsp'");
+                out.print("</script>");
+            }
             pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
         %>
 
@@ -115,9 +120,9 @@
             <div id="templatemo_main">
                 <div id="sidebar" class="float_l">
                     <div class="sidebar_box"><span class="bottom"></span>
-                       <h3>Categories</h3>   
+                        <h3>Categories</h3>   
                         <div class="content"> 
-                             <ul class="sidebar_list">
+                            <ul class="sidebar_list">
                                 <li class="first"><a href="product?action=searchC&category=filingAccessories">File and Filing Accessories</a></li>
                                 <li><a href="product?action=searchC&category=Office Equipment">Office Equipment</a></li>
                                 <li><a href="product?action=searchC&category=Electrical">Electrical</a></li>
@@ -126,22 +131,22 @@
                                 <li class="last"><a href="product?action=searchC&category=Stationery">Stationery</a></li>
                             </ul>
                         </div>
-                       <br>
-                        <h3>Brand</h3>
-                        <div class="content"> 
-                            <ul class="sidebar_list">
-                                <%
-                                    for(int i=0;i<groupBy.size();i++){
-                                        if(i==0){
-                                            out.print("<li class='first'><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
-                                        }else if(i==groupBy.size()-1){
-                                            out.print("<li class='last'><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
-                                        }else{
-                                            out.print("<li><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                        <br>
+                            <h3>Brand</h3>
+                            <div class="content"> 
+                                <ul class="sidebar_list">
+                                    <%
+                                        for (int i = 0; i < groupBy.size(); i++) {
+                                            if (i == 0) {
+                                                out.print("<li class='first'><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                            } else if (i == groupBy.size() - 1) {
+                                                out.print("<li class='last'><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                            } else {
+                                                out.print("<li><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                            }
                                         }
-                                    }
-                                   
-                                %>
+
+                                    %>
                                 </ul>
 
                             </div>

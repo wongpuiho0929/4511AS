@@ -54,6 +54,11 @@
         <jsp:useBean class="ict.bean.UserInfo" id="userName" scope="session"/>
         <jsp:useBean class="java.util.ArrayList" id="groupBy" scope='session'/>
         <% String s = userName.getId();
+            if (!userName.getPosition().equals("Manager")) {
+                out.print("<script type='text/javascript'>");
+                out.print("location.href='run.jsp'");
+                out.print("</script>");
+            }
             pageContext.setAttribute("uid", s, PageContext.APPLICATION_SCOPE);
         %>
 
@@ -65,9 +70,9 @@
                 </div>
 
                 <div id="header_right">
-                                      <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=record">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
+                    <a href="handleUser?action=showClientDateil">My Account</a> | <a href="shoppingcart.jsp">My Cart</a> | <a href="handleOrder?action=record">My Recard</a> | <a href="checkout.jsp">Checkout</a> |
 
-                       <%
+                    <%
                         if (userName.getUsername() == null) {
                             out.print("<a href='login.jsp'>Log In</a> | ");
                             out.print("<a href='editClientAccout.jsp'>Register</a>");
@@ -109,7 +114,7 @@
                     <div class="sidebar_box"><span class="bottom"></span>
                         <h3>Categories</h3>   
                         <div class="content"> 
-                           <ul class="sidebar_list">
+                            <ul class="sidebar_list">
                                 <li class="first"><a href="product?action=searchC&category=filingAccessories">File and Filing Accessories</a></li>
                                 <li><a href="product?action=searchC&category=Office Equipment">Office Equipment</a></li>
                                 <li><a href="product?action=searchC&category=Electrical">Electrical</a></li>
@@ -118,30 +123,29 @@
                                 <li class="last"><a href="product?action=searchC&category=Stationery">Stationery</a></li>
                             </ul>
                         </div>
-                       <br>
-                        <h3>Brand</h3>
-                        <div class="content"> 
-                            <ul class="sidebar_list">
-                                <%
-                                    for(int i=0;i<groupBy.size();i++){
-                                        if(i==0){
-                                            out.print("<li class='first'><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
-                                        }else if(i==groupBy.size()-1){
-                                            out.print("<li class='last'><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
-                                        }else{
-                                            out.print("<li><a href=product?action=searchB&bName="+((ProductBean)(groupBy.get(i))).getBrand()+">"+((ProductBean)(groupBy.get(i))).getBrand()+"</a></li>");
+                        <br>
+                            <h3>Brand</h3>
+                            <div class="content"> 
+                                <ul class="sidebar_list">
+                                    <%
+                                        for (int i = 0; i < groupBy.size(); i++) {
+                                            if (i == 0) {
+                                                out.print("<li class='first'><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                            } else if (i == groupBy.size() - 1) {
+                                                out.print("<li class='last'><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                            } else {
+                                                out.print("<li><a href=product?action=searchB&bName=" + ((ProductBean) (groupBy.get(i))).getBrand() + ">" + ((ProductBean) (groupBy.get(i))).getBrand() + "</a></li>");
+                                            }
                                         }
-                                    }
-                                   
-                                %>
-                            </ul>
-                        </div>
+
+                                    %>
+                                </ul>
+                            </div>
                     </div>
                 </div>
                 <div id="content" class="float_r">
                     <jsp:useBean id="u" scope="request" class="ict.bean.UserInfo" />
-                    <%
-                        String state = u.getId() != null ? "Edit User" : "Add User";
+                    <%                        String state = u.getId() != null ? "Edit User" : "Add User";
                         String type = u.getId() != null ? "edit" : "add";
                         String name = u.getId() != null ? u.getName() : "";
                         String tel = u.getId() != null ? u.getTel() : "";
@@ -169,9 +173,9 @@
                                 <td><p /><input type="radio" name="position" maxlength="10" size="15" value="Manager" <%if ("Manager".equals(position)) {
                                         out.print("checked");
                                     }%> /> manager
-                                    <input type="radio" name="position" maxlength="10" size="15" value="Client" <%if ("Client".equals(position)) {
-                                                out.print("checked");
-                                            }%> /> client</td>
+                                           <input type="radio" name="position" maxlength="10" size="15" value="Client" <%if ("Client".equals(position)) {
+                                            out.print("checked");
+                                        }%> /> client</td>
                             </tr>
                             <tr>
                                 <td colspan="2"><p align="center" /><input type="submit" value="submit"</td>
